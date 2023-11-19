@@ -210,6 +210,7 @@ private class ChannelEventBusImpl(
     .channel
     .trySend(event)
     .getOrElse { throw ChannelEventBusException.FailedToSendEvent(event, it) }
+    .also { logger?.onSent(event, this) }
 
   override fun <T : ChannelEvent<T>> receiveAsFlow(key: ChannelEventKey<T>): Flow<T> = flow {
     try {

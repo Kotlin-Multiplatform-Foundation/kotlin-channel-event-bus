@@ -12,6 +12,12 @@ public interface ChannelEventBusLogger {
   public fun onCreated(key: ChannelEventKey<*>, bus: ChannelEventBus)
 
   /**
+   * Called when an event is sent to a bus.
+   * @see [ChannelEventBus.send]
+   */
+  public fun onSent(event: ChannelEvent<*>, bus: ChannelEventBus)
+
+  /**
    * Called when a bus associated with [key] is collecting.
    * @see [ChannelEventBus.receiveAsFlow]
    */
@@ -42,6 +48,9 @@ public interface ChannelEventBusLogger {
 public object ConsoleChannelEventBusLogger : ChannelEventBusLogger {
   override fun onCreated(key: ChannelEventKey<*>, bus: ChannelEventBus): Unit =
     println("[$bus] onCreated: key=$key")
+
+  override fun onSent(event: ChannelEvent<*>, bus: ChannelEventBus): Unit =
+    println("[$bus] onSent: event=$event")
 
   override fun onStartCollection(key: ChannelEventKey<*>, bus: ChannelEventBus): Unit =
     println("[$bus] onStartCollection: key=$key")
