@@ -131,7 +131,6 @@ private data class Bus(
   override fun toString(): String = "${super.toString()}($channel, $isCollecting)"
 }
 
-@OptIn(ExperimentalCoroutinesApi::class)
 private class ChannelEventBusImpl(
   @JvmField val logger: ChannelEventBusLogger?,
 ) : ChannelEventBus {
@@ -179,6 +178,7 @@ private class ChannelEventBusImpl(
   /**
    * @throws ChannelEventBusException.CloseException
    */
+  @OptIn(ExperimentalCoroutinesApi::class)
   private fun removeBus(
     key: ChannelEventKey<*>,
     requireNotCollecting: Boolean,
