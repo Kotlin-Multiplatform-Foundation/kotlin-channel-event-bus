@@ -2,13 +2,22 @@ package com.hoc081098.channeleventbus
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
 
 class ChannelEventTest {
   @Test
   fun testKeyEquals() {
     assertEquals(TestEventIntKey, TestEventInt)
+    assertEquals(TestEventInt, TestEventInt)
+
     assertEquals(TestEventStringKey, TestEventString)
+    assertEquals(TestEventString, TestEventString)
+
     assertEquals(TestEventLongKey, TestEventLong)
+    assertEquals(TestEventLong, TestEventLong)
+
+    assertNotEquals<Any>(TestEventIntKey, TestEventStringKey)
+    assertNotEquals<Any>(TestEventIntKey, TestEventLongKey)
   }
 
   @Test
