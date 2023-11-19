@@ -66,6 +66,7 @@ kotlin {
         implementation(kotlin("test-annotations-common"))
 
         implementation(libs.coroutines.test)
+        implementation(libs.flowExt)
       }
     }
 

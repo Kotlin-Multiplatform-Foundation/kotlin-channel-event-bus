@@ -1,13 +1,17 @@
 package com.hoc081098.channeleventbus
 
+import com.hoc081098.flowext.interval
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
@@ -166,6 +170,28 @@ class ChannelEventBusTest {
       repeat(10) {
         bus.receiveAsFlow(TestEventInt).take(1)
       }
+    }
+  }
+
+  @Test
+  fun flatMapLatest_Works() = runTest {
+    val bus = ChannelEventBus(ConsoleChannelEventBusLogger)
+    val flow = interval(initialDelay = Duration.ZERO, period = 100.milliseconds)
+      .take(10)
+      .flatMapLatest { bus.receiveAsFlow(TestEventInt) }
+      .take(100)
+
+    launch {
+      repeat(100) {
+        delay(33)
+        bus.send(TestEventInt(it))
+      }
+    }
+    launch {
+      assertContentEquals(
+        expected = (0..<100).map { TestEventInt(it) },
+        actual = flow.toList(),
+      )
     }
   }
 }
