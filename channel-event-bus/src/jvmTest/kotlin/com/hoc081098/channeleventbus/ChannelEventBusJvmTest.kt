@@ -29,13 +29,14 @@ class ChannelEventBusJvmTest {
     launch {
       repeat(100) {
         delay(33)
-        bus.send(TestEventInt(it))
+        launch { bus.send(TestEventInt(it)) }
       }
     }
+
     launch {
       assertContentEquals(
         expected = (0..<100).map { TestEventInt(it) },
-        actual = flow.toList(),
+        actual = flow.toList().sortedBy { it.payload },
       )
     }
   }
