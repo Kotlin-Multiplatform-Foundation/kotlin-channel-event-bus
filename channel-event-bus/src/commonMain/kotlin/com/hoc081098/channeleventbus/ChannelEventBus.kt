@@ -35,7 +35,7 @@ import kotlinx.coroutines.internal.synchronized as coroutinesSynchronized
  * // Create your event type
  * data class AwesomeEvent(val payload: Int) : ChannelEvent<AwesomeEvent> {
  *   override val key get() = Key
- *   companion object Key : ChannelEventKey<AwesomeEvent>
+ *   companion object Key : ChannelEventKey<AwesomeEvent>(AwesomeEvent::class)
  * }
  *
  * // Create your bus instance
