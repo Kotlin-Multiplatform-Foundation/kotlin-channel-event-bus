@@ -4,6 +4,7 @@ import kotlin.collections.component1
 import kotlin.collections.component2
 import kotlin.collections.set
 import kotlin.jvm.JvmField
+import kotlin.reflect.cast
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
@@ -210,13 +211,12 @@ private class ChannelEventBusImpl(
     .trySend(event)
     .getOrElse { throw ChannelEventBusException.FailedToSendEvent(event, it) }
 
-  @Suppress("UNCHECKED_CAST")
   override fun <T : ChannelEvent<T>> receiveAsFlow(key: ChannelEventKey<T>): Flow<T> = flow {
     try {
       getOrCreateBusAndMarkAsCollecting(key)
         .channel
         .receiveAsFlow()
-        .map { it as T }
+        .map { key.eventClass.cast(it) }
         .let { emitAll(it) }
     } catch (@Suppress("TooGenericExceptionCaught") e: Throwable) {
       markAsNotCollecting(key)

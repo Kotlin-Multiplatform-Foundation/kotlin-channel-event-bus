@@ -68,6 +68,18 @@ kotlin {
         implementation(libs.coroutines.test)
       }
     }
+
+    jsTest {
+      dependencies {
+        implementation(kotlin("test-js"))
+      }
+    }
+
+    jvmTest {
+      dependencies {
+        implementation(kotlin("test-junit"))
+      }
+    }
   }
 
   sourceSets.matching { it.name.contains("Test") }.all {
