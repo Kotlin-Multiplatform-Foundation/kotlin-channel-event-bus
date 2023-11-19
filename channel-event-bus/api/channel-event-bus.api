@@ -2,7 +2,12 @@ public abstract interface class com/hoc081098/channeleventbus/ChannelEvent {
 	public abstract fun getKey ()Lcom/hoc081098/channeleventbus/ChannelEvent$Key;
 }
 
-public abstract interface class com/hoc081098/channeleventbus/ChannelEvent$Key {
+public class com/hoc081098/channeleventbus/ChannelEvent$Key {
+	public fun <init> (Lkotlin/reflect/KClass;)V
+	public final fun equals (Ljava/lang/Object;)Z
+	public final fun getEventClass ()Lkotlin/reflect/KClass;
+	public final fun hashCode ()I
+	public final fun toString ()Ljava/lang/String;
 }
 
 public abstract interface class com/hoc081098/channeleventbus/ChannelEventBus {
