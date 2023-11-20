@@ -35,7 +35,7 @@ jobs:
     if: ${{ github.repository == 'hoc081098/kotlin-channel-event-bus' }}
     strategy:
       matrix:
-        os: [ macos-11 ]
+        os: [ macos-latest ]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
