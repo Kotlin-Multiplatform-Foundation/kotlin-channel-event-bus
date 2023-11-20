@@ -5,7 +5,6 @@ import com.hoc081098.channeleventbus.ChannelEventBusValidationBeforeClosing.REQU
 import com.hoc081098.channeleventbus.ChannelEventBusValidationBeforeClosing.REQUIRE_FLOW_IS_NOT_COLLECTING
 import kotlin.collections.set
 import kotlin.jvm.JvmField
-import kotlin.reflect.cast
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
