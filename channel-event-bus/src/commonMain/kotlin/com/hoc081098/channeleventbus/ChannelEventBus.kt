@@ -1,5 +1,8 @@
 package com.hoc081098.channeleventbus
 
+import com.hoc081098.channeleventbus.ChannelEventBusValidationWhenClosing.REQUIRE_BUS_IS_EMPTY
+import com.hoc081098.channeleventbus.ChannelEventBusValidationWhenClosing.REQUIRE_BUS_IS_EXISTING
+import com.hoc081098.channeleventbus.ChannelEventBusValidationWhenClosing.REQUIRE_FLOW_IS_NOT_COLLECTING
 import kotlin.collections.set
 import kotlin.jvm.JvmField
 import kotlin.reflect.cast
@@ -91,9 +94,7 @@ public sealed interface ChannelEventBus {
    */
   public fun closeKey(
     key: ChannelEventKey<*>,
-    requireNotCollecting: Boolean = true,
-    requireChannelEmpty: Boolean = false,
-    requireExists: Boolean = true,
+    validations: Set<ChannelEventBusValidationWhenClosing> = ChannelEventBusValidationWhenClosing.ALL,
   )
 
   /**
@@ -179,23 +180,19 @@ private class ChannelEventBusImpl(
   @OptIn(ExperimentalCoroutinesApi::class)
   private fun removeBus(
     key: ChannelEventKey<*>,
-    requireNotCollecting: Boolean,
-    requireChannelEmpty: Boolean,
-    requireExists: Boolean,
+    validations: Set<ChannelEventBusValidationWhenClosing>,
   ): Bus? = _busMap.synchronized {
     val removed = _busMap.remove(key)
 
-    if (requireExists) {
-      if (removed === null) {
-        throw ChannelEventBusException.CloseException.BusDoesNotExist(key)
-      }
+    if (REQUIRE_BUS_IS_EXISTING in validations && removed === null) {
+      throw ChannelEventBusException.CloseException.BusDoesNotExist(key)
     }
 
     removed?.also {
-      if (requireNotCollecting && it.isCollecting) {
+      if (REQUIRE_FLOW_IS_NOT_COLLECTING in validations && it.isCollecting) {
         throw ChannelEventBusException.CloseException.BusIsCollecting(key)
       }
-      if (requireChannelEmpty && !it.channel.isEmpty) {
+      if (REQUIRE_BUS_IS_EMPTY in validations && !it.channel.isEmpty) {
         throw ChannelEventBusException.CloseException.BusIsNotEmpty(key)
       }
       logger?.onClosed(key, this)
@@ -228,15 +225,11 @@ private class ChannelEventBusImpl(
 
   override fun closeKey(
     key: ChannelEventKey<*>,
-    requireNotCollecting: Boolean,
-    requireChannelEmpty: Boolean,
-    requireExists: Boolean,
+    validations: Set<ChannelEventBusValidationWhenClosing>,
   ) {
     removeBus(
       key = key,
-      requireNotCollecting = requireNotCollecting,
-      requireChannelEmpty = requireChannelEmpty,
-      requireExists = requireExists,
+      validations = validations,
     )?.channel?.close()
   }
 
