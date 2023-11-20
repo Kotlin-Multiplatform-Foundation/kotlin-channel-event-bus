@@ -1,7 +1,5 @@
 package com.hoc081098.channeleventbus
 
-import kotlin.collections.component1
-import kotlin.collections.component2
 import kotlin.collections.set
 import kotlin.jvm.JvmField
 import kotlin.reflect.cast
@@ -246,7 +244,7 @@ private class ChannelEventBusImpl(
     _busMap.synchronized {
       val keys = logger?.let { _busMap.keys.toSet() }
 
-      _busMap.forEach { (_, v) -> v.channel.close() }
+      _busMap.values.forEach { it.channel.close() }
       _busMap.clear()
 
       logger?.onClosedAll(keys!!, this)
