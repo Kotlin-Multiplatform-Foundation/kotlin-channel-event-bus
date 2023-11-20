@@ -207,7 +207,7 @@ private class ChannelEventBusImpl(
       getOrCreateBusAndMarkAsCollecting(key)
         .channel
         .receiveAsFlow()
-        .map { key.eventClass.cast(it) }
+        .map(key::cast)
         .let { emitAll(it) }
     } catch (@Suppress("TooGenericExceptionCaught") e: Throwable) {
       markAsNotCollecting(key)
