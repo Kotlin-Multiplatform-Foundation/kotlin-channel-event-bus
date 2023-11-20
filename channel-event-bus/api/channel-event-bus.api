@@ -70,18 +70,18 @@ public abstract interface class com/hoc081098/channeleventbus/ChannelEventBusLog
 	public abstract fun onStopCollection (Lcom/hoc081098/channeleventbus/ChannelEvent$Key;Lcom/hoc081098/channeleventbus/ChannelEventBus;)V
 }
 
-public final class com/hoc081098/channeleventbus/ChannelEventBusValidationWhenClosing : java/lang/Enum {
+public final class com/hoc081098/channeleventbus/ChannelEventBusValidationBeforeClosing : java/lang/Enum {
 	public static final field ALL Ljava/util/Set;
-	public static final field Companion Lcom/hoc081098/channeleventbus/ChannelEventBusValidationWhenClosing$Companion;
-	public static final field REQUIRE_BUS_IS_EMPTY Lcom/hoc081098/channeleventbus/ChannelEventBusValidationWhenClosing;
-	public static final field REQUIRE_BUS_IS_EXISTING Lcom/hoc081098/channeleventbus/ChannelEventBusValidationWhenClosing;
-	public static final field REQUIRE_FLOW_IS_NOT_COLLECTING Lcom/hoc081098/channeleventbus/ChannelEventBusValidationWhenClosing;
+	public static final field Companion Lcom/hoc081098/channeleventbus/ChannelEventBusValidationBeforeClosing$Companion;
+	public static final field REQUIRE_BUS_IS_EMPTY Lcom/hoc081098/channeleventbus/ChannelEventBusValidationBeforeClosing;
+	public static final field REQUIRE_BUS_IS_EXISTING Lcom/hoc081098/channeleventbus/ChannelEventBusValidationBeforeClosing;
+	public static final field REQUIRE_FLOW_IS_NOT_COLLECTING Lcom/hoc081098/channeleventbus/ChannelEventBusValidationBeforeClosing;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/hoc081098/channeleventbus/ChannelEventBusValidationWhenClosing;
-	public static fun values ()[Lcom/hoc081098/channeleventbus/ChannelEventBusValidationWhenClosing;
+	public static fun valueOf (Ljava/lang/String;)Lcom/hoc081098/channeleventbus/ChannelEventBusValidationBeforeClosing;
+	public static fun values ()[Lcom/hoc081098/channeleventbus/ChannelEventBusValidationBeforeClosing;
 }
 
-public final class com/hoc081098/channeleventbus/ChannelEventBusValidationWhenClosing$Companion {
+public final class com/hoc081098/channeleventbus/ChannelEventBusValidationBeforeClosing$Companion {
 	public final fun getNONE ()Ljava/util/Set;
 }
 

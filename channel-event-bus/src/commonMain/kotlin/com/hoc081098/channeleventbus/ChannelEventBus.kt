@@ -1,8 +1,8 @@
 package com.hoc081098.channeleventbus
 
-import com.hoc081098.channeleventbus.ChannelEventBusValidationWhenClosing.REQUIRE_BUS_IS_EMPTY
-import com.hoc081098.channeleventbus.ChannelEventBusValidationWhenClosing.REQUIRE_BUS_IS_EXISTING
-import com.hoc081098.channeleventbus.ChannelEventBusValidationWhenClosing.REQUIRE_FLOW_IS_NOT_COLLECTING
+import com.hoc081098.channeleventbus.ChannelEventBusValidationBeforeClosing.REQUIRE_BUS_IS_EMPTY
+import com.hoc081098.channeleventbus.ChannelEventBusValidationBeforeClosing.REQUIRE_BUS_IS_EXISTING
+import com.hoc081098.channeleventbus.ChannelEventBusValidationBeforeClosing.REQUIRE_FLOW_IS_NOT_COLLECTING
 import kotlin.collections.set
 import kotlin.jvm.JvmField
 import kotlin.reflect.cast
@@ -77,24 +77,19 @@ public sealed interface ChannelEventBus {
   /**
    * Close the bus identified by [key].
    *
-   * You can validate the bus before closing by passing [requireNotCollecting], [requireChannelEmpty], [requireExists]
-   * - If [requireNotCollecting] is `true`, the bus must not be collecting by any collector before closing.
-   * - If [requireChannelEmpty] is `true`, the channel must be empty before closing.
-   * - If [requireExists] is `true`, the bus must exist before closing.
+   * You can validate the bus before closing by passing [validations].
+   * By default, all validations are enabled. If you want to close the bus without any validation,
+   * just pass an empty set or [ChannelEventBusValidationBeforeClosing.NONE].
    *
    * @param key the key to identify the bus.
-   * @param requireNotCollecting require the bus must not be collecting by any collector before closing.
-   * If `true` and the bus is collecting, [ChannelEventBusException.CloseException.BusIsCollecting] will be thrown.
-   * @param requireChannelEmpty require the channel must be empty before closing.
-   * If `true` and the channel is not empty, [ChannelEventBusException.CloseException.BusIsNotEmpty] will be thrown.
-   * @param requireExists require the bus must exist before closing.
-   * If `true` and the bus does not exist, [ChannelEventBusException.CloseException.BusDoesNotExist] will be thrown.
+   * @param validations the validations to check before closing the bus.
    *
    * @throws ChannelEventBusException.CloseException if failed to close the bus.
+   * @see ChannelEventBusValidationBeforeClosing
    */
   public fun closeKey(
     key: ChannelEventKey<*>,
-    validations: Set<ChannelEventBusValidationWhenClosing> = ChannelEventBusValidationWhenClosing.ALL,
+    validations: Set<ChannelEventBusValidationBeforeClosing> = ChannelEventBusValidationBeforeClosing.ALL,
   )
 
   /**
@@ -180,7 +175,7 @@ private class ChannelEventBusImpl(
   @OptIn(ExperimentalCoroutinesApi::class)
   private fun removeBus(
     key: ChannelEventKey<*>,
-    validations: Set<ChannelEventBusValidationWhenClosing>,
+    validations: Set<ChannelEventBusValidationBeforeClosing>,
   ): Bus? = _busMap.synchronized {
     val removed = _busMap.remove(key)
 
@@ -225,7 +220,7 @@ private class ChannelEventBusImpl(
 
   override fun closeKey(
     key: ChannelEventKey<*>,
-    validations: Set<ChannelEventBusValidationWhenClosing>,
+    validations: Set<ChannelEventBusValidationBeforeClosing>,
   ) {
     removeBus(
       key = key,
