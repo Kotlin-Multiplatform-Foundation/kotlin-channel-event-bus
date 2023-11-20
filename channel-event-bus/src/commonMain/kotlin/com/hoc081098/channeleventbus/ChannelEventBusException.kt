@@ -23,7 +23,7 @@ public sealed class ChannelEventBusException(message: String?, cause: Throwable?
    */
   public class FlowAlreadyCollected(
     override val key: ChannelEventKey<*>,
-  ) : ChannelEventBusException("Flow by key=$key is already collected", null)
+  ) : ChannelEventBusException("Flow of bus by key=$key is already collected", null)
 
   /**
    * Represents an exception thrown when trying to close a bus.
@@ -41,7 +41,7 @@ public sealed class ChannelEventBusException(message: String?, cause: Throwable?
      */
     public class BusIsCollecting(
       override val key: ChannelEventKey<*>,
-    ) : CloseException("Bus by key=$key is collecting, must cancel the collection before closing", null)
+    ) : CloseException("Flow of bus by key=$key is collecting, must cancel the collection before closing", null)
 
     /**
      * Represents an exception thrown when trying to close a bus
