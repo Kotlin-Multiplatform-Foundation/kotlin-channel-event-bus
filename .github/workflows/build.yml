@@ -81,8 +81,7 @@ jobs:
 
   publish:
     needs: [ build ]
-#    if: ${{ github.ref == 'refs/heads/master' && github.repository == 'hoc081098/kotlin-channel-event-bus' }}
-    if: ${{ false }}
+    if: ${{ github.ref == 'refs/heads/master' && github.repository == 'hoc081098/kotlin-channel-event-bus' }}
     strategy:
       matrix:
         os: [ macos-latest ]
