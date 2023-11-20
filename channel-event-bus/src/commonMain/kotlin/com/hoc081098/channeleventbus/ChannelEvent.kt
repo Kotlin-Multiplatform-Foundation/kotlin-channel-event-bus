@@ -30,5 +30,8 @@ public interface ChannelEvent<T : ChannelEvent<T>> {
  */
 public typealias ChannelEventKey<T> = ChannelEvent.Key<T>
 
+/**
+ * Retrieve the [ChannelEvent.Key] for [T].
+ */
 public inline fun <reified T : ChannelEvent<T>> channelEventKeyOf(): ChannelEventKey<T> =
   ChannelEventKey(T::class)
