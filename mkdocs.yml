@@ -2,7 +2,7 @@ site_name: KMP ViewModel
 site_url: https://hoc081098.github.io/kotlin-channel-event-bus/docs/0.x
 repo_name: kotlin-channel-event-bus
 repo_url: https://github.com/hoc081098/kotlin-channel-event-bus
-site_description: "TODO"
+site_description: "Multi-keys, multi-producers, single-consumer event bus backed by Kotlinx Coroutines Channels"
 site_author: Petrus Nguyễn Thái Học
 remote_branch: gh-pages
 edit_uri: edit/master/docs/
