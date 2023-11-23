@@ -64,3 +64,15 @@ public object ConsoleChannelEventBusLogger : ChannelEventBusLogger {
   override fun onClosedAll(keys: Set<ChannelEventKey<*>>, bus: ChannelEventBus): Unit =
     println("[$bus] onClosedAll: keys=$keys")
 }
+
+/**
+ * The [ChannelEventBusLogger] that do nothing.
+ */
+public object EmptyChannelEventBusLogger : ChannelEventBusLogger {
+  override fun onCreated(key: ChannelEventKey<*>, bus: ChannelEventBus) {}
+  override fun onSent(event: ChannelEvent<*>, bus: ChannelEventBus) {}
+  override fun onStartCollection(key: ChannelEventKey<*>, bus: ChannelEventBus) {}
+  override fun onStopCollection(key: ChannelEventKey<*>, bus: ChannelEventBus) {}
+  override fun onClosed(key: ChannelEventKey<*>, bus: ChannelEventBus) {}
+  override fun onClosedAll(keys: Set<ChannelEventKey<*>>, bus: ChannelEventBus) {}
+}
