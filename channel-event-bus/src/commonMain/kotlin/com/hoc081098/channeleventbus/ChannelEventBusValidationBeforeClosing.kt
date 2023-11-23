@@ -29,6 +29,6 @@ public enum class ChannelEventBusValidationBeforeClosing {
     @JvmField
     public val ALL: Set<ChannelEventBusValidationBeforeClosing> = entries.toSet()
 
-    public val NONE: Set<ChannelEventBusValidationBeforeClosing> get() = emptySet()
+    public inline val NONE: Set<ChannelEventBusValidationBeforeClosing> get() = emptySet()
   }
 }

@@ -19,6 +19,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "kotlin-channel-event-bus"
 include(":channel-event-bus")
+include(":sample:app")
 
 plugins {
   id("org.gradle.toolchains.foojay-resolver-convention") version("0.7.0")
