@@ -15,7 +15,7 @@ class RegisterStepOneVM(
   private val savedStateHandle: SavedStateHandle,
   private val channelEventBus: ChannelEventBus,
 ) : ViewModel() {
-  internal val firstNameStateFlow: StateFlow<String?> = savedStateHandle.getStateFlow<String?>(FIRST_NAME_KEY, null)
+  internal val firstNameStateFlow: StateFlow<String?> = savedStateHandle.getStateFlow<String?>(FirstNameKey, null)
 
   init {
     firstNameStateFlow
@@ -28,10 +28,10 @@ class RegisterStepOneVM(
   }
 
   internal fun submitFirstName(value: String) {
-    savedStateHandle[FIRST_NAME_KEY] = value
+    savedStateHandle[FirstNameKey] = value
   }
 
   companion object {
-    const val FIRST_NAME_KEY = "first_name"
+    const val FirstNameKey = "first_name"
   }
 }

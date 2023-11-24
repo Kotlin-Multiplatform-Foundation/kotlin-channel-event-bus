@@ -1,5 +1,6 @@
 package com.hoc081098.channeleventbus.sample.android.ui.register.stepone
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.ElevatedButton
