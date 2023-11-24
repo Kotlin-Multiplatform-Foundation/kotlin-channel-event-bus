@@ -60,6 +60,7 @@ dependencies {
   implementation(libs.coil.compose)
 
   implementation(libs.kotlinx.collections.immutable)
+  implementation(libs.timber)
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {

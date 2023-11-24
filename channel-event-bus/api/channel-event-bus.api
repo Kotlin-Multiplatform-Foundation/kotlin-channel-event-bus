@@ -61,12 +61,18 @@ public final class com/hoc081098/channeleventbus/ChannelEventBusKt {
 }
 
 public abstract interface class com/hoc081098/channeleventbus/ChannelEventBusLogger {
+	public static final field Companion Lcom/hoc081098/channeleventbus/ChannelEventBusLogger$Companion;
 	public abstract fun onClosed (Lcom/hoc081098/channeleventbus/ChannelEvent$Key;Lcom/hoc081098/channeleventbus/ChannelEventBus;)V
 	public abstract fun onClosedAll (Ljava/util/Set;Lcom/hoc081098/channeleventbus/ChannelEventBus;)V
 	public abstract fun onCreated (Lcom/hoc081098/channeleventbus/ChannelEvent$Key;Lcom/hoc081098/channeleventbus/ChannelEventBus;)V
 	public abstract fun onSent (Lcom/hoc081098/channeleventbus/ChannelEvent;Lcom/hoc081098/channeleventbus/ChannelEventBus;)V
 	public abstract fun onStartCollection (Lcom/hoc081098/channeleventbus/ChannelEvent$Key;Lcom/hoc081098/channeleventbus/ChannelEventBus;)V
 	public abstract fun onStopCollection (Lcom/hoc081098/channeleventbus/ChannelEvent$Key;Lcom/hoc081098/channeleventbus/ChannelEventBus;)V
+}
+
+public final class com/hoc081098/channeleventbus/ChannelEventBusLogger$Companion {
+	public final fun noop ()Lcom/hoc081098/channeleventbus/ChannelEventBusLogger;
+	public final fun stdout ()Lcom/hoc081098/channeleventbus/ChannelEventBusLogger;
 }
 
 public final class com/hoc081098/channeleventbus/ChannelEventBusValidationBeforeClosing : java/lang/Enum {
@@ -82,25 +88,5 @@ public final class com/hoc081098/channeleventbus/ChannelEventBusValidationBefore
 
 public final class com/hoc081098/channeleventbus/ChannelEventBusValidationBeforeClosing$Companion {
 	public final fun getNONE ()Ljava/util/Set;
-}
-
-public final class com/hoc081098/channeleventbus/ConsoleChannelEventBusLogger : com/hoc081098/channeleventbus/ChannelEventBusLogger {
-	public static final field INSTANCE Lcom/hoc081098/channeleventbus/ConsoleChannelEventBusLogger;
-	public fun onClosed (Lcom/hoc081098/channeleventbus/ChannelEvent$Key;Lcom/hoc081098/channeleventbus/ChannelEventBus;)V
-	public fun onClosedAll (Ljava/util/Set;Lcom/hoc081098/channeleventbus/ChannelEventBus;)V
-	public fun onCreated (Lcom/hoc081098/channeleventbus/ChannelEvent$Key;Lcom/hoc081098/channeleventbus/ChannelEventBus;)V
-	public fun onSent (Lcom/hoc081098/channeleventbus/ChannelEvent;Lcom/hoc081098/channeleventbus/ChannelEventBus;)V
-	public fun onStartCollection (Lcom/hoc081098/channeleventbus/ChannelEvent$Key;Lcom/hoc081098/channeleventbus/ChannelEventBus;)V
-	public fun onStopCollection (Lcom/hoc081098/channeleventbus/ChannelEvent$Key;Lcom/hoc081098/channeleventbus/ChannelEventBus;)V
-}
-
-public final class com/hoc081098/channeleventbus/EmptyChannelEventBusLogger : com/hoc081098/channeleventbus/ChannelEventBusLogger {
-	public static final field INSTANCE Lcom/hoc081098/channeleventbus/EmptyChannelEventBusLogger;
-	public fun onClosed (Lcom/hoc081098/channeleventbus/ChannelEvent$Key;Lcom/hoc081098/channeleventbus/ChannelEventBus;)V
-	public fun onClosedAll (Ljava/util/Set;Lcom/hoc081098/channeleventbus/ChannelEventBus;)V
-	public fun onCreated (Lcom/hoc081098/channeleventbus/ChannelEvent$Key;Lcom/hoc081098/channeleventbus/ChannelEventBus;)V
-	public fun onSent (Lcom/hoc081098/channeleventbus/ChannelEvent;Lcom/hoc081098/channeleventbus/ChannelEventBus;)V
-	public fun onStartCollection (Lcom/hoc081098/channeleventbus/ChannelEvent$Key;Lcom/hoc081098/channeleventbus/ChannelEventBus;)V
-	public fun onStopCollection (Lcom/hoc081098/channeleventbus/ChannelEvent$Key;Lcom/hoc081098/channeleventbus/ChannelEventBus;)V
 }
 

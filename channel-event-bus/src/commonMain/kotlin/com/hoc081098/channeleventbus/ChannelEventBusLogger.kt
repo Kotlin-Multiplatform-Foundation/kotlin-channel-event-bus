@@ -40,12 +40,18 @@ public interface ChannelEventBusLogger {
    * @see [ChannelEventBus.close]
    */
   public fun onClosedAll(keys: Set<ChannelEventKey<*>>, bus: ChannelEventBus)
+
+  public companion object {
+    public fun noop(): ChannelEventBusLogger = NoopChannelEventBusLogger
+
+    public fun stdout(): ChannelEventBusLogger = StdoutChannelEventBusLogger
+  }
 }
 
 /**
  * The [ChannelEventBusLogger] that simply prints events to the console via [println].
  */
-public object ConsoleChannelEventBusLogger : ChannelEventBusLogger {
+private object StdoutChannelEventBusLogger : ChannelEventBusLogger {
   override fun onCreated(key: ChannelEventKey<*>, bus: ChannelEventBus): Unit =
     println("[$bus] onCreated: key=$key")
 
@@ -68,7 +74,7 @@ public object ConsoleChannelEventBusLogger : ChannelEventBusLogger {
 /**
  * The [ChannelEventBusLogger] that do nothing.
  */
-public object EmptyChannelEventBusLogger : ChannelEventBusLogger {
+private object NoopChannelEventBusLogger : ChannelEventBusLogger {
   override fun onCreated(key: ChannelEventKey<*>, bus: ChannelEventBus) {}
   override fun onSent(event: ChannelEvent<*>, bus: ChannelEventBus) {}
   override fun onStartCollection(key: ChannelEventKey<*>, bus: ChannelEventBus) {}

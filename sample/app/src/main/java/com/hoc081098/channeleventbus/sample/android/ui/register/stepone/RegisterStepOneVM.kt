@@ -15,7 +15,8 @@ class RegisterStepOneVM(
   private val savedStateHandle: SavedStateHandle,
   private val channelEventBus: ChannelEventBus,
 ) : ViewModel() {
-  internal val firstNameStateFlow: StateFlow<String?> = savedStateHandle.getStateFlow<String?>(FirstNameKey, null)
+  internal val firstNameStateFlow: StateFlow<String?> = savedStateHandle
+    .getStateFlow<String?>(FirstNameKey, null)
 
   init {
     firstNameStateFlow
