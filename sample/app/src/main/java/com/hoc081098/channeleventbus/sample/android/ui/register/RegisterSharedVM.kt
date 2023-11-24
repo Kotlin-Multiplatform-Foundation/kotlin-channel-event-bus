@@ -1,5 +1,6 @@
 package com.hoc081098.channeleventbus.sample.android.ui.register
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,16 +15,23 @@ class RegisterSharedVM(
   private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
   init {
+    Log.d("RegisterSharedVM", "$this::init")
+
     addCloseable {
+      Log.d("RegisterSharedVM", "$this::close")
       channelEventBus.closeKey(
         key = SubmitFirstNameEvent,
         validations = NONE,
       )
     }
+    savedStateHandle
+      .getStateFlow(FirstNameKey, null as String?)
+      .onEach { Log.d("RegisterSharedVM", "$this FirstNameKey -> $it") }
+      .launchIn(viewModelScope)
 
     channelEventBus
       .receiveAsFlow(SubmitFirstNameEvent)
-      .onEach { savedStateHandle[FirstNameKey] = it }
+      .onEach { savedStateHandle[FirstNameKey] = it.value }
       .launchIn(viewModelScope)
   }
 

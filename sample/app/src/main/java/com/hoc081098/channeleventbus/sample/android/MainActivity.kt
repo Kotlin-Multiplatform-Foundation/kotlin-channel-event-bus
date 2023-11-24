@@ -32,6 +32,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import com.hoc081098.channeleventbus.sample.android.common.MyApplicationTheme
 import com.hoc081098.channeleventbus.sample.android.ui.register.stepone.RegisterStepOneScreen
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
 class MainActivity : ComponentActivity() {
@@ -62,8 +63,8 @@ class MainActivity : ComponentActivity() {
                   Text(
                     text = when (route) {
                       Route.RegisterStepOne -> "Register step 1"
-                      Route.RegisterStepThree -> "Register step 2"
-                      Route.RegisterStepTwo -> "Register step 3"
+                      Route.RegisterStepTwo -> "Register step 2"
+                      Route.RegisterStepThree -> "Register step 3"
                       null -> ""
                     },
                   )
@@ -105,15 +106,22 @@ private fun AppNavHost(
     navController = navController,
     startDestination = "register_graph",
   ) {
-    navigation(startDestination = "register_graph", route = Route.RegisterStepOne.routePattern) {
-      composable(route = Route.RegisterStepOne.routePattern) {
-        RegisterStepOneScreen()
+    navigation(startDestination = Route.RegisterStepOne.routePattern, route = "register_graph") {
+      composable(route = Route.RegisterStepOne.routePattern) { entry ->
+        val registerGraphEntry = remember(entry) { navController.getBackStackEntry("register_graph") }
+
+        RegisterStepOneScreen(
+          registerSharedVM = koinViewModel(viewModelStoreOwner = registerGraphEntry),
+          navigateToRegisterStepTwo = { navController.navigate(route = Route.RegisterStepTwo.routePattern) },
+        )
       }
 
-      composable(route = Route.RegisterStepTwo.routePattern) {
+      composable(route = Route.RegisterStepTwo.routePattern) { entry ->
+        val registerGraphEntry = remember(entry) { navController.getBackStackEntry("register_graph") }
       }
 
-      composable(route = Route.RegisterStepThree.routePattern) {
+      composable(route = Route.RegisterStepThree.routePattern) { entry ->
+        val registerGraphEntry = remember(entry) { navController.getBackStackEntry("register_graph") }
       }
     }
   }

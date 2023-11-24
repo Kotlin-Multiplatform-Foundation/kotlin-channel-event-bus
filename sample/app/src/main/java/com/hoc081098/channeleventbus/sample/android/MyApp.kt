@@ -1,5 +1,6 @@
 package com.hoc081098.channeleventbus.sample.android
 
+import RegisterModule
 import android.app.Application
 import com.hoc081098.channeleventbus.ChannelEventBus
 import com.hoc081098.channeleventbus.ConsoleChannelEventBusLogger
@@ -36,6 +37,7 @@ class MyApp : Application() {
             )
           }
         },
+        RegisterModule,
       )
     }
   }
