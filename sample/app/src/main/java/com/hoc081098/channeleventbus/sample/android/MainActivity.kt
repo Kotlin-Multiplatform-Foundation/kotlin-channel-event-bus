@@ -32,6 +32,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import com.hoc081098.channeleventbus.sample.android.common.MyApplicationTheme
 import com.hoc081098.channeleventbus.sample.android.ui.register.stepone.RegisterStepOneScreen
+import com.hoc081098.channeleventbus.sample.android.ui.register.steptwo.RegisterStepTwoScreen
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -118,6 +119,11 @@ private fun AppNavHost(
 
       composable(route = Route.RegisterStepTwo.routePattern) { entry ->
         val registerGraphEntry = remember(entry) { navController.getBackStackEntry("register_graph") }
+
+        RegisterStepTwoScreen(
+          registerSharedVM = koinViewModel(viewModelStoreOwner = registerGraphEntry),
+          navigateToRegisterStepThree = { navController.navigate(route = Route.RegisterStepThree.routePattern) },
+        )
       }
 
       composable(route = Route.RegisterStepThree.routePattern) { entry ->

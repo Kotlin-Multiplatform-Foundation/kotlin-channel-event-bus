@@ -14,3 +14,9 @@ data class SubmitLastNameEvent(val value: String?) : ChannelEvent<SubmitLastName
 
   companion object Key : ChannelEventKey<SubmitLastNameEvent>(SubmitLastNameEvent::class)
 }
+
+data class SubmitGenderEvent(val value: Gender?) : ChannelEvent<SubmitGenderEvent> {
+  override val key get() = Key
+
+  companion object Key : ChannelEventKey<SubmitGenderEvent>(SubmitGenderEvent::class)
+}

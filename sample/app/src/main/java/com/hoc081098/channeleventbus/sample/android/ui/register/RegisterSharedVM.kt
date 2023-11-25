@@ -1,5 +1,6 @@
 package com.hoc081098.channeleventbus.sample.android.ui.register
 
+import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,6 +12,12 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
+
+@Immutable
+enum class Gender {
+  MALE,
+  FEMALE,
+}
 
 class RegisterSharedVM(
   private val channelEventBus: ChannelEventBus,
@@ -28,6 +35,7 @@ class RegisterSharedVM(
     debugPrint()
     observeSubmitFirstNameEvent()
     observeSubmitLastNameEvent()
+    observeSubmitGenderEvent()
   }
 
   private fun observeSubmitLastNameEvent() {
@@ -44,6 +52,13 @@ class RegisterSharedVM(
       .launchIn(viewModelScope)
   }
 
+  private fun observeSubmitGenderEvent() {
+    channelEventBus
+      .receiveAsFlow(SubmitGenderEvent)
+      .onEach { savedStateHandle[GenderKey] = it.value }
+      .launchIn(viewModelScope)
+  }
+
   private fun debugPrint() {
     val line = "-".repeat(80)
 
@@ -51,6 +66,7 @@ class RegisterSharedVM(
       listOf(
         FirstNameKey,
         LastNameKey,
+        GenderKey,
       ).map { savedStateHandle.getStateFlow(it, null as Any?) },
     ) { array -> array.joinToString(separator = "\n") { "    $it" } }
       .distinctUntilChanged()
@@ -69,5 +85,6 @@ class RegisterSharedVM(
   private companion object {
     private val FirstNameKey by lazy(PUBLICATION) { SubmitFirstNameEvent.toString() }
     private val LastNameKey by lazy(PUBLICATION) { SubmitLastNameEvent.toString() }
+    private val GenderKey by lazy(PUBLICATION) { SubmitGenderEvent.toString() }
   }
 }
