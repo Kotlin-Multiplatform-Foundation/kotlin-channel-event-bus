@@ -1,4 +1,5 @@
-import com.hoc081098.channeleventbus.sample.android.ui.register.RegisterSharedVM
+package com.hoc081098.channeleventbus.sample.android.ui.register
+
 import com.hoc081098.channeleventbus.sample.android.ui.register.stepone.RegisterStepOneVM
 import com.hoc081098.channeleventbus.sample.android.ui.register.stepthree.RegisterStepThreeVM
 import com.hoc081098.channeleventbus.sample.android.ui.register.steptwo.RegisterStepTwoVM
