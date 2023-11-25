@@ -7,6 +7,7 @@ import kotlin.test.assertContentEquals
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flatMapLatest
@@ -16,10 +17,11 @@ import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class ChannelEventBusJvmTest {
   @Test
   fun flatMapLatest_Works(): Unit = runBlocking(Dispatchers.IO) {
-    val bus = ChannelEventBus(ConsoleChannelEventBusLogger)
+    val bus = ChannelEventBus(ChannelEventBusLogger.stdout())
     val flow = interval(initialDelay = Duration.ZERO, period = 100.milliseconds)
       .flowOn(Executors.newScheduledThreadPool(2).asCoroutineDispatcher())
       .take(10)
