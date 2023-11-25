@@ -58,6 +58,7 @@ dependencies {
 
   implementation(libs.koin.androidx.compose)
   implementation(libs.coil.compose)
+  implementation(libs.flowExt)
 
   implementation(libs.kotlinx.collections.immutable)
   implementation(libs.timber)

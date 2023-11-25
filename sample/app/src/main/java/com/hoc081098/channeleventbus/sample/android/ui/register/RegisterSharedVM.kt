@@ -1,28 +1,40 @@
 package com.hoc081098.channeleventbus.sample.android.ui.register
 
-import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hoc081098.channeleventbus.ChannelEventBus
 import com.hoc081098.channeleventbus.ChannelEventBusValidationBeforeClosing.Companion.NONE
 import kotlin.LazyThreadSafetyMode.PUBLICATION
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.stateIn
 import timber.log.Timber
-
-@Immutable
-enum class Gender {
-  MALE,
-  FEMALE,
-}
 
 class RegisterSharedVM(
   private val channelEventBus: ChannelEventBus,
   private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
+  internal val uiStateFlow: StateFlow<RegisterUiState> = combine(
+    savedStateHandle.getStateFlow<String?>(FirstNameKey, null),
+    savedStateHandle.getStateFlow<String?>(LastNameKey, null),
+    savedStateHandle.getStateFlow<Gender?>(GenderKey, null),
+  ) { firstName, lastName, gender ->
+    RegisterUiState.from(
+      firstName = firstName,
+      lastName = lastName,
+      gender = gender,
+    )
+  }.stateIn(
+    scope = viewModelScope,
+    started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000),
+    initialValue = RegisterUiState.Unfilled,
+  )
+
   init {
     Timber.d("$this::init")
     addCloseable {

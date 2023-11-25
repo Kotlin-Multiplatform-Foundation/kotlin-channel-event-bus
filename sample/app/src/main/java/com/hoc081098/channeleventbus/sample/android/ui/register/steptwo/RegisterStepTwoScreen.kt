@@ -21,14 +21,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hoc081098.channeleventbus.sample.android.ui.register.Gender
 import com.hoc081098.channeleventbus.sample.android.ui.register.RegisterSharedVM
+import com.hoc081098.channeleventbus.sample.android.ui.register.displayName
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.compose.koinViewModel
-
-private val Gender.displayName: String
-  get() = when (this) {
-    Gender.MALE -> "Male"
-    Gender.FEMALE -> "Female"
-  }
 
 @Composable
 fun RegisterStepTwoScreen(
@@ -51,6 +46,7 @@ fun RegisterStepTwoScreen(
     Spacer(modifier = Modifier.height(16.dp))
 
     GenderSection(
+      modifier = Modifier.fillMaxWidth(),
       selectedGender = selectedGender,
       onGenderChanged = remember { vm::onGenderChanged },
     )
