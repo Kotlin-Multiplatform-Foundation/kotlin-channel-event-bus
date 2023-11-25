@@ -102,6 +102,7 @@ class MainActivity : ComponentActivity() {
   }
 }
 
+@Suppress("LongMethod")
 @Composable
 private fun AppNavHost(
   modifier: Modifier = Modifier,
