@@ -20,6 +20,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -36,6 +37,7 @@ import com.hoc081098.channeleventbus.sample.android.ui.register.stepone.Register
 import com.hoc081098.channeleventbus.sample.android.ui.register.stepthree.RegisterStepThreeScreen
 import com.hoc081098.channeleventbus.sample.android.ui.register.steptwo.RegisterStepTwoScreen
 import org.koin.androidx.compose.koinViewModel
+import timber.log.Timber
 
 @OptIn(ExperimentalLayoutApi::class)
 class MainActivity : ComponentActivity() {
@@ -114,6 +116,11 @@ private fun AppNavHost(
       composable(route = Route.RegisterStepOne.routePattern) { entry ->
         val registerGraphEntry = remember(entry) { navController.getBackStackEntry("register_graph") }
 
+        DisposableEffect(registerGraphEntry) {
+          Timber.d("RegisterStepOneScreen: $registerGraphEntry")
+          onDispose { }
+        }
+
         RegisterStepOneScreen(
           registerSharedVM = koinViewModel(viewModelStoreOwner = registerGraphEntry),
           navigateToRegisterStepTwo = remember(navController) { { navController.navigate(route = Route.RegisterStepTwo.route) } },
@@ -123,6 +130,11 @@ private fun AppNavHost(
       composable(route = Route.RegisterStepTwo.routePattern) { entry ->
         val registerGraphEntry = remember(entry) { navController.getBackStackEntry("register_graph") }
 
+        DisposableEffect(registerGraphEntry) {
+          Timber.d("RegisterStepTwoScreen: $registerGraphEntry")
+          onDispose { }
+        }
+
         RegisterStepTwoScreen(
           registerSharedVM = koinViewModel(viewModelStoreOwner = registerGraphEntry),
           navigateToRegisterStepThree = remember(navController) { { navController.navigate(route = Route.RegisterStepThree.route) } },
@@ -131,6 +143,11 @@ private fun AppNavHost(
 
       composable(route = Route.RegisterStepThree.routePattern) { entry ->
         val registerGraphEntry = remember(entry) { navController.getBackStackEntry("register_graph") }
+
+        DisposableEffect(registerGraphEntry) {
+          Timber.d("RegisterStepThreeScreen: $registerGraphEntry")
+          onDispose { }
+        }
 
         RegisterStepThreeScreen(
           registerSharedVM = koinViewModel(viewModelStoreOwner = registerGraphEntry),
