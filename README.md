@@ -69,9 +69,7 @@ bus
 
 ## Supported targets
 
-- `android`.
-- `jvm` (must add `kotlinx-coroutines-swing`/`kotlinx-coroutines-javafx` to your dependencies to
-  make sure `Dispatchers.Main` available).
+- `jvm` / `android`.
 - `js` (`IR`).
 - `Darwin` targets:
   - `iosArm64`, `iosArm32`, `iosX64`, `iosSimulatorArm64`.
