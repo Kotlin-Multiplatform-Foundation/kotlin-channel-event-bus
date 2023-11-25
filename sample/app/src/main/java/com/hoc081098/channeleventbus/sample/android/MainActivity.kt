@@ -30,6 +30,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navOptions
 import androidx.navigation.navigation
 import com.hoc081098.channeleventbus.sample.android.common.MyApplicationTheme
 import com.hoc081098.channeleventbus.sample.android.ui.home.HomeScreen
@@ -162,7 +163,17 @@ private fun AppNavHost(
           registerSharedVM = koinViewModel(viewModelStoreOwner = registerGraphEntry),
           navigateToHome = remember(navController) {
             {
-              navController.navigate(route = Route.Home.route)
+              navController.navigate(
+                route = Route.Home.route,
+                navOptions = navOptions {
+                  popUpTo(navController.graph.id) {
+                    saveState = false
+                    inclusive = true
+                  }
+                  launchSingleTop = true
+                  restoreState = false
+                },
+              )
             }
           },
         )
