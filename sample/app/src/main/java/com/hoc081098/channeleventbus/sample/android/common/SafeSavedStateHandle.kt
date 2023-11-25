@@ -26,10 +26,10 @@ inline fun <T> SavedStateHandle.safeStateFlow(key: SavedStateHandleKey<T>) =
   getStateFlow(key.key, key.defaultValue)
 
 @JvmInline
-value class SafeSavedStateHandle(private val savedStateHandle: SavedStateHandle) {
-  operator fun <T> get(key: SavedStateHandleKey<T>): T = savedStateHandle.safeGet(key)
+value class SafeSavedStateHandle(val savedStateHandle: SavedStateHandle) {
+  inline operator fun <T> get(key: SavedStateHandleKey<T>): T = savedStateHandle.safeGet(key)
 
-  operator fun <T> set(key: SavedStateHandleKey<T>, value: T) = savedStateHandle.safeSet(key, value)
+  inline operator fun <T> set(key: SavedStateHandleKey<T>, value: T) = savedStateHandle.safeSet(key, value)
 
-  fun <T> getStateFlow(key: SavedStateHandleKey<T>): StateFlow<T> = savedStateHandle.safeStateFlow(key)
+  inline fun <T> getStateFlow(key: SavedStateHandleKey<T>): StateFlow<T> = savedStateHandle.safeStateFlow(key)
 }
