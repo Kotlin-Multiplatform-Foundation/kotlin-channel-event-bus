@@ -10,7 +10,15 @@ class SavedStateHandleKey<T>(
   val defaultValue: T,
 )
 
-inline fun <T> SavedStateHandle.safeGet(key: SavedStateHandleKey<T>): T = get(key.key) ?: key.defaultValue
+inline fun <T> SavedStateHandle.safeGet(key: SavedStateHandleKey<T>): T {
+  return if (contains(key.key)) {
+    @Suppress("UNCHECKED_CAST", "RemoveExplicitTypeArguments")
+    get<T>(key.key) as T
+  } else {
+    safeSet(key, key.defaultValue)
+    key.defaultValue
+  }
+}
 
 inline fun <T> SavedStateHandle.safeSet(key: SavedStateHandleKey<T>, value: T) = set(key.key, value)
 
