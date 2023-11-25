@@ -54,6 +54,7 @@ import kotlinx.coroutines.internal.synchronized as coroutinesSynchronized
 public sealed interface ChannelEventBus {
   /**
    * Send [event] to the bus identified by [ChannelEvent.key].
+   * If the bus associated with `event.key` does not exist, a new bus will be created.
    *
    * @throws ChannelEventBusException.FailedToSendEvent if failed to send the event.
    */
