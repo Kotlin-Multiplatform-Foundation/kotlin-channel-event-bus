@@ -74,7 +74,9 @@ fun RegisterStepThreeScreen(
     when (val s = registerUiState) {
       is RegisterUiState.Filled -> {
         RegisterInfo(
-          modifier = Modifier.fillMaxWidth(),
+          modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
           registerUiState = s,
         )
       }
