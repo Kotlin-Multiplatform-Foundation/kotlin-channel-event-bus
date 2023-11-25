@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
@@ -72,16 +73,23 @@ private fun GenderSection(
 ) {
   Column(modifier = modifier) {
     Gender.entries.forEach { item ->
+      val onClick = { onGenderChanged(item) }
+      val selected = selectedGender == item
+
       Row(
         modifier = Modifier
           .fillMaxWidth()
+          .selectable(
+            selected = selected,
+            onClick = onClick,
+          )
           .padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start,
       ) {
         RadioButton(
-          selected = selectedGender == item,
-          onClick = { onGenderChanged(item) },
+          selected = selected,
+          onClick = onClick,
         )
 
         Spacer(modifier = Modifier.width(8.dp))
