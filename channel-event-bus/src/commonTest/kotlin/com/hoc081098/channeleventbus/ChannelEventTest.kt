@@ -38,13 +38,13 @@ class ChannelEventTest {
 
   @Test
   fun testKeyToString() {
-    assertEquals("ChannelEvent.Key(TestEventInt)", TestEventIntKey.toString())
-    assertEquals("ChannelEvent.Key(TestEventInt)", channelEventKeyOf<TestEventInt>().toString())
+    assertEquals("ChannelEvent.Key(TestEventInt, UNLIMITED)", TestEventIntKey.toString())
+    assertEquals("ChannelEvent.Key(TestEventInt, UNLIMITED)", channelEventKeyOf<TestEventInt>().toString())
 
-    assertEquals("ChannelEvent.Key(TestEventString)", TestEventStringKey.toString())
-    assertEquals("ChannelEvent.Key(TestEventString)", channelEventKeyOf<TestEventString>().toString())
+    assertEquals("ChannelEvent.Key(TestEventString, UNLIMITED)", TestEventStringKey.toString())
+    assertEquals("ChannelEvent.Key(TestEventString, UNLIMITED)", channelEventKeyOf<TestEventString>().toString())
 
-    assertEquals("ChannelEvent.Key(TestEventLong)", TestEventLongKey.toString())
-    assertEquals("ChannelEvent.Key(TestEventLong)", channelEventKeyOf<TestEventLong>().toString())
+    assertEquals("ChannelEvent.Key(TestEventLong, UNLIMITED)", TestEventLongKey.toString())
+    assertEquals("ChannelEvent.Key(TestEventLong, UNLIMITED)", channelEventKeyOf<TestEventLong>().toString())
   }
 }
