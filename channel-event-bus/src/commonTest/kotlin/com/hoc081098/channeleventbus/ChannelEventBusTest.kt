@@ -21,7 +21,7 @@ import kotlinx.coroutines.test.runTest
 class ChannelEventBusTest {
   @Test
   fun sendAndReceiveMultiple() = runTest {
-    val bus = ChannelEventBus(ConsoleChannelEventBusLogger)
+    val bus = ChannelEventBus(ChannelEventBusLogger.stdout())
 
     val sentTestEventInts = mutableListOf<TestEventInt>()
     val sentTestEventStrings = mutableListOf<TestEventString>()
@@ -77,7 +77,7 @@ class ChannelEventBusTest {
 
   @Test
   fun onlyOneCollectorAtATime() = runTest {
-    val bus = ChannelEventBus(ConsoleChannelEventBusLogger)
+    val bus = ChannelEventBus(ChannelEventBusLogger.stdout())
 
     repeat(10) {
       launch { bus.send(TestEventInt(it)) }
@@ -97,7 +97,7 @@ class ChannelEventBusTest {
 
   @Test
   fun cancel_ThenCollectMultipleTimes_DoesNotWorks() = runTest {
-    val bus = ChannelEventBus(ConsoleChannelEventBusLogger)
+    val bus = ChannelEventBus(ChannelEventBusLogger.stdout())
 
     repeat(10) {
       launch { bus.send(TestEventInt(it)) }
@@ -120,7 +120,7 @@ class ChannelEventBusTest {
 
   @Test
   fun cancelAndJoin_ThenCollectMultipleTimes_Works() = runTest {
-    val bus = ChannelEventBus(ConsoleChannelEventBusLogger)
+    val bus = ChannelEventBus(ChannelEventBusLogger.stdout())
 
     repeat(10) {
       launch { bus.send(TestEventInt(it)) }
@@ -145,7 +145,7 @@ class ChannelEventBusTest {
 
   @Test
   fun take_ThenCollectMultipleTimes_Works() = runTest {
-    val bus = ChannelEventBus(ConsoleChannelEventBusLogger)
+    val bus = ChannelEventBus(ChannelEventBusLogger.stdout())
 
     repeat(10) {
       launch { bus.send(TestEventInt(it)) }
@@ -160,7 +160,7 @@ class ChannelEventBusTest {
 
   @Test
   fun take_ThenCollectMultipleTimes_WithStandardTestDispatcher_Works() = runTest(StandardTestDispatcher()) {
-    val bus = ChannelEventBus(ConsoleChannelEventBusLogger)
+    val bus = ChannelEventBus(ChannelEventBusLogger.stdout())
 
     repeat(10) {
       launch { bus.send(TestEventInt(it)) }
@@ -175,7 +175,7 @@ class ChannelEventBusTest {
 
   @Test
   fun flatMapLatest_Works() = runTest {
-    val bus = ChannelEventBus(ConsoleChannelEventBusLogger)
+    val bus = ChannelEventBus(ChannelEventBusLogger.stdout())
     val flow = interval(initialDelay = Duration.ZERO, period = 100.milliseconds)
       .take(10)
       .flatMapLatest { bus.receiveAsFlow(TestEventInt) }
