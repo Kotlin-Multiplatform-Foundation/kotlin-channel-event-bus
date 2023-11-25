@@ -136,7 +136,15 @@ private class Bus private constructor(
   val channel: Channel<Any>,
   val isCollecting: Boolean,
 ) {
-  fun copy(isCollecting: Boolean = this.isCollecting): Bus = Bus(channel, isCollecting)
+  fun copy(isCollecting: Boolean): Bus = Bus(channel, isCollecting)
+
+  override fun hashCode() = 31 * channel.hashCode() + isCollecting.hashCode()
+
+  override fun equals(other: Any?): Boolean {
+    if (this === other) return true
+    if (other !is Bus) return false
+    return channel == other.channel && isCollecting == other.isCollecting
+  }
 
   override fun toString(): String = "${super.toString()}($channel, $isCollecting)"
 
