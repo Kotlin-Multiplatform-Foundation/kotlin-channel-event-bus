@@ -1,13 +1,14 @@
 package com.hoc081098.channeleventbus
 
-import com.hoc081098.channeleventbus.ChannelEventBusOptionWhenSendingToBusDoesNotExist.CREATE_NEW_BUS
-import com.hoc081098.channeleventbus.ChannelEventBusOptionWhenSendingToBusDoesNotExist.DO_NOTHING
-import com.hoc081098.channeleventbus.ChannelEventBusOptionWhenSendingToBusDoesNotExist.THROW_EXCEPTION
-import com.hoc081098.channeleventbus.ChannelEventBusValidationBeforeClosing.REQUIRE_BUS_IS_EMPTY
-import com.hoc081098.channeleventbus.ChannelEventBusValidationBeforeClosing.REQUIRE_BUS_IS_EXISTING
-import com.hoc081098.channeleventbus.ChannelEventBusValidationBeforeClosing.REQUIRE_FLOW_IS_NOT_COLLECTING
+import com.hoc081098.channeleventbus.OptionWhenSendingToBusDoesNotExist.CREATE_NEW_BUS
+import com.hoc081098.channeleventbus.OptionWhenSendingToBusDoesNotExist.DO_NOTHING
+import com.hoc081098.channeleventbus.OptionWhenSendingToBusDoesNotExist.THROW_EXCEPTION
+import com.hoc081098.channeleventbus.ValidationBeforeClosing.REQUIRE_BUS_IS_EMPTY
+import com.hoc081098.channeleventbus.ValidationBeforeClosing.REQUIRE_BUS_IS_EXISTING
+import com.hoc081098.channeleventbus.ValidationBeforeClosing.REQUIRE_FLOW_IS_NOT_COLLECTING
 import kotlin.collections.set
 import kotlin.jvm.JvmField
+import kotlin.jvm.JvmStatic
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
@@ -59,15 +60,15 @@ public sealed interface ChannelEventBus {
    * Send [event] to the bus identified by [ChannelEvent.key].
    *
    * When the bus associated with `event.key` does not exist, the behavior is determined by [option].
-   * See [ChannelEventBusOptionWhenSendingToBusDoesNotExist] for more details.
+   * See [OptionWhenSendingToBusDoesNotExist] for more details.
    *
    * @throws ChannelEventBusException.SendException if failed to send the event.
-   * @see ChannelEventBusOptionWhenSendingToBusDoesNotExist
+   * @see OptionWhenSendingToBusDoesNotExist
    */
   @Throws(ChannelEventBusException.SendException::class)
   public fun <E : ChannelEvent<E>> send(
     event: E,
-    option: ChannelEventBusOptionWhenSendingToBusDoesNotExist = CREATE_NEW_BUS,
+    option: OptionWhenSendingToBusDoesNotExist = CREATE_NEW_BUS,
   )
 
   /**
@@ -90,18 +91,18 @@ public sealed interface ChannelEventBus {
    *
    * You can validate the bus before closing by passing [validations].
    * By default, all validations are enabled. If you want to close the bus without any validation,
-   * just pass an empty set or [ChannelEventBusValidationBeforeClosing.NONE].
+   * just pass an empty set or [ValidationBeforeClosing.NONE].
    *
    * @param key the key to identify the bus.
    * @param validations the validations to check before closing the bus.
    *
    * @throws ChannelEventBusException.CloseException if failed to close the bus.
-   * @see ChannelEventBusValidationBeforeClosing
+   * @see ValidationBeforeClosing
    */
   @Throws(ChannelEventBusException.CloseException::class)
   public fun closeKey(
     key: ChannelEventKey<*>,
-    validations: Set<ChannelEventBusValidationBeforeClosing> = ChannelEventBusValidationBeforeClosing.ALL,
+    validations: Set<ValidationBeforeClosing> = ValidationBeforeClosing.ALL,
   )
 
   /**
@@ -130,11 +131,19 @@ private class SynchronizedHashMap<K, V>(map: HashMap<K, V> = hashMapOf()) : Muta
 /**
  * A bus contains a [Channel] and a flag to indicate whether the channel is collecting or not.
  */
-private data class Bus(
+private class Bus private constructor(
   val channel: Channel<Any>,
   val isCollecting: Boolean,
 ) {
+  fun copy(isCollecting: Boolean = this.isCollecting): Bus = Bus(channel, isCollecting)
+
   override fun toString(): String = "${super.toString()}($channel, $isCollecting)"
+
+  companion object {
+    @JvmStatic
+    internal fun create(key: ChannelEventKey<*>, isCollecting: Boolean): Bus =
+      Bus(key.createChannel(), isCollecting)
+  }
 }
 
 private class ChannelEventBusImpl(
@@ -155,7 +164,7 @@ private class ChannelEventBusImpl(
   private fun getOrCreateBus(key: ChannelEventKey<*>): Bus =
     _busMap.synchronized {
       _busMap.getOrPut(key) {
-        Bus(channel = Channel(capacity = Channel.UNLIMITED), isCollecting = false)
+        Bus.create(key = key, isCollecting = false)
           .also { logger?.onCreated(key, this) }
       }
     }
@@ -164,7 +173,7 @@ private class ChannelEventBusImpl(
     _busMap.synchronized {
       val existing = _busMap[key]
       if (existing === null) {
-        Bus(channel = Channel(capacity = Channel.UNLIMITED), isCollecting = true)
+        Bus.create(key = key, isCollecting = true)
           .also { _busMap[key] = it }
           .also { logger?.onCreated(key, this) }
       } else {
@@ -194,7 +203,7 @@ private class ChannelEventBusImpl(
   @OptIn(ExperimentalCoroutinesApi::class)
   private fun removeBus(
     key: ChannelEventKey<*>,
-    validations: Set<ChannelEventBusValidationBeforeClosing>,
+    validations: Set<ValidationBeforeClosing>,
   ): Bus? = _busMap.synchronized {
     val removed = _busMap.remove(key)
 
@@ -217,7 +226,7 @@ private class ChannelEventBusImpl(
 
   override fun <E : ChannelEvent<E>> send(
     event: E,
-    option: ChannelEventBusOptionWhenSendingToBusDoesNotExist,
+    option: OptionWhenSendingToBusDoesNotExist,
   ) {
     when (option) {
       CREATE_NEW_BUS -> getOrCreateBus(event.key)
@@ -248,7 +257,7 @@ private class ChannelEventBusImpl(
 
   override fun closeKey(
     key: ChannelEventKey<*>,
-    validations: Set<ChannelEventBusValidationBeforeClosing>,
+    validations: Set<ValidationBeforeClosing>,
   ) {
     removeBus(
       key = key,

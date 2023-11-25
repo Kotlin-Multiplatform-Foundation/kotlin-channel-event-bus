@@ -3,7 +3,8 @@ public abstract interface class com/hoc081098/channeleventbus/ChannelEvent {
 }
 
 public class com/hoc081098/channeleventbus/ChannelEvent$Key {
-	public fun <init> (Lkotlin/reflect/KClass;)V
+	public fun <init> (Lkotlin/reflect/KClass;Lcom/hoc081098/channeleventbus/ChannelEventBusCapacity;)V
+	public synthetic fun <init> (Lkotlin/reflect/KClass;Lcom/hoc081098/channeleventbus/ChannelEventBusCapacity;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun equals (Ljava/lang/Object;)Z
 	public final fun hashCode ()I
 	public final fun toString ()Ljava/lang/String;
@@ -13,12 +14,20 @@ public abstract interface class com/hoc081098/channeleventbus/ChannelEventBus {
 	public abstract fun close ()V
 	public abstract fun closeKey (Lcom/hoc081098/channeleventbus/ChannelEvent$Key;Ljava/util/Set;)V
 	public abstract fun receiveAsFlow (Lcom/hoc081098/channeleventbus/ChannelEvent$Key;)Lkotlinx/coroutines/flow/Flow;
-	public abstract fun send (Lcom/hoc081098/channeleventbus/ChannelEvent;Lcom/hoc081098/channeleventbus/ChannelEventBusOptionWhenSendingToBusDoesNotExist;)V
+	public abstract fun send (Lcom/hoc081098/channeleventbus/ChannelEvent;Lcom/hoc081098/channeleventbus/OptionWhenSendingToBusDoesNotExist;)V
 }
 
 public final class com/hoc081098/channeleventbus/ChannelEventBus$DefaultImpls {
 	public static synthetic fun closeKey$default (Lcom/hoc081098/channeleventbus/ChannelEventBus;Lcom/hoc081098/channeleventbus/ChannelEvent$Key;Ljava/util/Set;ILjava/lang/Object;)V
-	public static synthetic fun send$default (Lcom/hoc081098/channeleventbus/ChannelEventBus;Lcom/hoc081098/channeleventbus/ChannelEvent;Lcom/hoc081098/channeleventbus/ChannelEventBusOptionWhenSendingToBusDoesNotExist;ILjava/lang/Object;)V
+	public static synthetic fun send$default (Lcom/hoc081098/channeleventbus/ChannelEventBus;Lcom/hoc081098/channeleventbus/ChannelEvent;Lcom/hoc081098/channeleventbus/OptionWhenSendingToBusDoesNotExist;ILjava/lang/Object;)V
+}
+
+public final class com/hoc081098/channeleventbus/ChannelEventBusCapacity : java/lang/Enum {
+	public static final field CONFLATED Lcom/hoc081098/channeleventbus/ChannelEventBusCapacity;
+	public static final field UNLIMITED Lcom/hoc081098/channeleventbus/ChannelEventBusCapacity;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lcom/hoc081098/channeleventbus/ChannelEventBusCapacity;
+	public static fun values ()[Lcom/hoc081098/channeleventbus/ChannelEventBusCapacity;
 }
 
 public abstract class com/hoc081098/channeleventbus/ChannelEventBusException : java/lang/RuntimeException {
@@ -85,27 +94,27 @@ public final class com/hoc081098/channeleventbus/ChannelEventBusLogger$Companion
 	public final fun stdout ()Lcom/hoc081098/channeleventbus/ChannelEventBusLogger;
 }
 
-public final class com/hoc081098/channeleventbus/ChannelEventBusOptionWhenSendingToBusDoesNotExist : java/lang/Enum {
-	public static final field CREATE_NEW_BUS Lcom/hoc081098/channeleventbus/ChannelEventBusOptionWhenSendingToBusDoesNotExist;
-	public static final field DO_NOTHING Lcom/hoc081098/channeleventbus/ChannelEventBusOptionWhenSendingToBusDoesNotExist;
-	public static final field THROW_EXCEPTION Lcom/hoc081098/channeleventbus/ChannelEventBusOptionWhenSendingToBusDoesNotExist;
+public final class com/hoc081098/channeleventbus/OptionWhenSendingToBusDoesNotExist : java/lang/Enum {
+	public static final field CREATE_NEW_BUS Lcom/hoc081098/channeleventbus/OptionWhenSendingToBusDoesNotExist;
+	public static final field DO_NOTHING Lcom/hoc081098/channeleventbus/OptionWhenSendingToBusDoesNotExist;
+	public static final field THROW_EXCEPTION Lcom/hoc081098/channeleventbus/OptionWhenSendingToBusDoesNotExist;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/hoc081098/channeleventbus/ChannelEventBusOptionWhenSendingToBusDoesNotExist;
-	public static fun values ()[Lcom/hoc081098/channeleventbus/ChannelEventBusOptionWhenSendingToBusDoesNotExist;
+	public static fun valueOf (Ljava/lang/String;)Lcom/hoc081098/channeleventbus/OptionWhenSendingToBusDoesNotExist;
+	public static fun values ()[Lcom/hoc081098/channeleventbus/OptionWhenSendingToBusDoesNotExist;
 }
 
-public final class com/hoc081098/channeleventbus/ChannelEventBusValidationBeforeClosing : java/lang/Enum {
+public final class com/hoc081098/channeleventbus/ValidationBeforeClosing : java/lang/Enum {
 	public static final field ALL Ljava/util/Set;
-	public static final field Companion Lcom/hoc081098/channeleventbus/ChannelEventBusValidationBeforeClosing$Companion;
-	public static final field REQUIRE_BUS_IS_EMPTY Lcom/hoc081098/channeleventbus/ChannelEventBusValidationBeforeClosing;
-	public static final field REQUIRE_BUS_IS_EXISTING Lcom/hoc081098/channeleventbus/ChannelEventBusValidationBeforeClosing;
-	public static final field REQUIRE_FLOW_IS_NOT_COLLECTING Lcom/hoc081098/channeleventbus/ChannelEventBusValidationBeforeClosing;
+	public static final field Companion Lcom/hoc081098/channeleventbus/ValidationBeforeClosing$Companion;
+	public static final field REQUIRE_BUS_IS_EMPTY Lcom/hoc081098/channeleventbus/ValidationBeforeClosing;
+	public static final field REQUIRE_BUS_IS_EXISTING Lcom/hoc081098/channeleventbus/ValidationBeforeClosing;
+	public static final field REQUIRE_FLOW_IS_NOT_COLLECTING Lcom/hoc081098/channeleventbus/ValidationBeforeClosing;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
-	public static fun valueOf (Ljava/lang/String;)Lcom/hoc081098/channeleventbus/ChannelEventBusValidationBeforeClosing;
-	public static fun values ()[Lcom/hoc081098/channeleventbus/ChannelEventBusValidationBeforeClosing;
+	public static fun valueOf (Ljava/lang/String;)Lcom/hoc081098/channeleventbus/ValidationBeforeClosing;
+	public static fun values ()[Lcom/hoc081098/channeleventbus/ValidationBeforeClosing;
 }
 
-public final class com/hoc081098/channeleventbus/ChannelEventBusValidationBeforeClosing$Companion {
+public final class com/hoc081098/channeleventbus/ValidationBeforeClosing$Companion {
 	public final fun getNONE ()Ljava/util/Set;
 }
 

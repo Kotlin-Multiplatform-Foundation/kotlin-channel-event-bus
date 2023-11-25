@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hoc081098.channeleventbus.ChannelEventBus
-import com.hoc081098.channeleventbus.ChannelEventBusValidationBeforeClosing.Companion.NONE
+import com.hoc081098.channeleventbus.ValidationBeforeClosing.Companion.NONE
 import com.hoc081098.channeleventbus.sample.android.BuildConfig
 import kotlin.LazyThreadSafetyMode.PUBLICATION
 import kotlinx.coroutines.flow.SharingStarted

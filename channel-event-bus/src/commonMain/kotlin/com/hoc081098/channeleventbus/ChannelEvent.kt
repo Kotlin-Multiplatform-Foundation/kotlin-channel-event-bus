@@ -4,6 +4,7 @@ import kotlin.jvm.JvmField
 import kotlin.jvm.JvmSynthetic
 import kotlin.reflect.KClass
 import kotlin.reflect.cast
+import kotlinx.coroutines.channels.Channel
 
 /**
  * Represents an event that can be sent to a [ChannelEventBus].
@@ -17,6 +18,8 @@ public interface ChannelEvent<T : ChannelEvent<T>> {
   public open class Key<T : ChannelEvent<T>>(
     @JvmField
     internal val eventClass: KClass<T>,
+    @JvmField
+    internal val capacity: ChannelEventBusCapacity = ChannelEventBusCapacity.UNLIMITED,
   ) {
     final override fun equals(other: Any?): Boolean {
       if (this === other) return true
@@ -30,6 +33,9 @@ public interface ChannelEvent<T : ChannelEvent<T>> {
 
     @JvmSynthetic
     internal inline fun cast(it: Any): T = eventClass.cast(it)
+
+    @JvmSynthetic
+    internal inline fun createChannel(): Channel<Any> = Channel(capacity.asInt())
   }
 }
 

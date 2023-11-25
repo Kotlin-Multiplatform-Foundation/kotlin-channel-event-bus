@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hoc081098.channeleventbus.ChannelEventBus
-import com.hoc081098.channeleventbus.ChannelEventBusOptionWhenSendingToBusDoesNotExist
+import com.hoc081098.channeleventbus.OptionWhenSendingToBusDoesNotExist
 import com.hoc081098.channeleventbus.sample.android.ui.register.SubmitFirstNameEvent
 import com.hoc081098.channeleventbus.sample.android.ui.register.SubmitLastNameEvent
 import kotlinx.coroutines.CancellationException
@@ -41,7 +41,7 @@ class RegisterStepOneVM(
         // Do nothing if the bus does not exist (ie. there is no active collector for this bus).
         channelEventBus.send(
           event = SubmitFirstNameEvent(null),
-          option = ChannelEventBusOptionWhenSendingToBusDoesNotExist.DO_NOTHING,
+          option = OptionWhenSendingToBusDoesNotExist.DO_NOTHING,
         )
       }
       .launchIn(viewModelScope)
@@ -60,7 +60,7 @@ class RegisterStepOneVM(
         // Do nothing if the bus does not exist (ie. there is no active collector for this bus).
         channelEventBus.send(
           event = SubmitLastNameEvent(null),
-          option = ChannelEventBusOptionWhenSendingToBusDoesNotExist.DO_NOTHING,
+          option = OptionWhenSendingToBusDoesNotExist.DO_NOTHING,
         )
       }
       .launchIn(viewModelScope)

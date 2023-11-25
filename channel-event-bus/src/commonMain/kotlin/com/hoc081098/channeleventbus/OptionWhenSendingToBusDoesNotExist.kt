@@ -7,7 +7,7 @@ package com.hoc081098.channeleventbus
  *   does not exist.
  * - Do nothing if the bus associated with [ChannelEvent.key] does not exist.
  */
-public enum class ChannelEventBusOptionWhenSendingToBusDoesNotExist {
+public enum class OptionWhenSendingToBusDoesNotExist {
   /**
    * Create a new bus if the bus associated with [ChannelEvent.key] does not exist.
    * This is the default option.

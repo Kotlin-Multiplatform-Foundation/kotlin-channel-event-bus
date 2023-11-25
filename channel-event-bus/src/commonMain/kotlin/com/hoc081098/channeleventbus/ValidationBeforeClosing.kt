@@ -5,7 +5,7 @@ import kotlin.jvm.JvmField
 /**
  * Options for validating a bus before closing.
  */
-public enum class ChannelEventBusValidationBeforeClosing {
+public enum class ValidationBeforeClosing {
   /**
    * Require the flow of the bus must not be collecting by any collector before closing.
    * If this requirement is not met, [ChannelEventBusException.CloseException.BusIsCollecting] will be thrown.
@@ -27,8 +27,8 @@ public enum class ChannelEventBusValidationBeforeClosing {
 
   public companion object {
     @JvmField
-    public val ALL: Set<ChannelEventBusValidationBeforeClosing> = entries.toSet()
+    public val ALL: Set<ValidationBeforeClosing> = entries.toSet()
 
-    public inline val NONE: Set<ChannelEventBusValidationBeforeClosing> get() = emptySet()
+    public inline val NONE: Set<ValidationBeforeClosing> get() = emptySet()
   }
 }
