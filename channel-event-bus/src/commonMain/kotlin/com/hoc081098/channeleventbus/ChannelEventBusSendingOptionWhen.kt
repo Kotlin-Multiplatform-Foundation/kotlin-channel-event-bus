@@ -3,7 +3,8 @@ package com.hoc081098.channeleventbus
 /**
  * Option when sending an event to a bus that does not exist.
  * - Create a new bus if the bus associated with [ChannelEvent.key] does not exist.
- * - Throw [ChannelEventBusException.SendException.BusDoesNotExist] if the bus associated with [ChannelEvent.key] does not exist.
+ * - Throw [ChannelEventBusException.SendException.BusDoesNotExist] if the bus associated with [ChannelEvent.key]
+ *   does not exist.
  * - Do nothing if the bus associated with [ChannelEvent.key] does not exist.
  */
 public enum class ChannelEventBusOptionWhenSendingToBusDoesNotExist {
@@ -14,7 +15,8 @@ public enum class ChannelEventBusOptionWhenSendingToBusDoesNotExist {
   CREATE_NEW_BUS,
 
   /**
-   * Throw [ChannelEventBusException.SendException.BusDoesNotExist] if the bus associated with [ChannelEvent.key] does not exist.
+   * Throw [ChannelEventBusException.SendException.BusDoesNotExist] if the bus associated with [ChannelEvent.key]
+   * does not exist.
    */
   THROW_EXCEPTION,
 
