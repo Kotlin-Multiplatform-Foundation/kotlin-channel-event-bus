@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hoc081098.channeleventbus.ChannelEventBus
 import com.hoc081098.channeleventbus.sample.android.ui.register.SubmitFirstNameEvent
+import com.hoc081098.channeleventbus.sample.android.ui.register.SubmitLastNameEvent
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -18,21 +19,52 @@ class RegisterStepOneVM(
   internal val firstNameStateFlow: StateFlow<String?> = savedStateHandle
     .getStateFlow<String?>(FirstNameKey, null)
 
+  internal val lastNameStateFlow: StateFlow<String?> = savedStateHandle
+    .getStateFlow<String?>(LastNameKey, null)
+
   init {
+    sendSubmitFirstNameEventAfterChanged()
+    sendSubmitLastNameEventAfterChanged()
+  }
+
+  /**
+   * Send [SubmitFirstNameEvent] to [ChannelEventBus] when [firstNameStateFlow] emits a new value
+   */
+  private fun sendSubmitFirstNameEventAfterChanged() {
     firstNameStateFlow
       .onEach { channelEventBus.send(SubmitFirstNameEvent(it)) }
       .onCompletion {
-        check(it is CancellationException)
+        check(it is CancellationException) { "Expected CancellationException but was $it" }
+
         channelEventBus.send(SubmitFirstNameEvent(null))
       }
       .launchIn(viewModelScope)
   }
 
-  internal fun submitFirstName(value: String) {
+  /**
+   * Send [SubmitLastNameEvent] to [ChannelEventBus] when [lastNameStateFlow] emits a new value
+   */
+  private fun sendSubmitLastNameEventAfterChanged() {
+    lastNameStateFlow
+      .onEach { channelEventBus.send(SubmitLastNameEvent(it)) }
+      .onCompletion {
+        check(it is CancellationException) { "Expected CancellationException but was $it" }
+
+        channelEventBus.send(SubmitLastNameEvent(null))
+      }
+      .launchIn(viewModelScope)
+  }
+
+  internal fun onFirstNameChanged(value: String) {
     savedStateHandle[FirstNameKey] = value
   }
 
+  internal fun onLastNameChanged(value: String) {
+    savedStateHandle[LastNameKey] = value
+  }
+
   companion object {
-    const val FirstNameKey = "first_name"
+    private const val FirstNameKey = "first_name"
+    private const val LastNameKey = "last_name"
   }
 }

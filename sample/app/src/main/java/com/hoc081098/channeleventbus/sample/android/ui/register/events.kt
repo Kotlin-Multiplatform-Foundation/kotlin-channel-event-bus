@@ -8,3 +8,9 @@ data class SubmitFirstNameEvent(val value: String?) : ChannelEvent<SubmitFirstNa
 
   companion object Key : ChannelEventKey<SubmitFirstNameEvent>(SubmitFirstNameEvent::class)
 }
+
+data class SubmitLastNameEvent(val value: String?) : ChannelEvent<SubmitLastNameEvent> {
+  override val key get() = Key
+
+  companion object Key : ChannelEventKey<SubmitLastNameEvent>(SubmitLastNameEvent::class)
+}

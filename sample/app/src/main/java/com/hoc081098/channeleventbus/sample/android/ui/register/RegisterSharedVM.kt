@@ -6,6 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.hoc081098.channeleventbus.ChannelEventBus
 import com.hoc081098.channeleventbus.ChannelEventBusValidationBeforeClosing.Companion.NONE
 import kotlin.LazyThreadSafetyMode.PUBLICATION
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import timber.log.Timber
@@ -16,26 +18,56 @@ class RegisterSharedVM(
 ) : ViewModel() {
   init {
     Timber.d("$this::init")
-
     addCloseable {
+      arrayOf(SubmitFirstNameEvent, SubmitLastNameEvent).forEach {
+        channelEventBus.closeKey(key = it, validations = NONE)
+      }
       Timber.d("$this::close")
-      channelEventBus.closeKey(
-        key = SubmitFirstNameEvent,
-        validations = NONE,
-      )
     }
-    savedStateHandle
-      .getStateFlow(FirstNameKey, null as String?)
-      .onEach { Timber.d("$this FirstNameKey -> $it") }
-      .launchIn(viewModelScope)
 
+    debugPrint()
+    observeSubmitFirstNameEvent()
+    observeSubmitLastNameEvent()
+  }
+
+  private fun observeSubmitLastNameEvent() {
+    channelEventBus
+      .receiveAsFlow(SubmitLastNameEvent)
+      .onEach { savedStateHandle[LastNameKey] = it.value }
+      .launchIn(viewModelScope)
+  }
+
+  private fun observeSubmitFirstNameEvent() {
     channelEventBus
       .receiveAsFlow(SubmitFirstNameEvent)
       .onEach { savedStateHandle[FirstNameKey] = it.value }
       .launchIn(viewModelScope)
   }
 
+  private fun debugPrint() {
+    val line = "-".repeat(80)
+
+    combine(
+      listOf(
+        FirstNameKey,
+        LastNameKey,
+      ).map { savedStateHandle.getStateFlow(it, null as Any?) },
+    ) { array -> array.joinToString(separator = "\n") { "    $it" } }
+      .distinctUntilChanged()
+      .onEach {
+        Timber.d(
+          """
+          |$this::debugPrint
+          |$it
+          |$line
+          """.trimMargin(),
+        )
+      }
+      .launchIn(viewModelScope)
+  }
+
   private companion object {
-    val FirstNameKey by lazy(PUBLICATION) { SubmitFirstNameEvent.toString() }
+    private val FirstNameKey by lazy(PUBLICATION) { SubmitFirstNameEvent.toString() }
+    private val LastNameKey by lazy(PUBLICATION) { SubmitLastNameEvent.toString() }
   }
 }

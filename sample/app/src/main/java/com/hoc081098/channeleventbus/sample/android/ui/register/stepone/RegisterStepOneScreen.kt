@@ -36,6 +36,10 @@ fun RegisterStepOneScreen(
     .firstNameStateFlow
     .collectAsStateWithLifecycle(context = Dispatchers.Main.immediate)
 
+  val lastName by vm
+    .lastNameStateFlow
+    .collectAsStateWithLifecycle(context = Dispatchers.Main.immediate)
+
   Column(
     modifier = modifier,
     verticalArrangement = Arrangement.Top,
@@ -48,7 +52,7 @@ fun RegisterStepOneScreen(
         .fillMaxWidth()
         .padding(horizontal = 16.dp),
       value = firstName.orEmpty(),
-      onValueChange = remember { vm::submitFirstName },
+      onValueChange = remember { vm::onFirstNameChanged },
       singleLine = true,
       maxLines = 1,
       label = { Text("First name") },
@@ -58,8 +62,25 @@ fun RegisterStepOneScreen(
 
     Spacer(modifier = Modifier.height(16.dp))
 
+    OutlinedTextField(
+      modifier = Modifier
+        .fillMaxWidth()
+        .padding(horizontal = 16.dp),
+      value = lastName.orEmpty(),
+      onValueChange = remember { vm::onLastNameChanged },
+      singleLine = true,
+      maxLines = 1,
+      label = { Text("Last name") },
+      keyboardActions = KeyboardActions.Default,
+      keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+    )
+
+    Spacer(modifier = Modifier.weight(1f))
+
     ElevatedButton(onClick = navigateToRegisterStepTwo) {
       Text(text = "Next")
     }
+
+    Spacer(modifier = Modifier.height(16.dp))
   }
 }
