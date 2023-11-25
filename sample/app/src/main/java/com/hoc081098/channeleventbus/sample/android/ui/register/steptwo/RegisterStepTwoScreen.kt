@@ -63,7 +63,7 @@ fun RegisterStepTwoScreen(
 
 @Composable
 private fun GenderSection(
-  selectedGender: Gender,
+  selectedGender: Gender?,
   onGenderChanged: (Gender) -> Unit,
   modifier: Modifier = Modifier,
 ) {

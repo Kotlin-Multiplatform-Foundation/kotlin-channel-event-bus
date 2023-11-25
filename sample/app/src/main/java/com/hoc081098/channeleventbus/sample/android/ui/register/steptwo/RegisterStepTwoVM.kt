@@ -16,8 +16,8 @@ class RegisterStepTwoVM(
   private val savedStateHandle: SavedStateHandle,
   private val channelEventBus: ChannelEventBus,
 ) : ViewModel() {
-  internal val genderStateFlow: StateFlow<Gender> = savedStateHandle
-    .getStateFlow(GenderKey, Gender.MALE)
+  internal val genderStateFlow: StateFlow<Gender?> = savedStateHandle
+    .getStateFlow<Gender?>(GenderKey, null)
 
   init {
     sendSubmitGenderEventAfterChanged()
