@@ -31,7 +31,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import com.hoc081098.channeleventbus.sample.android.common.MyApplicationTheme
+import com.hoc081098.channeleventbus.sample.android.ui.home.HomeScreen
 import com.hoc081098.channeleventbus.sample.android.ui.register.stepone.RegisterStepOneScreen
+import com.hoc081098.channeleventbus.sample.android.ui.register.stepthree.RegisterStepThreeScreen
 import com.hoc081098.channeleventbus.sample.android.ui.register.steptwo.RegisterStepTwoScreen
 import org.koin.androidx.compose.koinViewModel
 
@@ -66,6 +68,7 @@ class MainActivity : ComponentActivity() {
                       Route.RegisterStepOne -> "Register step 1"
                       Route.RegisterStepTwo -> "Register step 2"
                       Route.RegisterStepThree -> "Register step 3"
+                      Route.Home -> "Home"
                       null -> ""
                     },
                   )
@@ -113,7 +116,7 @@ private fun AppNavHost(
 
         RegisterStepOneScreen(
           registerSharedVM = koinViewModel(viewModelStoreOwner = registerGraphEntry),
-          navigateToRegisterStepTwo = { navController.navigate(route = Route.RegisterStepTwo.routePattern) },
+          navigateToRegisterStepTwo = remember(navController) { { navController.navigate(route = Route.RegisterStepTwo.route) } },
         )
       }
 
@@ -122,12 +125,23 @@ private fun AppNavHost(
 
         RegisterStepTwoScreen(
           registerSharedVM = koinViewModel(viewModelStoreOwner = registerGraphEntry),
-          navigateToRegisterStepThree = { navController.navigate(route = Route.RegisterStepThree.routePattern) },
+          navigateToRegisterStepThree = remember(navController) { { navController.navigate(route = Route.RegisterStepThree.route) } },
         )
       }
 
       composable(route = Route.RegisterStepThree.routePattern) { entry ->
         val registerGraphEntry = remember(entry) { navController.getBackStackEntry("register_graph") }
+
+        RegisterStepThreeScreen(
+          registerSharedVM = koinViewModel(viewModelStoreOwner = registerGraphEntry),
+          navigateToHome = remember(navController) { { navController.navigate(route = Route.Home.route) } },
+        )
+      }
+    }
+
+    navigation(startDestination = Route.Home.routePattern, route = "home_graph") {
+      composable(route = Route.Home.routePattern) { entry ->
+        HomeScreen()
       }
     }
   }

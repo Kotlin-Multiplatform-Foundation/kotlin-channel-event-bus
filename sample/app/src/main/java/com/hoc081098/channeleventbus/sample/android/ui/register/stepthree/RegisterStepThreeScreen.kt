@@ -33,7 +33,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun RegisterStepThreeScreen(
   registerSharedVM: RegisterSharedVM,
-  navigateToRegisterStepThree: () -> Unit,
+  navigateToHome: () -> Unit,
   modifier: Modifier = Modifier,
   vm: RegisterStepThreeVM = koinViewModel(),
 ) {
@@ -43,7 +43,7 @@ fun RegisterStepThreeScreen(
 
   val uiState by vm.uiStateFlow.collectAsStateWithLifecycle()
 
-  val currentNavigateToRegisterStepThree by rememberUpdatedState(navigateToRegisterStepThree)
+  val currentNavigateToHome by rememberUpdatedState(navigateToHome)
   val context = rememberStableWrapperOf(LocalContext.current)
 
   vm.eventFlow.CollectWithLifecycleEffect { event ->
@@ -59,7 +59,7 @@ fun RegisterStepThreeScreen(
       }
 
       RegisterStepThreeSingleEvent.Success ->
-        currentNavigateToRegisterStepThree()
+        currentNavigateToHome()
     }
   }
 
