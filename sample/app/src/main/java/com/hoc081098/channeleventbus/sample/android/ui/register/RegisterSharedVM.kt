@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hoc081098.channeleventbus.ChannelEventBus
 import com.hoc081098.channeleventbus.ChannelEventBusValidationBeforeClosing.Companion.NONE
+import com.hoc081098.channeleventbus.sample.android.BuildConfig
 import kotlin.LazyThreadSafetyMode.PUBLICATION
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -38,7 +39,7 @@ class RegisterSharedVM(
   init {
     Timber.d("$this::init")
     addCloseable {
-      arrayOf(SubmitFirstNameEvent, SubmitLastNameEvent).forEach {
+      arrayOf(SubmitFirstNameEvent, SubmitLastNameEvent, SubmitGenderEvent).forEach {
         channelEventBus.closeKey(key = it, validations = NONE)
       }
       Timber.d("$this::close")
@@ -72,6 +73,10 @@ class RegisterSharedVM(
   }
 
   private fun debugPrint() {
+    if (!BuildConfig.DEBUG) {
+      return
+    }
+
     val line = "-".repeat(80)
 
     combine(
