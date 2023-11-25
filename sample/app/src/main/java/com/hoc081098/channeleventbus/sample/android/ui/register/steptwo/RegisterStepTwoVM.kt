@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hoc081098.channeleventbus.ChannelEventBus
+import com.hoc081098.channeleventbus.ChannelEventBusOptionWhenSendingToBusDoesNotExist
 import com.hoc081098.channeleventbus.sample.android.ui.register.Gender
 import com.hoc081098.channeleventbus.sample.android.ui.register.SubmitGenderEvent
 import kotlinx.coroutines.CancellationException
@@ -32,7 +33,12 @@ class RegisterStepTwoVM(
       .onCompletion {
         check(it is CancellationException) { "Expected CancellationException but was $it" }
 
-        channelEventBus.send(SubmitGenderEvent(null))
+        // Send null to bus when this ViewModel is cleared, to clear the value in RegisterSharedVM.
+        // Do nothing if the bus does not exist (ie. there is no active collector for this bus).
+        channelEventBus.send(
+          event = SubmitGenderEvent(null),
+          option = ChannelEventBusOptionWhenSendingToBusDoesNotExist.DO_NOTHING,
+        )
       }
       .launchIn(viewModelScope)
   }
