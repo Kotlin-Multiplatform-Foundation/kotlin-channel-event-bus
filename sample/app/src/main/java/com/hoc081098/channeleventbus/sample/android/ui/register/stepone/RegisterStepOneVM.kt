@@ -5,6 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hoc081098.channeleventbus.ChannelEventBus
 import com.hoc081098.channeleventbus.OptionWhenSendingToBusDoesNotExist
+import com.hoc081098.channeleventbus.sample.android.common.SafeSavedStateHandle
+import com.hoc081098.channeleventbus.sample.android.ui.register.FirstNameKey
+import com.hoc081098.channeleventbus.sample.android.ui.register.LastNameKey
 import com.hoc081098.channeleventbus.sample.android.ui.register.SubmitFirstNameEvent
 import com.hoc081098.channeleventbus.sample.android.ui.register.SubmitLastNameEvent
 import kotlinx.coroutines.CancellationException
@@ -14,14 +17,13 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 
 class RegisterStepOneVM(
-  private val savedStateHandle: SavedStateHandle,
+  savedStateHandle: SavedStateHandle,
   private val channelEventBus: ChannelEventBus,
 ) : ViewModel() {
-  internal val firstNameStateFlow: StateFlow<String?> = savedStateHandle
-    .getStateFlow<String?>(FirstNameKey, null)
+  private val safeSavedStateHandle = SafeSavedStateHandle(savedStateHandle)
 
-  internal val lastNameStateFlow: StateFlow<String?> = savedStateHandle
-    .getStateFlow<String?>(LastNameKey, null)
+  internal val firstNameStateFlow: StateFlow<String?> = safeSavedStateHandle.getStateFlow(FirstNameKey)
+  internal val lastNameStateFlow: StateFlow<String?> = safeSavedStateHandle.getStateFlow(LastNameKey)
 
   init {
     sendSubmitFirstNameEventAfterChanged()
@@ -38,7 +40,7 @@ class RegisterStepOneVM(
         check(it is CancellationException) { "Expected CancellationException but was $it" }
 
         // Send null to bus when this ViewModel is cleared, to clear the value in RegisterSharedVM.
-        // Do nothing if the bus does not exist (ie. there is no active collector for this bus).
+        // Do nothing if the bus does not exist (ie. there is no active collector for this bus or the bus is closed).
         channelEventBus.send(
           event = SubmitFirstNameEvent(null),
           option = OptionWhenSendingToBusDoesNotExist.DO_NOTHING,
@@ -57,7 +59,7 @@ class RegisterStepOneVM(
         check(it is CancellationException) { "Expected CancellationException but was $it" }
 
         // Send null to bus when this ViewModel is cleared, to clear the value in RegisterSharedVM.
-        // Do nothing if the bus does not exist (ie. there is no active collector for this bus).
+        // Do nothing if the bus does not exist (ie. there is no active collector for this bus or the bus is closed).
         channelEventBus.send(
           event = SubmitLastNameEvent(null),
           option = OptionWhenSendingToBusDoesNotExist.DO_NOTHING,
@@ -67,15 +69,10 @@ class RegisterStepOneVM(
   }
 
   internal fun onFirstNameChanged(value: String) {
-    savedStateHandle[FirstNameKey] = value
+    safeSavedStateHandle[FirstNameKey] = value
   }
 
   internal fun onLastNameChanged(value: String) {
-    savedStateHandle[LastNameKey] = value
-  }
-
-  companion object {
-    private const val FirstNameKey = "first_name"
-    private const val LastNameKey = "last_name"
+    safeSavedStateHandle[LastNameKey] = value
   }
 }

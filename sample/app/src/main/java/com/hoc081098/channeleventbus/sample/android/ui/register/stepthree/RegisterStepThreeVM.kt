@@ -70,19 +70,6 @@ class RegisterStepThreeVM : ViewModel() {
     }
   }
 
-  private suspend fun doRegister(state: RegisterUiState.Filled) {
-    Timber.d("doRegister $state")
-
-    // simulate network request
-    delay(@Suppress("MagicNumber") 2_000)
-    if (Random.nextBoolean()) {
-      throw IOException("Network error")
-        .also { Timber.e(it, "Register failed") }
-    } else {
-      Timber.d("Register success")
-    }
-  }
-
   internal fun register(state: RegisterUiState) {
     when (state) {
       RegisterUiState.Unfilled -> {
@@ -94,5 +81,18 @@ class RegisterStepThreeVM : ViewModel() {
         viewModelScope.launch { _registerFlow.emit(state) }
       }
     }
+  }
+}
+
+private suspend fun doRegister(state: RegisterUiState.Filled) {
+  Timber.d("doRegister $state")
+
+  // simulate network request
+  delay(@Suppress("MagicNumber") 2_000)
+  if (Random.nextBoolean()) {
+    throw IOException("Network error")
+      .also { Timber.e(it, "Register failed") }
+  } else {
+    Timber.d("Register success")
   }
 }

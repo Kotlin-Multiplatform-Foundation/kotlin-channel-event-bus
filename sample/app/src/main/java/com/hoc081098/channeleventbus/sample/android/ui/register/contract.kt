@@ -2,6 +2,8 @@ package com.hoc081098.channeleventbus.sample.android.ui.register
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
+import com.hoc081098.channeleventbus.sample.android.common.SavedStateHandleKey
+import kotlin.LazyThreadSafetyMode.PUBLICATION
 
 @Immutable
 internal enum class Gender {
@@ -46,3 +48,7 @@ internal fun RegisterUiState.Companion.from(
 } else {
   RegisterUiState.Unfilled
 }
+
+internal val FirstNameKey by lazy(PUBLICATION) { SavedStateHandleKey<String?>("first_name", null) }
+internal val LastNameKey by lazy(PUBLICATION) { SavedStateHandleKey<String?>("last_name", null) }
+internal val GenderKey by lazy(PUBLICATION) { SavedStateHandleKey<Gender?>("gender", null) }

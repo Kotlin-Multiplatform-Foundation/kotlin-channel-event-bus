@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hoc081098.channeleventbus.ChannelEventBus
 import com.hoc081098.channeleventbus.OptionWhenSendingToBusDoesNotExist
+import com.hoc081098.channeleventbus.sample.android.common.SafeSavedStateHandle
 import com.hoc081098.channeleventbus.sample.android.ui.register.Gender
+import com.hoc081098.channeleventbus.sample.android.ui.register.GenderKey
 import com.hoc081098.channeleventbus.sample.android.ui.register.SubmitGenderEvent
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.StateFlow
@@ -14,11 +16,12 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 
 class RegisterStepTwoVM(
-  private val savedStateHandle: SavedStateHandle,
+  savedStateHandle: SavedStateHandle,
   private val channelEventBus: ChannelEventBus,
 ) : ViewModel() {
-  internal val genderStateFlow: StateFlow<Gender?> = savedStateHandle
-    .getStateFlow<Gender?>(GenderKey, null)
+  private val safeSavedStateHandle = SafeSavedStateHandle(savedStateHandle)
+
+  internal val genderStateFlow: StateFlow<Gender?> = safeSavedStateHandle.getStateFlow(GenderKey)
 
   init {
     sendSubmitGenderEventAfterChanged()
@@ -34,7 +37,7 @@ class RegisterStepTwoVM(
         check(it is CancellationException) { "Expected CancellationException but was $it" }
 
         // Send null to bus when this ViewModel is cleared, to clear the value in RegisterSharedVM.
-        // Do nothing if the bus does not exist (ie. there is no active collector for this bus).
+        // Do nothing if the bus does not exist (ie. there is no active collector for this bus or the bus is closed).
         channelEventBus.send(
           event = SubmitGenderEvent(null),
           option = OptionWhenSendingToBusDoesNotExist.DO_NOTHING,
@@ -44,10 +47,6 @@ class RegisterStepTwoVM(
   }
 
   internal fun onGenderChanged(value: Gender) {
-    savedStateHandle[GenderKey] = value
-  }
-
-  companion object {
-    private const val GenderKey = "gender"
+    safeSavedStateHandle[GenderKey] = value
   }
 }
