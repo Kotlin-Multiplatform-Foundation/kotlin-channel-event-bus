@@ -14,5 +14,7 @@ ktlint_standard_property-naming=disabled
 ktlint_standard_function-naming=disabled
 filename=disabled
 ktlint_experimental=enabled
+ij_kotlin_name_count_to_use_star_import=999
+ij_kotlin_name_count_to_use_star_import_for_members=999
 [*.xml]
 indent_size=4

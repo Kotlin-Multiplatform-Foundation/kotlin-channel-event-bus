@@ -1,5 +1,8 @@
 package com.hoc081098.channeleventbus
 
+import com.hoc081098.channeleventbus.ChannelEventBusOptionWhenSendingToBusDoesNotExist.CREATE_NEW_BUS
+import com.hoc081098.channeleventbus.ChannelEventBusOptionWhenSendingToBusDoesNotExist.DO_NOTHING
+import com.hoc081098.channeleventbus.ChannelEventBusOptionWhenSendingToBusDoesNotExist.THROW_EXCEPTION
 import com.hoc081098.channeleventbus.ChannelEventBusValidationBeforeClosing.REQUIRE_BUS_IS_EMPTY
 import com.hoc081098.channeleventbus.ChannelEventBusValidationBeforeClosing.REQUIRE_BUS_IS_EXISTING
 import com.hoc081098.channeleventbus.ChannelEventBusValidationBeforeClosing.REQUIRE_FLOW_IS_NOT_COLLECTING
@@ -54,11 +57,18 @@ import kotlinx.coroutines.internal.synchronized as coroutinesSynchronized
 public sealed interface ChannelEventBus {
   /**
    * Send [event] to the bus identified by [ChannelEvent.key].
-   * If the bus associated with `event.key` does not exist, a new bus will be created.
    *
-   * @throws ChannelEventBusException.FailedToSendEvent if failed to send the event.
+   * When the bus associated with `event.key` does not exist, the behavior is determined by [option].
+   * See [ChannelEventBusOptionWhenSendingToBusDoesNotExist] for more details.
+   *
+   * @throws ChannelEventBusException.SendException if failed to send the event.
+   * @see ChannelEventBusOptionWhenSendingToBusDoesNotExist
    */
-  public fun <E : ChannelEvent<E>> send(event: E)
+  @Throws(ChannelEventBusException.SendException::class)
+  public fun <E : ChannelEvent<E>> send(
+    event: E,
+    option: ChannelEventBusOptionWhenSendingToBusDoesNotExist = CREATE_NEW_BUS,
+  )
 
   /**
    * Receive events from the bus identified by [ChannelEvent.key].
@@ -72,6 +82,7 @@ public sealed interface ChannelEventBus {
    * @throws ChannelEventBusException.FlowAlreadyCollected if collecting the flow is already collected
    * by another collector.
    */
+  @Throws(ChannelEventBusException.FlowAlreadyCollected::class)
   public fun <T : ChannelEvent<T>> receiveAsFlow(key: ChannelEventKey<T>): Flow<T>
 
   /**
@@ -87,6 +98,7 @@ public sealed interface ChannelEventBus {
    * @throws ChannelEventBusException.CloseException if failed to close the bus.
    * @see ChannelEventBusValidationBeforeClosing
    */
+  @Throws(ChannelEventBusException.CloseException::class)
   public fun closeKey(
     key: ChannelEventKey<*>,
     validations: Set<ChannelEventBusValidationBeforeClosing> = ChannelEventBusValidationBeforeClosing.ALL,
@@ -132,6 +144,13 @@ private class ChannelEventBusImpl(
    * Guarded by [SynchronizedHashMap.lock].
    */
   private val _busMap = SynchronizedHashMap<ChannelEventKey<*>, Bus>()
+
+  private fun getOrNull(key: ChannelEventKey<*>): Bus? = _busMap.synchronized { _busMap[key] }
+
+  private fun getOrThrow(key: ChannelEventKey<*>): Bus = _busMap.synchronized {
+    _busMap[key]
+      ?: throw ChannelEventBusException.SendException.BusDoesNotExist(key)
+  }
 
   private fun getOrCreateBus(key: ChannelEventKey<*>): Bus =
     _busMap.synchronized {
@@ -196,11 +215,20 @@ private class ChannelEventBusImpl(
 
   // ---------------------------------------------------------------------------------------------
 
-  override fun <E : ChannelEvent<E>> send(event: E) = getOrCreateBus(event.key)
-    .channel
-    .trySend(event)
-    .getOrElse { throw ChannelEventBusException.FailedToSendEvent(event, it) }
-    .also { logger?.onSent(event, this) }
+  override fun <E : ChannelEvent<E>> send(
+    event: E,
+    option: ChannelEventBusOptionWhenSendingToBusDoesNotExist,
+  ) {
+    when (option) {
+      CREATE_NEW_BUS -> getOrCreateBus(event.key)
+      THROW_EXCEPTION -> getOrThrow(event.key)
+      DO_NOTHING -> getOrNull(event.key) ?: return
+    }
+      .channel
+      .trySend(event)
+      .getOrElse { throw ChannelEventBusException.SendException.FailedToSendEvent(event, it) }
+      .also { logger?.onSent(event, this) }
+  }
 
   override fun <T : ChannelEvent<T>> receiveAsFlow(key: ChannelEventKey<T>): Flow<T> = flow {
     try {

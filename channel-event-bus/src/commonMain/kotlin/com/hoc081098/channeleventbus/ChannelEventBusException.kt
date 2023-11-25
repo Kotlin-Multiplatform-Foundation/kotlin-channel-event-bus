@@ -7,18 +7,6 @@ public sealed class ChannelEventBusException(message: String?, cause: Throwable?
   public abstract val key: ChannelEventKey<*>
 
   /**
-   * Represents an exception thrown when failed to send an event to a bus.
-   *
-   * @param event the event that failed to send.
-   */
-  public class FailedToSendEvent(
-    public val event: ChannelEvent<*>,
-    cause: Throwable?,
-  ) : ChannelEventBusException("Failed to send event: $event", cause) {
-    override val key: ChannelEventKey<*> get() = event.key
-  }
-
-  /**
    * Represents an exception thrown when trying to collect a flow that is already collected by another collector.
    */
   public class FlowAlreadyCollected(
@@ -50,5 +38,29 @@ public sealed class ChannelEventBusException(message: String?, cause: Throwable?
     public class BusIsNotEmpty(
       override val key: ChannelEventKey<*>,
     ) : CloseException("Bus by key=$key is not empty, try to consume all elements before closing", null)
+  }
+
+  /**
+   *
+   */
+  public sealed class SendException(message: String?, cause: Throwable?) : ChannelEventBusException(message, cause) {
+    /**
+     * Represents an exception thrown when trying to send an event to a bus that does not exist.
+     */
+    public class BusDoesNotExist(
+      override val key: ChannelEventKey<*>,
+    ) : CloseException("Bus by key=$key does not exist", null)
+
+    /**
+     * Represents an exception thrown when failed to send an event to a bus.
+     *
+     * @param event the event that failed to send.
+     */
+    public class FailedToSendEvent(
+      public val event: ChannelEvent<*>,
+      cause: Throwable?,
+    ) : SendException("Failed to send event: $event", cause) {
+      override val key: ChannelEventKey<*> get() = event.key
+    }
   }
 }
