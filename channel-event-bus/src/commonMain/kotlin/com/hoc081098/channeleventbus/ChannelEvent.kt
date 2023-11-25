@@ -15,6 +15,16 @@ public interface ChannelEvent<T : ChannelEvent<T>> {
    */
   public val key: Key<T>
 
+  /**
+   * The [ChannelEvent.Key] to identify a bus for this type of events.
+   *
+   * @param T the type of events.
+   * @param eventClass the [KClass] of events.
+   * @param capacity the [ChannelEventBusCapacity] of the [Channel] associated with this key.
+   * Default is [ChannelEventBusCapacity.UNLIMITED].
+   *
+   * @see [ChannelEventBusCapacity]
+   */
   public open class Key<T : ChannelEvent<T>>(
     @JvmField
     internal val eventClass: KClass<T>,
@@ -24,12 +34,12 @@ public interface ChannelEvent<T : ChannelEvent<T>> {
     final override fun equals(other: Any?): Boolean {
       if (this === other) return true
       if (other !is Key<*>) return false
-      return eventClass == other.eventClass
+      return eventClass == other.eventClass && capacity == other.capacity
     }
 
-    final override fun hashCode(): Int = eventClass.hashCode()
+    final override fun hashCode(): Int = 31 * eventClass.hashCode() + capacity.hashCode()
 
-    final override fun toString(): String = "ChannelEvent.Key(${eventClass.simpleName})"
+    final override fun toString(): String = "ChannelEvent.Key(${eventClass.simpleName}, $capacity)"
 
     @JvmSynthetic
     internal inline fun cast(it: Any): T = eventClass.cast(it)
@@ -56,5 +66,6 @@ public typealias ChannelEventKey<T> = ChannelEvent.Key<T>
  * bus.receiveAsFlow(awesomeEventKey).collect { e: AwesomeEvent -> println(e) }
  * ```
  */
-public inline fun <reified T : ChannelEvent<T>> channelEventKeyOf(): ChannelEventKey<T> =
-  ChannelEventKey(T::class)
+public inline fun <reified T : ChannelEvent<T>> channelEventKeyOf(
+  capacity: ChannelEventBusCapacity = ChannelEventBusCapacity.UNLIMITED,
+): ChannelEventKey<T> = ChannelEventKey(T::class, capacity)

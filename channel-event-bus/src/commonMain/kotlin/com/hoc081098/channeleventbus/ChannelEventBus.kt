@@ -30,7 +30,7 @@ import kotlinx.coroutines.internal.synchronized as coroutinesSynchronized
  * - [ChannelEvent.Key] will be used to identify a bus for a specific type of events.
  *   Each bus has a [Channel] to send events to and a [Flow] to receive events from.
  *
- * - The [Channel] is unbounded [Channel.UNLIMITED].
+ * - The [Channel] is unbounded [Channel.UNLIMITED] (default) or conflated [Channel.CONFLATED].
  *   The [Flow] is cold and only one collector is allowed at a time.
  *   This make sure all events are consumed.
  *
