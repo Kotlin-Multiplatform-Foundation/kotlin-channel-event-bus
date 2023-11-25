@@ -32,7 +32,7 @@ class RegisterSharedVM(
     )
   }.stateIn(
     scope = viewModelScope,
-    started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000),
+    started = SharingStarted.WhileSubscribed(stopTimeoutMillis = @Suppress("MagicNumber") 5_000),
     initialValue = RegisterUiState.Unfilled,
   )
 
@@ -77,7 +77,7 @@ class RegisterSharedVM(
       return
     }
 
-    val line = "-".repeat(80)
+    val line = "-".repeat(@Suppress("MagicNumber") 80)
 
     combine(
       listOf(

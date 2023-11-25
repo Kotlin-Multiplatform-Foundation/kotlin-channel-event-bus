@@ -123,7 +123,9 @@ private fun AppNavHost(
 
         RegisterStepOneScreen(
           registerSharedVM = koinViewModel(viewModelStoreOwner = registerGraphEntry),
-          navigateToRegisterStepTwo = remember(navController) { { navController.navigate(route = Route.RegisterStepTwo.route) } },
+          navigateToRegisterStepTwo = remember(navController) {
+            { navController.navigate(route = Route.RegisterStepTwo.route) }
+          },
         )
       }
 
@@ -137,7 +139,9 @@ private fun AppNavHost(
 
         RegisterStepTwoScreen(
           registerSharedVM = koinViewModel(viewModelStoreOwner = registerGraphEntry),
-          navigateToRegisterStepThree = remember(navController) { { navController.navigate(route = Route.RegisterStepThree.route) } },
+          navigateToRegisterStepThree = remember(navController) {
+            { navController.navigate(route = Route.RegisterStepThree.route) }
+          },
         )
       }
 
@@ -151,13 +155,15 @@ private fun AppNavHost(
 
         RegisterStepThreeScreen(
           registerSharedVM = koinViewModel(viewModelStoreOwner = registerGraphEntry),
-          navigateToHome = remember(navController) { { navController.navigate(route = Route.Home.route) } },
+          navigateToHome = remember(navController) {
+            { navController.navigate(route = Route.Home.route) }
+          },
         )
       }
     }
 
     navigation(startDestination = Route.Home.routePattern, route = "home_graph") {
-      composable(route = Route.Home.routePattern) { entry ->
+      composable(route = Route.Home.routePattern) {
         HomeScreen()
       }
     }

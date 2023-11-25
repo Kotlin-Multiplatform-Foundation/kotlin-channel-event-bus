@@ -74,6 +74,7 @@ private object StdoutChannelEventBusLogger : ChannelEventBusLogger {
 /**
  * The [ChannelEventBusLogger] that do nothing.
  */
+@Suppress("EmptyFunctionBlock")
 private object NoopChannelEventBusLogger : ChannelEventBusLogger {
   override fun onCreated(key: ChannelEventKey<*>, bus: ChannelEventBus) {}
   override fun onSent(event: ChannelEvent<*>, bus: ChannelEventBus) {}

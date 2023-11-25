@@ -30,6 +30,7 @@ import com.hoc081098.channeleventbus.sample.android.ui.register.RegisterUiState
 import com.hoc081098.channeleventbus.sample.android.ui.register.displayName
 import org.koin.androidx.compose.koinViewModel
 
+@Suppress("LongMethod")
 @Composable
 fun RegisterStepThreeScreen(
   registerSharedVM: RegisterSharedVM,

@@ -1,10 +1,8 @@
 package com.hoc081098.channeleventbus.sample.android.ui.register.stepthree
 
 import androidx.compose.runtime.Immutable
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hoc081098.channeleventbus.ChannelEventBus
 import com.hoc081098.channeleventbus.sample.android.ui.register.RegisterUiState
 import com.hoc081098.flowext.flatMapFirst
 import com.hoc081098.flowext.flowFromSuspend
@@ -39,10 +37,7 @@ internal sealed interface RegisterStepThreeUiState {
   data class Failure(val throwable: Throwable) : RegisterStepThreeUiState
 }
 
-class RegisterStepThreeVM(
-  private val savedStateHandle: SavedStateHandle,
-  private val channelEventBus: ChannelEventBus,
-) : ViewModel() {
+class RegisterStepThreeVM : ViewModel() {
   private val _registerFlow = MutableSharedFlow<RegisterUiState.Filled>(extraBufferCapacity = 1)
 
   private val _eventChannel = Channel<RegisterStepThreeSingleEvent>(capacity = Channel.UNLIMITED)
@@ -79,7 +74,7 @@ class RegisterStepThreeVM(
     Timber.d("doRegister $state")
 
     // simulate network request
-    delay(2_000)
+    delay(@Suppress("MagicNumber") 2_000)
     if (Random.nextBoolean()) {
       throw IOException("Network error")
         .also { Timber.e(it, "Register failed") }
@@ -99,8 +94,5 @@ class RegisterStepThreeVM(
         viewModelScope.launch { _registerFlow.emit(state) }
       }
     }
-  }
-
-  companion object {
   }
 }
