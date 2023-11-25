@@ -13,6 +13,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.getOrElse
+import kotlinx.coroutines.channels.onSuccess
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
@@ -235,8 +236,8 @@ private class ChannelEventBusImpl(
     }
       .channel
       .trySend(event)
+      .onSuccess { logger?.onSent(event, this) }
       .getOrElse { throw ChannelEventBusException.SendException.FailedToSendEvent(event, it) }
-      .also { logger?.onSent(event, this) }
   }
 
   override fun <T : ChannelEvent<T>> receiveAsFlow(key: ChannelEventKey<T>): Flow<T> = flow {
