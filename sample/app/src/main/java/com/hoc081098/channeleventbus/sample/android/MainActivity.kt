@@ -39,6 +39,7 @@ import com.hoc081098.channeleventbus.sample.android.ui.register.stepone.Register
 import com.hoc081098.channeleventbus.sample.android.ui.register.stepthree.RegisterStepThreeScreen
 import com.hoc081098.channeleventbus.sample.android.ui.register.steptwo.RegisterStepTwoScreen
 import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.KoinContext
 import timber.log.Timber
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -47,57 +48,59 @@ class MainActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
 
     setContent {
-      MyApplicationTheme {
-        Surface(
-          modifier = Modifier.fillMaxSize(),
-          color = MaterialTheme.colorScheme.background,
-        ) {
-          val navController = rememberNavController()
-          val currentBackStackEntryAsState = navController.currentBackStackEntryAsState()
+      KoinContext {
+        MyApplicationTheme {
+          Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.background,
+          ) {
+            val navController = rememberNavController()
+            val currentBackStackEntryAsState = navController.currentBackStackEntryAsState()
 
-          val route by rememberCurrentRouteAsState(currentBackStackEntryAsState)
-          val previousBackStackEntry by remember(currentBackStackEntryAsState) {
-            derivedStateOf {
-              currentBackStackEntryAsState.value
-              navController.previousBackStackEntry
+            val route by rememberCurrentRouteAsState(currentBackStackEntryAsState)
+            val previousBackStackEntry by remember(currentBackStackEntryAsState) {
+              derivedStateOf {
+                currentBackStackEntryAsState.value
+                navController.previousBackStackEntry
+              }
             }
-          }
 
-          Scaffold(
-            topBar = {
-              TopAppBar(
-                title = {
-                  Text(
-                    text = when (route) {
-                      Route.RegisterStepOne -> "Register step 1"
-                      Route.RegisterStepTwo -> "Register step 2"
-                      Route.RegisterStepThree -> "Register step 3"
-                      Route.Home -> "Home"
-                      Route.Detail -> "Detail"
-                      null -> ""
-                    },
-                  )
-                },
-                navigationIcon = {
-                  if (previousBackStackEntry != null) {
-                    IconButton(onClick = navController::popBackStack) {
-                      Icon(
-                        imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Back",
-                      )
+            Scaffold(
+              topBar = {
+                TopAppBar(
+                  title = {
+                    Text(
+                      text = when (route) {
+                        Route.RegisterStepOne -> "Register step 1"
+                        Route.RegisterStepTwo -> "Register step 2"
+                        Route.RegisterStepThree -> "Register step 3"
+                        Route.Home -> "Home"
+                        Route.Detail -> "Detail"
+                        null -> ""
+                      },
+                    )
+                  },
+                  navigationIcon = {
+                    if (previousBackStackEntry != null) {
+                      IconButton(onClick = navController::popBackStack) {
+                        Icon(
+                          imageVector = Icons.Default.ArrowBack,
+                          contentDescription = "Back",
+                        )
+                      }
                     }
-                  }
-                },
+                  },
+                )
+              },
+            ) { innerPadding ->
+              AppNavHost(
+                modifier = Modifier
+                  .padding(innerPadding)
+                  .consumeWindowInsets(innerPadding)
+                  .fillMaxSize(),
+                navController = navController,
               )
-            },
-          ) { innerPadding ->
-            AppNavHost(
-              modifier = Modifier
-                .padding(innerPadding)
-                .consumeWindowInsets(innerPadding)
-                .fillMaxSize(),
-              navController = navController,
-            )
+            }
           }
         }
       }
