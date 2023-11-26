@@ -44,6 +44,11 @@ internal sealed class Route {
     val route = routePattern
   }
 
+  data object Detail : Route() {
+    override val routePattern = "detail"
+    val route = routePattern
+  }
+
   companion object {
     private val VALUES: ImmutableList<Route> by lazy {
       persistentListOf(

@@ -33,7 +33,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import androidx.navigation.navigation
 import com.hoc081098.channeleventbus.sample.android.common.MyApplicationTheme
-import com.hoc081098.channeleventbus.sample.android.ui.home.HomeScreen
+import com.hoc081098.channeleventbus.sample.android.ui.home.detail.DetailScreen
+import com.hoc081098.channeleventbus.sample.android.ui.home.home.HomeScreen
 import com.hoc081098.channeleventbus.sample.android.ui.register.stepone.RegisterStepOneScreen
 import com.hoc081098.channeleventbus.sample.android.ui.register.stepthree.RegisterStepThreeScreen
 import com.hoc081098.channeleventbus.sample.android.ui.register.steptwo.RegisterStepTwoScreen
@@ -72,6 +73,7 @@ class MainActivity : ComponentActivity() {
                       Route.RegisterStepTwo -> "Register step 2"
                       Route.RegisterStepThree -> "Register step 3"
                       Route.Home -> "Home"
+                      Route.Detail -> "Detail"
                       null -> ""
                     },
                   )
@@ -182,7 +184,23 @@ private fun AppNavHost(
 
     navigation(startDestination = Route.Home.routePattern, route = "home_graph") {
       composable(route = Route.Home.routePattern) {
-        HomeScreen()
+        HomeScreen(
+          navigateToDetail = remember(navController) {
+            {
+              navController.navigate(route = Route.Detail.route)
+            }
+          },
+        )
+      }
+
+      composable(route = Route.Detail.routePattern) {
+        DetailScreen(
+          navigateBack = remember(navController) {
+            {
+              navController.popBackStack()
+            }
+          },
+        )
       }
     }
   }
