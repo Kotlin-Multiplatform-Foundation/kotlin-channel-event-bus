@@ -15,7 +15,7 @@ internal fun rememberCurrentRouteAsState(currentBackStackEntryAsState: State<Nav
       currentBackStackEntryAsState.value
         ?.destination
         ?.route
-        ?.let(Route.Companion::ofOrNull)
+        ?.let(Route::ofOrNull)
     }
   }
 
@@ -55,6 +55,8 @@ internal sealed class Route {
         RegisterStepOne,
         RegisterStepTwo,
         RegisterStepThree,
+        Home,
+        Detail,
       )
     }
 

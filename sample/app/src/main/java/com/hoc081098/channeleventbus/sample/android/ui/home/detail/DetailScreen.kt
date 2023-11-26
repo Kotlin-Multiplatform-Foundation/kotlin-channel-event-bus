@@ -43,7 +43,7 @@ fun DetailScreen(
     Column(
       modifier = Modifier.matchParentSize(),
       horizontalAlignment = Alignment.CenterHorizontally,
-      verticalArrangement = Arrangement.Center,
+      verticalArrangement = Arrangement.Top,
     ) {
       Text(
         text = "Detail",
@@ -69,6 +69,7 @@ fun DetailScreen(
       Spacer(modifier = Modifier.height(16.dp))
 
       ElevatedButton(
+        enabled = text.isNotBlank(),
         onClick = {
           vm.sendResultToHome()
           navigateBack()

@@ -10,7 +10,7 @@ import kotlinx.collections.immutable.plus
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.scan
 import kotlinx.coroutines.flow.stateIn
@@ -25,8 +25,14 @@ class HomeVM(
       // Close the bus when this ViewModel is cleared.
       channelEventBus.closeKey(DetailResultToHomeEvent)
     }
-    .map { it.value }
-    .scan(persistentListOf<String>()) { acc, e -> acc + e }
+    .mapNotNull { it.value.takeIf(String::isNotBlank) }
+    .scan(persistentListOf<String>()) { acc, e ->
+      if (e in acc) {
+        acc
+      } else {
+        acc + e
+      }
+    }
     .stateIn(
       scope = viewModelScope,
       // Using SharingStarted.Lazily is enough, because the event bus is backed by a channel.
