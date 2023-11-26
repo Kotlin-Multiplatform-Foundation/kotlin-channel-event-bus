@@ -21,7 +21,8 @@ class DetailVM(
   }
 
   internal fun sendResultToHome() {
-    channelEventBus.send(DetailResultToHomeEvent(textStateFlow.value))
+    val value = textStateFlow.value.takeIf { it.isNotBlank() } ?: return
+    channelEventBus.send(DetailResultToHomeEvent(value))
   }
 
   private companion object {
