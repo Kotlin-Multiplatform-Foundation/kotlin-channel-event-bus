@@ -38,7 +38,7 @@ internal sealed interface RegisterStepThreeUiState {
 
 class RegisterStepThreeVM(
   private val singleEventChannel: SingleEventChannel<RegisterStepThreeSingleEvent>,
-) : ViewModel(),
+) : ViewModel(singleEventChannel),
   HasSingleEventFlow<RegisterStepThreeSingleEvent> by singleEventChannel {
   private val _registerFlow = MutableSharedFlow<RegisterUiState.Filled>(extraBufferCapacity = 1)
 
@@ -61,10 +61,10 @@ class RegisterStepThreeVM(
       Unit
 
     is RegisterStepThreeUiState.Failure ->
-      singleEventChannel.send(RegisterStepThreeSingleEvent.Failure(state.throwable))
+      singleEventChannel.sendEvent(RegisterStepThreeSingleEvent.Failure(state.throwable))
 
     RegisterStepThreeUiState.Success ->
-      singleEventChannel.send(RegisterStepThreeSingleEvent.Success)
+      singleEventChannel.sendEvent(RegisterStepThreeSingleEvent.Success)
   }
 
   internal fun register(state: RegisterUiState) {

@@ -3,6 +3,7 @@ package com.hoc081098.channeleventbus.sample.android
 import android.app.Application
 import com.hoc081098.channeleventbus.ChannelEventBus
 import com.hoc081098.channeleventbus.ChannelEventBusLogger
+import com.hoc081098.channeleventbus.sample.android.common.SingleEventChannel
 import com.hoc081098.channeleventbus.sample.android.ui.home.HomeModule
 import com.hoc081098.channeleventbus.sample.android.ui.register.RegisterModule
 import org.koin.android.ext.koin.androidContext
@@ -46,6 +47,9 @@ class MyApp : Application() {
         ChannelEventBusModule,
         RegisterModule,
         HomeModule,
+        module {
+          factory { SingleEventChannel<Any?>() }
+        },
       )
     }
   }

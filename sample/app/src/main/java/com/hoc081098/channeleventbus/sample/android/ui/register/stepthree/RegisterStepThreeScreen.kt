@@ -47,7 +47,7 @@ fun RegisterStepThreeScreen(
   val currentNavigateToHome by rememberUpdatedState(navigateToHome)
   val context = rememberStableWrapperOf(LocalContext.current)
 
-  vm.eventFlow.CollectWithLifecycleEffect { event ->
+  vm.singleEventFlow.CollectWithLifecycleEffect { event ->
     when (event) {
       is RegisterStepThreeSingleEvent.Failure -> {
         Toast

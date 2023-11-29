@@ -21,7 +21,7 @@ interface HasSingleEventFlow<E> {
    * Must collect in [Dispatchers.Main.immediate][kotlinx.coroutines.MainCoroutineDispatcher.immediate].
    * Safe to call in the coroutines launched by [androidx.lifecycle.lifecycleScope].
    */
-  val eventFlow: Flow<E>
+  val singleEventFlow: Flow<E>
 }
 
 @MainThread
@@ -30,7 +30,7 @@ interface SingleEventFlowSender<E> {
    * Must call in [Dispatchers.Main.immediate][kotlinx.coroutines.MainCoroutineDispatcher.immediate].
    * Safe to call in the coroutines launched by [androidx.lifecycle.viewModelScope].
    */
-  suspend fun send(event: E)
+  suspend fun sendEvent(event: E)
 }
 
 @MainThread
@@ -40,7 +40,7 @@ class SingleEventChannel<E> constructor() :
   SingleEventFlowSender<E> {
   private val _eventChannel = Channel<E>(Channel.UNLIMITED)
 
-  override val eventFlow: Flow<E> by lazy(NONE) {
+  override val singleEventFlow: Flow<E> by lazy(NONE) {
     if (BuildConfig.DEBUG) {
       flow {
         debugCheckImmediateMainDispatcher()
@@ -61,7 +61,7 @@ class SingleEventChannel<E> constructor() :
    * use `withContext(Dispatchers.Main.immediate) { eventChannel.send(event) }`
    */
   @MainThread
-  override suspend fun send(event: E) {
+  override suspend fun sendEvent(event: E) {
     debugCheckImmediateMainDispatcher()
 
     _eventChannel
