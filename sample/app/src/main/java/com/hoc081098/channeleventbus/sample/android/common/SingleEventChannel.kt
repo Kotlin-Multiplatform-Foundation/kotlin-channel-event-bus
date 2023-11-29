@@ -25,7 +25,7 @@ interface HasSingleEventFlow<E> {
 }
 
 @MainThread
-interface SingleEventFlowSender<E> {
+sealed interface SingleEventFlowSender<E> {
   /**
    * Must call in [Dispatchers.Main.immediate][kotlinx.coroutines.MainCoroutineDispatcher.immediate].
    * Safe to call in the coroutines launched by [androidx.lifecycle.viewModelScope].
