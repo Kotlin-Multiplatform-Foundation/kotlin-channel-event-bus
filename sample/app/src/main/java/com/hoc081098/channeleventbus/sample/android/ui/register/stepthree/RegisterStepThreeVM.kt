@@ -3,28 +3,27 @@ package com.hoc081098.channeleventbus.sample.android.ui.register.stepthree
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hoc081098.channeleventbus.sample.android.common.HasSingleEventFlow
+import com.hoc081098.channeleventbus.sample.android.common.SingleEventChannel
 import com.hoc081098.channeleventbus.sample.android.ui.register.RegisterUiState
 import com.hoc081098.flowext.flatMapFirst
 import com.hoc081098.flowext.flowFromSuspend
 import com.hoc081098.flowext.startWith
 import java.io.IOException
 import kotlin.random.Random
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @Immutable
-internal sealed interface RegisterStepThreeSingleEvent {
+sealed interface RegisterStepThreeSingleEvent {
   data object Success : RegisterStepThreeSingleEvent
   data class Failure(val throwable: Throwable) : RegisterStepThreeSingleEvent
 }
@@ -37,11 +36,11 @@ internal sealed interface RegisterStepThreeUiState {
   data class Failure(val throwable: Throwable) : RegisterStepThreeUiState
 }
 
-class RegisterStepThreeVM : ViewModel() {
+class RegisterStepThreeVM(
+  private val singleEventChannel: SingleEventChannel<RegisterStepThreeSingleEvent>,
+) : ViewModel(),
+  HasSingleEventFlow<RegisterStepThreeSingleEvent> by singleEventChannel {
   private val _registerFlow = MutableSharedFlow<RegisterUiState.Filled>(extraBufferCapacity = 1)
-
-  private val _eventChannel = Channel<RegisterStepThreeSingleEvent>(capacity = Channel.UNLIMITED)
-  internal val eventFlow: Flow<RegisterStepThreeSingleEvent> = _eventChannel.receiveAsFlow()
 
   internal val uiStateFlow: StateFlow<RegisterStepThreeUiState> = _registerFlow
     .flatMapFirst { state ->
@@ -57,17 +56,15 @@ class RegisterStepThreeVM : ViewModel() {
       initialValue = RegisterStepThreeUiState.Idle,
     )
 
-  private fun sendEvent(state: RegisterStepThreeUiState) {
-    when (state) {
-      RegisterStepThreeUiState.Idle, RegisterStepThreeUiState.Registering ->
-        Unit
+  private suspend fun sendEvent(state: RegisterStepThreeUiState) = when (state) {
+    RegisterStepThreeUiState.Idle, RegisterStepThreeUiState.Registering ->
+      Unit
 
-      is RegisterStepThreeUiState.Failure ->
-        _eventChannel.trySend(RegisterStepThreeSingleEvent.Failure(state.throwable))
+    is RegisterStepThreeUiState.Failure ->
+      singleEventChannel.send(RegisterStepThreeSingleEvent.Failure(state.throwable))
 
-      RegisterStepThreeUiState.Success ->
-        _eventChannel.trySend(RegisterStepThreeSingleEvent.Success)
-    }
+    RegisterStepThreeUiState.Success ->
+      singleEventChannel.send(RegisterStepThreeSingleEvent.Success)
   }
 
   internal fun register(state: RegisterUiState) {

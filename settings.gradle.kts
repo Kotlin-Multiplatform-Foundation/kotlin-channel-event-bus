@@ -14,6 +14,7 @@ dependencyResolutionManagement {
     google()
     mavenCentral()
     gradlePluginPortal()
+    maven(url = "https://androidx.dev/storage/compose-compiler/repository/")
   }
 }
 
@@ -22,5 +23,5 @@ include(":channel-event-bus")
 include(":sample:app")
 
 plugins {
-  id("org.gradle.toolchains.foojay-resolver-convention") version("0.7.0")
+  id("org.gradle.toolchains.foojay-resolver-convention") version ("0.7.0")
 }
