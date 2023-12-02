@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -58,24 +58,21 @@ fun HomeScreen(
       LazyColumn(
         modifier = Modifier.weight(1f),
         contentPadding = PaddingValues(all = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
       ) {
-        itemsIndexed(
+        items(
           items = detailResults,
-          key = { _, item -> item },
-          contentType = { _, _ -> "DetailResult" },
-        ) { index, result ->
+          key = { it.asString() },
+          contentType = { "DetailResult" },
+        ) { result ->
           Text(
             modifier = Modifier.fillParentMaxWidth(),
-            text = result,
+            text = result.asString(),
             style = MaterialTheme.typography.bodyMedium,
             textAlign = TextAlign.Start,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
           )
-
-          if (index != detailResults.lastIndex) {
-            Spacer(modifier = Modifier.height(8.dp))
-          }
         }
       }
     }

@@ -6,6 +6,7 @@ import com.hoc081098.channeleventbus.ChannelEventBus
 import com.hoc081098.channeleventbus.sample.android.common.SafeSavedStateHandle
 import com.hoc081098.channeleventbus.sample.android.common.SavedStateHandleKey
 import com.hoc081098.channeleventbus.sample.android.ui.home.DetailResultToHomeEvent
+import com.hoc081098.channeleventbus.sample.android.utils.NonBlankString.Companion.toNonBlankString
 import kotlinx.coroutines.flow.StateFlow
 
 class DetailVM(
@@ -21,8 +22,10 @@ class DetailVM(
   }
 
   internal fun sendResultToHome() {
-    val value = textStateFlow.value.takeIf { it.isNotBlank() } ?: return
-    channelEventBus.send(DetailResultToHomeEvent(value))
+    textStateFlow.value
+      .toNonBlankString()
+      .map(::DetailResultToHomeEvent)
+      .onSuccess(channelEventBus::send)
   }
 
   private companion object {

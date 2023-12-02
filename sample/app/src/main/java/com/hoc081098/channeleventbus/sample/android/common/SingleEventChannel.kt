@@ -20,6 +20,8 @@ interface HasSingleEventFlow<E> {
   /**
    * Must collect in [Dispatchers.Main.immediate][kotlinx.coroutines.MainCoroutineDispatcher.immediate].
    * Safe to call in the coroutines launched by [androidx.lifecycle.lifecycleScope].
+   *
+   * In Compose, we can use [CollectWithLifecycleEffect] with `inImmediateMain = true`.
    */
   val singleEventFlow: Flow<E>
 }
@@ -34,7 +36,7 @@ sealed interface SingleEventFlowSender<E> {
 }
 
 @MainThread
-class SingleEventChannel<E> constructor() :
+class SingleEventChannel<E> :
   Closeable,
   HasSingleEventFlow<E>,
   SingleEventFlowSender<E> {
