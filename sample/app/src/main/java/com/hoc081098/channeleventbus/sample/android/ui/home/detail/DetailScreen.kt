@@ -17,12 +17,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.hoc081098.channeleventbus.sample.android.common.CollectWithLifecycleEffect
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.compose.koinViewModel
 
@@ -32,6 +34,13 @@ fun DetailScreen(
   modifier: Modifier = Modifier,
   vm: DetailVM = koinViewModel(),
 ) {
+  val currentNavigateBack by rememberUpdatedState(navigateBack)
+  vm.singleEventFlow.CollectWithLifecycleEffect { event ->
+    when (event) {
+      DetailSingleEvent.Complete -> currentNavigateBack()
+    }
+  }
+
   val text by vm
     .textStateFlow
     .collectAsStateWithLifecycle(context = Dispatchers.Main.immediate)
@@ -70,10 +79,7 @@ fun DetailScreen(
 
       ElevatedButton(
         enabled = text.isNotBlank(),
-        onClick = {
-          vm.sendResultToHome()
-          navigateBack()
-        },
+        onClick = remember { vm::sendResultToHome },
       ) {
         Text(text = "Send to home screen")
       }
