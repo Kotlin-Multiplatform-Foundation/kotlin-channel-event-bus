@@ -11,7 +11,7 @@ class SavedStateHandleKey<T>(
 )
 
 inline fun <T> SavedStateHandle.safeGet(key: SavedStateHandleKey<T>): T {
-  return if (contains(key.key)) {
+  return if (key.key in this) {
     @Suppress("UNCHECKED_CAST", "RemoveExplicitTypeArguments")
     get<T>(key.key) as T
   } else {
