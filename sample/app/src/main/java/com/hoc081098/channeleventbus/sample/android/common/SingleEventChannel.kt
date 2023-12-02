@@ -1,7 +1,7 @@
 package com.hoc081098.channeleventbus.sample.android.common
 
 import androidx.annotation.MainThread
-import com.hoc081098.channeleventbus.sample.android.BuildConfig
+import androidx.lifecycle.ViewModel
 import java.io.Closeable
 import java.lang.System.identityHashCode
 import kotlin.LazyThreadSafetyMode.NONE
@@ -10,10 +10,21 @@ import kotlinx.coroutines.channels.onClosed
 import kotlinx.coroutines.channels.onFailure
 import kotlinx.coroutines.channels.onSuccess
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.emitAll
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import timber.log.Timber
+
+sealed interface SingleEventFlow<E> : Flow<E> {
+  /**
+   * Must collect in [Dispatchers.Main.immediate][kotlinx.coroutines.MainCoroutineDispatcher.immediate].
+   * Safe to call in the coroutines launched by [androidx.lifecycle.lifecycleScope].
+   *
+   * In Compose, we can use [CollectWithLifecycleEffect] with `inImmediateMain = true`.
+   */
+  @MainThread
+  override suspend fun collect(collector: FlowCollector<E>)
+}
 
 @MainThread
 interface HasSingleEventFlow<E> {
@@ -23,7 +34,7 @@ interface HasSingleEventFlow<E> {
    *
    * In Compose, we can use [CollectWithLifecycleEffect] with `inImmediateMain = true`.
    */
-  val singleEventFlow: Flow<E>
+  val singleEventFlow: SingleEventFlow<E>
 }
 
 @MainThread
@@ -35,6 +46,13 @@ sealed interface SingleEventFlowSender<E> {
   suspend fun sendEvent(event: E)
 }
 
+private class SingleEventFlowImpl<E>(private val channel: Channel<E>) : SingleEventFlow<E> {
+  override suspend fun collect(collector: FlowCollector<E>) {
+    debugCheckImmediateMainDispatcher()
+    return collector.emitAll(channel.receiveAsFlow())
+  }
+}
+
 @MainThread
 class SingleEventChannel<E> :
   Closeable,
@@ -42,16 +60,7 @@ class SingleEventChannel<E> :
   SingleEventFlowSender<E> {
   private val _eventChannel = Channel<E>(Channel.UNLIMITED)
 
-  override val singleEventFlow: Flow<E> by lazy(NONE) {
-    if (BuildConfig.DEBUG) {
-      flow {
-        debugCheckImmediateMainDispatcher()
-        emitAll(_eventChannel.receiveAsFlow())
-      }
-    } else {
-      _eventChannel.receiveAsFlow()
-    }
-  }
+  override val singleEventFlow: SingleEventFlow<E> by lazy(NONE) { SingleEventFlowImpl(_eventChannel) }
 
   init {
     Timber.d("[EventChannel] created: hashCode=${identityHashCode(this)}")
@@ -78,3 +87,7 @@ class SingleEventChannel<E> :
     Timber.d("[EventChannel] closed: hashCode=${identityHashCode(this)}")
   }
 }
+
+@Suppress("NOTHING_TO_INLINE")
+inline fun <E> SingleEventChannel<E>.addToViewModel(viewModel: ViewModel) =
+  apply { viewModel.addCloseable(this) }
