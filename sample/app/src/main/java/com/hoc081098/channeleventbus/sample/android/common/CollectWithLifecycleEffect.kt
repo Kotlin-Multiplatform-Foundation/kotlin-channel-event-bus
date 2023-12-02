@@ -21,13 +21,15 @@ import kotlinx.coroutines.launch
 /**
  * Collect the given [Flow] in an effect that runs when [LifecycleOwner.lifecycle] is at least at [minActiveState].
  *
- * If [inImmediateMain] is `true`, the effect will run in [Dispatchers.Main.immediate][kotlinx.coroutines.MainCoroutineDispatcher.immediate],
+ * If [inImmediateMain] is `true`, the effect will run in
+ * [Dispatchers.Main.immediate][kotlinx.coroutines.MainCoroutineDispatcher.immediate],
  * otherwise it will run in [androidx.compose.runtime.Composer.applyCoroutineContext].
  *
  * @param keys Keys to be used to [remember] the effect.
  * @param lifecycleOwner The [LifecycleOwner] to be used to [repeatOnLifecycle].
  * @param minActiveState The minimum [Lifecycle.State] to be used to [repeatOnLifecycle].
- * @param inImmediateMain Whether the effect should run in [Dispatchers.Main.immediate][kotlinx.coroutines.MainCoroutineDispatcher.immediate].
+ * @param inImmediateMain Whether the effect should run in
+ * [Dispatchers.Main.immediate][kotlinx.coroutines.MainCoroutineDispatcher.immediate].
  * @param collector The collector to be used to collect the [Flow].
  *
  * @see [LaunchedEffect]

@@ -41,7 +41,7 @@ class DetailVM(
 
   init {
     fun process(): Flow<Unit> = flowFromSuspend {
-      delay(500) // simulate a long-running task
+      delay(@Suppress("MagicNumber") 500) // simulate a long-running task
 
       textStateFlow.value
         .toNonBlankString()

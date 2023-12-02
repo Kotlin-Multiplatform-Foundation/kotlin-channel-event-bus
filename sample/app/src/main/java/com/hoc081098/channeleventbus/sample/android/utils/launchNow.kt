@@ -12,9 +12,10 @@ import kotlinx.coroutines.launch
  * Launch a coroutine immediately to collect the flow.
  * It is a shortcut for `scope.launch(CoroutineStart.UNDISPATCHED) { flow.collect() }`.
  *
- * This differs from [kotlinx.coroutines.flow.launchIn] in that the collection is started immediately _in the current thread_
+ * This differs from [kotlinx.coroutines.flow.launchIn] in that the collection is started immediately
+ * _in the current thread_
  * until the first suspension point, without dispatching to the [CoroutineDispatcher] of the scope context.
- * However, when the coroutine is resumed from suspension, it is dispatched according to the [CoroutineDispatcher] in its context.
+ * However, when the coroutine is resumed from suspension, it is dispatched to the [CoroutineDispatcher] in its context.
  *
  * This is useful when collecting a [kotlinx.coroutines.flow.SharedFlow] which does not replay or buffer values,
  * and you don't want to miss any values due to the dispatching to the [CoroutineDispatcher].
