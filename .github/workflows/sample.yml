@@ -18,7 +18,7 @@ jobs:
   android:
     strategy:
       matrix:
-        os: [ linux-latest ]
+        os: [ ubuntu-latest ]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
