@@ -135,10 +135,13 @@ bus
 - `jvm` / `android`.
 - `js` (`IR`).
 - `Darwin` targets:
-  - `iosArm64`, `iosArm32`, `iosX64`, `iosSimulatorArm64`.
-  - `watchosArm32`, `watchosArm64`, `watchosX64`, `watchosX86`, `watchosSimulatorArm64`.
+  - `iosArm64`, `iosX64`, `iosSimulatorArm64`.
+  - `watchosArm32`, `watchosArm64`, `watchosX64`, `watchosSimulatorArm64`, `watchosDeviceArm64`.
   - `tvosX64`, `tvosSimulatorArm64`, `tvosArm64`.
   - `macosX64`, `macosArm64`.
+- `mingwX64`
+- `linuxX64`, `linuxArm64`.
+- `androidNativeArm32`, `androidNativeArm64`, `androidNativeX86`, `androidNativeX64`.
 
 ## Sample
 
