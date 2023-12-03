@@ -9,13 +9,18 @@
 [![KotlinX Coroutines version](https://img.shields.io/badge/Kotlinx_Coroutines-1.7.3-blueviolet?logo=kotlin&logoColor=white)](https://github.com/Kotlin/kotlinx.coroutines/releases/tag/1.7.3)
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fhoc081098%2Fkotlin-channel-event-bus&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 [![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](https://www.apache.org/licenses/LICENSE-2.0)
-![badge][badge-jvm]
 ![badge][badge-android]
+![badge][badge-jvm]
 ![badge][badge-js]
+![badge][badge-js-ir]
+![badge][badge-nodejs]
+![badge][badge-linux]
+![badge][badge-windows]
 ![badge][badge-ios]
 ![badge][badge-mac]
-![badge][badge-tvos]
 ![badge][badge-watchos]
+![badge][badge-tvos]
+![badge][badge-apple-silicon]
 
 <p align="center">
     <img src="https://github.com/hoc081098/kotlin-channel-event-bus/raw/master/logo.png" width="400">
@@ -177,24 +182,18 @@ https://github.com/hoc081098/kotlin-channel-event-bus/assets/36917223/80015232-d
                         http://www.apache.org/licenses/
 ```
 
-[badge-android]: http://img.shields.io/badge/android-6EDB8D.svg?style=flat
-
-[badge-ios]: http://img.shields.io/badge/ios-CDCDCD.svg?style=flat
-
-[badge-js]: http://img.shields.io/badge/js-F8DB5D.svg?style=flat
-
-[badge-jvm]: http://img.shields.io/badge/jvm-DB413D.svg?style=flat
-
-[badge-linux]: http://img.shields.io/badge/linux-2D3F6C.svg?style=flat
-
-[badge-windows]: http://img.shields.io/badge/windows-4D76CD.svg?style=flat
-
-[badge-mac]: http://img.shields.io/badge/macos-111111.svg?style=flat
-
-[badge-watchos]: http://img.shields.io/badge/watchos-C0C0C0.svg?style=flat
-
-[badge-tvos]: http://img.shields.io/badge/tvos-808080.svg?style=flat
-
-[badge-wasm]: https://img.shields.io/badge/wasm-624FE8.svg?style=flat
-
-[badge-nodejs]: https://img.shields.io/badge/nodejs-68a063.svg?style=flat
+[badge-android]: http://img.shields.io/badge/-android-6EDB8D.svg?style=flat
+[badge-android-native]: http://img.shields.io/badge/support-[AndroidNative]-6EDB8D.svg?style=flat
+[badge-wearos]: http://img.shields.io/badge/-wearos-8ECDA0.svg?style=flat
+[badge-jvm]: http://img.shields.io/badge/-jvm-DB413D.svg?style=flat
+[badge-js]: http://img.shields.io/badge/-js-F8DB5D.svg?style=flat
+[badge-js-ir]: https://img.shields.io/badge/support-[IR]-AAC4E0.svg?style=flat
+[badge-nodejs]: https://img.shields.io/badge/-nodejs-68a063.svg?style=flat
+[badge-linux]: http://img.shields.io/badge/-linux-2D3F6C.svg?style=flat 
+[badge-windows]: http://img.shields.io/badge/-windows-4D76CD.svg?style=flat
+[badge-wasm]: https://img.shields.io/badge/-wasm-624FE8.svg?style=flat
+[badge-apple-silicon]: http://img.shields.io/badge/support-[AppleSilicon]-43BBFF.svg?style=flat
+[badge-ios]: http://img.shields.io/badge/-ios-CDCDCD.svg?style=flat
+[badge-mac]: http://img.shields.io/badge/-macos-111111.svg?style=flat
+[badge-watchos]: http://img.shields.io/badge/-watchos-C0C0C0.svg?style=flat
+[badge-tvos]: http://img.shields.io/badge/-tvos-808080.svg?style=flat
