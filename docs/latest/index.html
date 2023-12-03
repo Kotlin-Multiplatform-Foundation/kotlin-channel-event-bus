@@ -289,6 +289,39 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#snapshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Snapshot
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#basic-usage" class="md-nav__link">
     <span class="md-ellipsis">
       Basic usage
@@ -301,15 +334,6 @@
   <a href="#supported-targets" class="md-nav__link">
     <span class="md-ellipsis">
       Supported targets
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#docs" class="md-nav__link">
-    <span class="md-ellipsis">
-      Docs
     </span>
   </a>
   
@@ -434,6 +458,55 @@
 <h2 id="author-petrus-nguyen-thai-hoc">Author: <a href="https://github.com/hoc081098">Petrus Nguyễn Thái Học</a><a class="headerlink" href="#author-petrus-nguyen-thai-hoc" title="Permanent link">&para;</a></h2>
 <p>Liked some of my work? Buy me a coffee (or more likely a beer)</p>
 <p><a href="https://www.buymeacoffee.com/hoc081098" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" height=64></a></p>
+<h2 id="docs">Docs<a class="headerlink" href="#docs" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>latest release</code> docs: <a href="https://hoc081098.github.io/kotlin-channel-event-bus/docs/latest">https://hoc081098.github.io/kotlin-channel-event-bus/docs/latest</a></li>
+<li>Snapshot docs: <a href="https://hoc081098.github.io/kotlin-channel-event-bus/docs/latest/">https://hoc081098.github.io/kotlin-channel-event-bus/docs/latest/</a></li>
+</ul>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">allprojects</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">repositories</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="o">[</span><span class="p">...</span><span class="o">]</span>
+<span class="w">    </span><span class="n">mavenCentral</span><span class="p">()</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;io.github.hoc081098:channel-event-bus:0.0.1&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="snapshot">Snapshot<a class="headerlink" href="#snapshot" title="Permanent link">&para;</a></h3>
+<details>
+  <summary>Snapshots of the development version are available in Sonatype's snapshots repository.</summary>
+
+- Kotlin
+
+<div class="highlight"><pre><span></span><code><span class="n">allprojects</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">repositories</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="o">[</span><span class="p">...</span><span class="o">]</span>
+<span class="w">    </span><span class="n">maven</span><span class="p">(</span><span class="n">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;https://s01.oss.sonatype.org/content/repositories/snapshots/&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;io.github.hoc081098:channel-event-bus:0.0.2-SNAPSHOT&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+- Groovy
+
+<div class="highlight"><pre><span></span><code><span class="n">allprojects</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span><span class="n">repositories</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="o">[...]</span>
+<span class="w">    </span><span class="n">maven</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="s2">&quot;https://s01.oss.sonatype.org/content/repositories/snapshots/&quot;</span><span class="w"> </span><span class="o">}</span>
+<span class="w">  </span><span class="o">}</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span><span class="w"> </span><span class="o">{</span>
+<span class="w">  </span><span class="n">implementation</span><span class="w"> </span><span class="s1">&#39;io.github.hoc081098:channel-event-bus:0.0.2-SNAPSHOT&#39;</span>
+<span class="o">}</span>
+</code></pre></div>
+
+</details>
+
 <h2 id="basic-usage">Basic usage<a class="headerlink" href="#basic-usage" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="c1">// Create your event type</span>
 <span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">AwesomeEvent</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">payload</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ChannelEvent</span><span class="o">&lt;</span><span class="n">AwesomeEvent</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
@@ -464,11 +537,6 @@
 <li><code>watchosArm32</code>, <code>watchosArm64</code>, <code>watchosX64</code>, <code>watchosX86</code>, <code>watchosSimulatorArm64</code>.</li>
 <li><code>tvosX64</code>, <code>tvosSimulatorArm64</code>, <code>tvosArm64</code>.</li>
 <li><code>macosX64</code>, <code>macosArm64</code>.</li>
-</ul>
-<h2 id="docs">Docs<a class="headerlink" href="#docs" title="Permanent link">&para;</a></h2>
-<ul>
-<li><code>latest release</code> docs: <a href="https://hoc081098.github.io/kotlin-channel-event-bus/docs/latest">https://hoc081098.github.io/kotlin-channel-event-bus/docs/latest</a></li>
-<li>Snapshot docs: <a href="https://hoc081098.github.io/kotlin-channel-event-bus/docs/latest/">https://hoc081098.github.io/kotlin-channel-event-bus/docs/latest/</a></li>
 </ul>
 <h2 id="sample">Sample<a class="headerlink" href="#sample" title="Permanent link">&para;</a></h2>
 <ul>
