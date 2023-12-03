@@ -24,7 +24,7 @@ TODO - TBD - WIP
 - A Kotlin Multiplatform library that provides a simple event bus implementation using
   `kotlinx.coroutines.channels.Channel`s.
   This is useful for UI applications where you want to send events to communicate between
-  different parts / scope of your application.
+  different parts / scope of your application (e.g. send results from a screen to another screen).
 
 - This bus is thread-safe to be used by multiple threads.
   It is safe to send events from multiple threads without any synchronization.
@@ -78,27 +78,40 @@ bus
 
 ## Docs
 
-TODO - TBD - WIP
+- `0.x release` docs: https://hoc081098.github.io/kotlin-channel-event-bus/docs/0.x
+- Snapshot docs: https://hoc081098.github.io/kotlin-channel-event-bus/docs/latest/
 
 ## Sample
 
 - [Android Compose sample](https://github.com/hoc081098/kotlin-channel-event-bus/tree/master/sample/app):
   an Android app using Compose UI to show how to use the library.
-  It has two nested navigation graphs: `RegisterScreen` and `HomeScreen`.
+  It has two nested navigation graphs: `Register` and `Home`.
 
-  In `RegisterScreen`, we have 3 steps (3 screens) to allow user to input their information, step by
-  step.
-  - A `RegisterSharedViewModel` (bound to `RegisterScreen` navigation graph scope) is used
-    to hold the whole state of the registration process.
-    It observes events from the `ChannelEventBus` and update the state accordingly.
+  - In `Register`, we have 3 steps (3 screens) to allow user to input their information, step
+    by
+    step.
+    - A `RegisterSharedViewModel` (bound to `Register` navigation graph scope) is used
+      to hold the whole state of the registration process.
+      It observes events from the `ChannelEventBus` and update the state accordingly.
 
-  - Each step screen has a `ViewModel` to hold the state of the screen, and will send events to
-    the `ChannelEventBus`,
-    then the `RegisterSharedViewModel` will receive those events and update the state.
+    - Each step screen has a `ViewModel` to hold the state of the screen, and will send events to
+      the `ChannelEventBus`,
+      then the `RegisterSharedViewModel` will receive those events and update the state.
+
+  - In `Home` nav graph, we have 2 screens: `Home` and `Detail`.
+    - `Home` screen has a `HomeViewModel` to hold the results received from the `Detail` screen.
+      Those result events are sent from the `Detail` screen to the `ChannelEventBus`,
+      and the `HomeViewModel` will receive those events and update the state.
+
+    - `Detail` screen will send events to the `ChannelEventBus` when user clicks on the button.
+      The `HomeViewModel` will receive those events and update the state.
 
 ## Roadmap
 
-TODO - TBD - WIP
+- [ ] Support more targets: `wasm` (depends on supported targets by `kotlinx.coroutines`).
+- [ ] More samples.
+- [ ] More docs.
+- [ ] More tests.
 
 ## License
 
