@@ -14,7 +14,6 @@
 ![badge][badge-tvos]
 ![badge][badge-watchos]
 
-TODO - TBD - WIP
 <p align="center">
     <img src="https://github.com/hoc081098/kmp-viewmodel/raw/master/logo.png" width="400">
 </p>
@@ -116,7 +115,9 @@ bus
 ## License
 
 ```license
-TODO - TBD - WIP
+                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
 ```
 
 [badge-android]: http://img.shields.io/badge/android-6EDB8D.svg?style=flat
