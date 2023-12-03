@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 
+### Added
+
+- Support targets:
+  - `mingwX64`
+  - `linuxX64`
+  - `linuxArm64`
+  - `watchosDeviceArm64`
+  - `androidNativeArm32`
+  - `androidNativeArm64`
+  - `androidNativeX86`
+  - `androidNativeX64`
+
 ## [0.0.1] - Feb 11, 2023 🎉
 
 - Initial release 🎉
