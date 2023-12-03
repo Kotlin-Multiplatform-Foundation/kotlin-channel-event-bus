@@ -108,6 +108,8 @@ bus
     - `Detail` screen will send events to the `ChannelEventBus` when user clicks on the button.
       The `HomeViewModel` will receive those events and update the state.
 
+https://github.com/hoc081098/kotlin-channel-event-bus/assets/36917223/80015232-d5b5-4fb2-a779-4e6113ddb8f8
+
 ## Roadmap
 
 - [ ] Support more targets: `wasm` (depends on supported targets by `kotlinx.coroutines`).
