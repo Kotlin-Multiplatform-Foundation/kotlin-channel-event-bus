@@ -22,7 +22,7 @@
     
     
       
-        <title>KMP ViewModel</title>
+        <title>Kotlin Channel Event Bus</title>
       
     
     
@@ -89,7 +89,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="KMP ViewModel" class="md-header__button md-logo" aria-label="KMP ViewModel" data-md-component="logo">
+    <a href="." title="Kotlin Channel Event Bus" class="md-header__button md-logo" aria-label="Kotlin Channel Event Bus" data-md-component="logo">
       
   <img src="images/logo.jpeg" alt="logo">
 
@@ -102,7 +102,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            KMP ViewModel
+            Kotlin Channel Event Bus
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -196,12 +196,12 @@
 
 <nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="KMP ViewModel" class="md-nav__button md-logo" aria-label="KMP ViewModel" data-md-component="logo">
+    <a href="." title="Kotlin Channel Event Bus" class="md-nav__button md-logo" aria-label="Kotlin Channel Event Bus" data-md-component="logo">
       
   <img src="images/logo.jpeg" alt="logo">
 
     </a>
-    KMP ViewModel
+    Kotlin Channel Event Bus
   </label>
   
     <div class="md-nav__source">
@@ -389,12 +389,15 @@
 
 
 <h1 id="kotlin-channel-event-bus">kotlin-channel-event-bus 🔆<a class="headerlink" href="#kotlin-channel-event-bus" title="Permanent link">&para;</a></h1>
-<p><a href="https://github.com/hoc081098/kotlin-channel-event-bus/actions/workflows/build.yml"><img alt="Build and publish snapshot" src="https://github.com/hoc081098/kotlin-channel-event-bus/actions/workflows/build.yml/badge.svg" /></a>
+<p><a href="https://search.maven.org/search?q=g:io.github.hoc081098%20channel-event-bus"><img alt="maven-central" src="https://img.shields.io/maven-central/v/io.github.hoc081098/channel-event-bus" /></a>
+<a href="https://codecov.io/github/hoc081098/kotlin-channel-event-bus"><img alt="codecov" src="https://codecov.io/github/hoc081098/kotlin-channel-event-bus/graph/badge.svg?token=o5JcvqkEsR" /></a>
+<a href="https://github.com/hoc081098/kotlin-channel-event-bus/actions/workflows/build.yml"><img alt="Build and publish snapshot" src="https://github.com/hoc081098/kotlin-channel-event-bus/actions/workflows/build.yml/badge.svg" /></a>
 <a href="https://github.com/hoc081098/kotlin-channel-event-bus/actions/workflows/sample.yml"><img alt="Build sample" src="https://github.com/hoc081098/kotlin-channel-event-bus/actions/workflows/sample.yml/badge.svg" /></a>
 <a href="https://github.com/hoc081098/kotlin-channel-event-bus/actions/workflows/publish-release.yml"><img alt="Publish Release" src="https://github.com/hoc081098/kotlin-channel-event-bus/actions/workflows/publish-release.yml/badge.svg" /></a>
 <a href="http://kotlinlang.org"><img alt="Kotlin version" src="https://img.shields.io/badge/Kotlin-1.9.21-blueviolet?logo=kotlin&amp;logoColor=white" /></a>
 <a href="https://github.com/Kotlin/kotlinx.coroutines/releases/tag/1.7.3"><img alt="KotlinX Coroutines version" src="https://img.shields.io/badge/Kotlinx_Coroutines-1.7.3-blueviolet?logo=kotlin&amp;logoColor=white" /></a>
 <a href="https://hits.seeyoufarm.com"><img alt="Hits" src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fhoc081098%2Fkotlin-channel-event-bus&amp;count_bg=%2379C83D&amp;title_bg=%23555555&amp;icon=&amp;icon_color=%23E7E7E7&amp;title=hits&amp;edge_flat=false" /></a>
+<a href="https://www.apache.org/licenses/LICENSE-2.0"><img alt="GitHub license" src="https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat" /></a>
 <img alt="badge" src="http://img.shields.io/badge/jvm-DB413D.svg?style=flat" />
 <img alt="badge" src="http://img.shields.io/badge/android-6EDB8D.svg?style=flat" />
 <img alt="badge" src="http://img.shields.io/badge/js-F8DB5D.svg?style=flat" />
@@ -402,9 +405,8 @@
 <img alt="badge" src="http://img.shields.io/badge/macos-111111.svg?style=flat" />
 <img alt="badge" src="http://img.shields.io/badge/tvos-808080.svg?style=flat" />
 <img alt="badge" src="http://img.shields.io/badge/watchos-C0C0C0.svg?style=flat" /></p>
-<p>TODO - TBD - WIP</p>
 <p align="center">
-    <img src="https://github.com/hoc081098/kmp-viewmodel/raw/master/logo.png" width="400">
+    <img src="https://github.com/hoc081098/kotlin-channel-event-bus/raw/master/logo.png" width="400">
 </p>
 
 <h2 id="multi-keys-multi-producers-single-consumer-event-bus-backed-by-kotlinxcoroutineschannelschannels">Multi-keys, multi-producers, single-consumer event bus backed by <code>kotlinx.coroutines.channels.Channel</code>s.<a class="headerlink" href="#multi-keys-multi-producers-single-consumer-event-bus-backed-by-kotlinxcoroutineschannelschannels" title="Permanent link">&para;</a></h2>
@@ -413,7 +415,7 @@
 <p>A Kotlin Multiplatform library that provides a simple event bus implementation using
   <code>kotlinx.coroutines.channels.Channel</code>s.
   This is useful for UI applications where you want to send events to communicate between
-  different parts / scope of your application.</p>
+  different parts / scope of your application (e.g. send results from a screen to another screen).</p>
 </li>
 <li>
 <p>This bus is thread-safe to be used by multiple threads.
@@ -464,27 +466,61 @@
 <li><code>macosX64</code>, <code>macosArm64</code>.</li>
 </ul>
 <h2 id="docs">Docs<a class="headerlink" href="#docs" title="Permanent link">&para;</a></h2>
-<p>TODO - TBD - WIP</p>
+<ul>
+<li><code>latest release</code> docs: <a href="https://hoc081098.github.io/kotlin-channel-event-bus/docs/latest">https://hoc081098.github.io/kotlin-channel-event-bus/docs/latest</a></li>
+<li>Snapshot docs: <a href="https://hoc081098.github.io/kotlin-channel-event-bus/docs/latest/">https://hoc081098.github.io/kotlin-channel-event-bus/docs/latest/</a></li>
+</ul>
 <h2 id="sample">Sample<a class="headerlink" href="#sample" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="https://github.com/hoc081098/kotlin-channel-event-bus/tree/master/sample/app">Android Compose sample</a>:
+<li>
+<p><a href="https://github.com/hoc081098/kotlin-channel-event-bus/tree/master/sample/app">Android Compose sample</a>:
   an Android app using Compose UI to show how to use the library.
-  It has two nested navigation graphs: <code>RegisterScreen</code> and <code>HomeScreen</code>.</li>
-</ul>
-<p>In <code>RegisterScreen</code>, we have 3 steps (3 screens) to allow user to input their information, step by
-  step.
-  - A <code>RegisterSharedViewModel</code> (bound to <code>RegisterScreen</code> navigation graph scope) is used
-    to hold the whole state of the registration process.
-    It observes events from the <code>ChannelEventBus</code> and update the state accordingly.</p>
+  It has two nested navigation graphs: <code>Register</code> and <code>Home</code>.</p>
+</li>
+<li>
+<p>In <code>Register</code>, we have 3 steps (3 screens) to allow user to input their information, step
+    by
+    step.</p>
 <ul>
-<li>Each step screen has a <code>ViewModel</code> to hold the state of the screen, and will send events to
-    the <code>ChannelEventBus</code>,
-    then the <code>RegisterSharedViewModel</code> will receive those events and update the state.</li>
+<li>
+<p>A <code>RegisterSharedViewModel</code> (bound to <code>Register</code> navigation graph scope) is used
+  to hold the whole state of the registration process.
+  It observes events from the <code>ChannelEventBus</code> and update the state accordingly.</p>
+</li>
+<li>
+<p>Each step screen has a <code>ViewModel</code> to hold the state of the screen, and will send events to
+  the <code>ChannelEventBus</code>,
+  then the <code>RegisterSharedViewModel</code> will receive those events and update the state.</p>
+</li>
 </ul>
+</li>
+<li>
+<p>In <code>Home</code> nav graph, we have 2 screens: <code>Home</code> and <code>Detail</code>.</p>
+<ul>
+<li>
+<p><code>Home</code> screen has a <code>HomeViewModel</code> to hold the results received from the <code>Detail</code> screen.
+  Those result events are sent from the <code>Detail</code> screen to the <code>ChannelEventBus</code>,
+  and the <code>HomeViewModel</code> will receive those events and update the state.</p>
+</li>
+<li>
+<p><code>Detail</code> screen will send events to the <code>ChannelEventBus</code> when user clicks on the button.
+  The <code>HomeViewModel</code> will receive those events and update the state.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://github.com/hoc081098/kotlin-channel-event-bus/assets/36917223/80015232-d5b5-4fb2-a779-4e6113ddb8f8">https://github.com/hoc081098/kotlin-channel-event-bus/assets/36917223/80015232-d5b5-4fb2-a779-4e6113ddb8f8</a></p>
 <h2 id="roadmap">Roadmap<a class="headerlink" href="#roadmap" title="Permanent link">&para;</a></h2>
-<p>TODO - TBD - WIP</p>
+<ul>
+<li>[ ] Support more targets: <code>wasm</code> (depends on supported targets by <code>kotlinx.coroutines</code>).</li>
+<li>[ ] More samples.</li>
+<li>[ ] More docs.</li>
+<li>[ ] More tests.</li>
+</ul>
 <h2 id="license">License<a class="headerlink" href="#license" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code>TODO - TBD - WIP
+<div class="highlight"><pre><span></span><code>                                 Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
 </code></pre></div>
 
 
