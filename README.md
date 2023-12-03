@@ -44,6 +44,63 @@ Liked some of my work? Buy me a coffee (or more likely a beer)
 
 <a href="https://www.buymeacoffee.com/hoc081098" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" height=64></a>
 
+## Docs
+
+- `0.x release` docs: https://hoc081098.github.io/kotlin-channel-event-bus/docs/0.x
+- Snapshot docs: https://hoc081098.github.io/kotlin-channel-event-bus/docs/latest/
+
+## Installation
+
+```kotlin
+allprojects {
+  repositories {
+    [...]
+    mavenCentral()
+  }
+}
+```
+
+```kotlin
+implementation("io.github.hoc081098:channel-event-bus:0.0.1")
+```
+
+### Snapshot
+
+<details>
+  <summary>Snapshots of the development version are available in Sonatype's snapshots repository.</summary>
+
+- Kotlin
+
+```kotlin
+allprojects {
+  repositories {
+    [...]
+    maven(url = "https://s01.oss.sonatype.org/content/repositories/snapshots/")
+  }
+}
+
+dependencies {
+  implementation("io.github.hoc081098:channel-event-bus:0.0.2-SNAPSHOT")
+}
+```
+
+- Groovy
+
+```groovy
+allprojects {
+  repositories {
+    [...]
+    maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
+  }
+}
+
+dependencies {
+  implementation 'io.github.hoc081098:channel-event-bus:0.0.2-SNAPSHOT'
+}
+```
+
+</details>
+
 ## Basic usage
 
 ```kotlin
@@ -77,11 +134,6 @@ bus
   - `watchosArm32`, `watchosArm64`, `watchosX64`, `watchosX86`, `watchosSimulatorArm64`.
   - `tvosX64`, `tvosSimulatorArm64`, `tvosArm64`.
   - `macosX64`, `macosArm64`.
-
-## Docs
-
-- `0.x release` docs: https://hoc081098.github.io/kotlin-channel-event-bus/docs/0.x
-- Snapshot docs: https://hoc081098.github.io/kotlin-channel-event-bus/docs/latest/
 
 ## Sample
 
