@@ -18,7 +18,7 @@
 ![badge][badge-watchos]
 
 <p align="center">
-    <img src="https://github.com/hoc081098/kmp-viewmodel/raw/master/logo.png" width="400">
+    <img src="https://github.com/hoc081098/kotlin-channel-event-bus/raw/master/logo.png" width="400">
 </p>
 
 ## Multi-keys, multi-producers, single-consumer event bus backed by `kotlinx.coroutines.channels.Channel`s.
