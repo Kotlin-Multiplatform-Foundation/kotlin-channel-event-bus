@@ -4,7 +4,7 @@
 
 ### Added
 
-- Support targets:
+- Support more targets:
   - `mingwX64`
   - `linuxX64`
   - `linuxArm64`
