@@ -20,7 +20,7 @@ sealed interface SingleEventFlow<E> : Flow<E> {
    * Must collect in [Dispatchers.Main.immediate][kotlinx.coroutines.MainCoroutineDispatcher.immediate].
    * Safe to call in the coroutines launched by [androidx.lifecycle.lifecycleScope].
    *
-   * In Compose, we can use [CollectWithLifecycleEffect] with `inImmediateMain = true`.
+   * In Compose, we can use [CollectWithLifecycleEffect] with  [CollectWithLifecycleEffectDispatcher.ImmediateMain].
    */
   @MainThread
   override suspend fun collect(collector: FlowCollector<E>)
@@ -32,7 +32,7 @@ interface HasSingleEventFlow<E> {
    * Must collect in [Dispatchers.Main.immediate][kotlinx.coroutines.MainCoroutineDispatcher.immediate].
    * Safe to call in the coroutines launched by [androidx.lifecycle.lifecycleScope].
    *
-   * In Compose, we can use [CollectWithLifecycleEffect] with `inImmediateMain = true`.
+   * In Compose, we can use [CollectWithLifecycleEffect] with [CollectWithLifecycleEffectDispatcher.ImmediateMain].
    */
   val singleEventFlow: SingleEventFlow<E>
 }
