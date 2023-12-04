@@ -66,7 +66,7 @@ allprojects {
 ```
 
 ```kotlin
-implementation("io.github.hoc081098:channel-event-bus:0.0.1")
+implementation("io.github.hoc081098:channel-event-bus:0.0.2")
 ```
 
 ### Snapshot
@@ -85,7 +85,7 @@ allprojects {
 }
 
 dependencies {
-  implementation("io.github.hoc081098:channel-event-bus:0.0.2-SNAPSHOT")
+  implementation("io.github.hoc081098:channel-event-bus:0.0.3-SNAPSHOT")
 }
 ```
 
@@ -100,7 +100,7 @@ allprojects {
 }
 
 dependencies {
-  implementation 'io.github.hoc081098:channel-event-bus:0.0.2-SNAPSHOT'
+  implementation 'io.github.hoc081098:channel-event-bus:0.0.3-SNAPSHOT'
 }
 ```
 
@@ -192,7 +192,7 @@ https://github.com/hoc081098/kotlin-channel-event-bus/assets/36917223/80015232-d
 [badge-js]: http://img.shields.io/badge/-js-F8DB5D.svg?style=flat
 [badge-js-ir]: https://img.shields.io/badge/support-[IR]-AAC4E0.svg?style=flat
 [badge-nodejs]: https://img.shields.io/badge/-nodejs-68a063.svg?style=flat
-[badge-linux]: http://img.shields.io/badge/-linux-2D3F6C.svg?style=flat 
+[badge-linux]: http://img.shields.io/badge/-linux-2D3F6C.svg?style=flat
 [badge-windows]: http://img.shields.io/badge/-windows-4D76CD.svg?style=flat
 [badge-wasm]: https://img.shields.io/badge/-wasm-624FE8.svg?style=flat
 [badge-apple-silicon]: http://img.shields.io/badge/support-[AppleSilicon]-43BBFF.svg?style=flat
