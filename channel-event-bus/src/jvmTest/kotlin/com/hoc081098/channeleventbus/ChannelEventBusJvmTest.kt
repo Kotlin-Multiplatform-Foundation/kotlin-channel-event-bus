@@ -30,7 +30,7 @@ class ChannelEventBusJvmTest {
 
     launch {
       repeat(100) {
-        delay(33)
+        delay(3)
         launch { bus.send(TestEventInt(it)) }
       }
     }
