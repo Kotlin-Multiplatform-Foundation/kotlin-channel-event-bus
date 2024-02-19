@@ -1,7 +1,7 @@
 [versions]
 kotlin = "1.9.22"
 coroutines = "1.8.0"
-kotlinx-serialization-json = "1.6.2"
+kotlinx-serialization-json = "1.6.3"
 kotlinx-collections-immutable = "0.3.7"
 
 # the Java version that the Java and Kotlin compilers will target
@@ -43,7 +43,7 @@ timber = "5.0.1"
 spotless = "6.25.0"
 detekt = "1.23.5"
 
-kotlinx-kover = "0.7.5"
+kotlinx-kover = "0.7.6"
 dokka = "1.9.10"
 kotlinx-binary-compatibility-validator = "0.14.0"
 
