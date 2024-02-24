@@ -27,10 +27,10 @@ jetbrains-compose = "1.5.12"
 
 touchlab-stately = "2.0.6"
 napier = "2.7.1"
-flowExt = "0.7.5"
+flowExt = "0.8.0"
 koin = "3.5.3"
 koin-androidx-compose = "3.5.3"
-coil = "2.5.0"
+coil = "2.6.0"
 compose-rules-detekt = "0.3.11"
 
 androidx-lifecycle = "2.7.0"
