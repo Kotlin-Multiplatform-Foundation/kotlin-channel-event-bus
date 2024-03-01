@@ -16,14 +16,14 @@ android-target = "33"
 # the Android compileSdkVersion to use
 android-compile = "33"
 
-android-gradle = "8.2.2"
+android-gradle = "8.3.0"
 
 # the Android target to use in sample
 sample-android-target = "34"
 # the Android compileSdkVersion to use in sample
 sample-android-compile = "34"
 
-jetbrains-compose = "1.5.12"
+jetbrains-compose = "1.6.0"
 
 touchlab-stately = "2.0.6"
 napier = "2.7.1"
