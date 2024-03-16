@@ -6,13 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hoc081098.channeleventbus.ChannelEventBus
 import com.hoc081098.channeleventbus.sample.android.common.HasSingleEventFlow
-import com.hoc081098.channeleventbus.sample.android.common.SafeSavedStateHandle
-import com.hoc081098.channeleventbus.sample.android.common.SavedStateHandleKey
 import com.hoc081098.channeleventbus.sample.android.common.SingleEventChannel
 import com.hoc081098.channeleventbus.sample.android.ui.home.DetailResultToHomeEvent
 import com.hoc081098.channeleventbus.sample.android.utils.NonBlankString.Companion.toNonBlankString
 import com.hoc081098.channeleventbus.sample.android.utils.launchNowIn
 import com.hoc081098.flowext.flowFromSuspend
+import com.hoc081098.kmp.viewmodel.safe.NonNullSavedStateHandleKey
+import com.hoc081098.kmp.viewmodel.safe.safe
+import com.hoc081098.kmp.viewmodel.safe.string
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -31,13 +32,12 @@ sealed interface DetailSingleEvent {
 class DetailVM(
   private val channelEventBus: ChannelEventBus,
   private val singleEventChannel: SingleEventChannel<DetailSingleEvent>,
-  savedStateHandle: SavedStateHandle,
+  private val savedStateHandle: SavedStateHandle,
 ) : ViewModel(singleEventChannel),
   HasSingleEventFlow<DetailSingleEvent> by singleEventChannel {
-  private val safeSavedStateHandle = SafeSavedStateHandle(savedStateHandle)
   private val sendResultFlow = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
 
-  internal val textStateFlow: StateFlow<String> = safeSavedStateHandle.getStateFlow(TextKey)
+  internal val textStateFlow: StateFlow<String> = savedStateHandle.safe.getStateFlow(TextKey)
 
   init {
     fun process(): Flow<Unit> = flowFromSuspend {
@@ -57,7 +57,7 @@ class DetailVM(
   }
 
   internal fun onTextChanged(text: String) {
-    safeSavedStateHandle[TextKey] = text
+    savedStateHandle.safe[TextKey] = text
   }
 
   internal fun sendResultToHome() {
@@ -65,6 +65,6 @@ class DetailVM(
   }
 
   private companion object {
-    private val TextKey = SavedStateHandleKey("text", "")
+    private val TextKey = NonNullSavedStateHandleKey.string("text", "")
   }
 }

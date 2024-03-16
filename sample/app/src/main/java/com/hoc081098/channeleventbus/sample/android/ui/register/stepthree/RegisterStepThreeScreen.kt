@@ -24,7 +24,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.hoc081098.channeleventbus.sample.android.common.CollectWithLifecycleEffect
-import com.hoc081098.channeleventbus.sample.android.common.rememberStableWrapperOf
 import com.hoc081098.channeleventbus.sample.android.ui.register.RegisterSharedVM
 import com.hoc081098.channeleventbus.sample.android.ui.register.RegisterUiState
 import com.hoc081098.channeleventbus.sample.android.ui.register.displayName
@@ -45,14 +44,14 @@ fun RegisterStepThreeScreen(
   val uiState by vm.uiStateFlow.collectAsStateWithLifecycle()
 
   val currentNavigateToHome by rememberUpdatedState(navigateToHome)
-  val context = rememberStableWrapperOf(LocalContext.current)
+  val context by rememberUpdatedState(LocalContext.current)
 
   vm.singleEventFlow.CollectWithLifecycleEffect { event ->
     when (event) {
       is RegisterStepThreeSingleEvent.Failure -> {
         Toast
           .makeText(
-            context.value,
+            context,
             "Register failed: ${event.throwable.message}",
             Toast.LENGTH_SHORT,
           )

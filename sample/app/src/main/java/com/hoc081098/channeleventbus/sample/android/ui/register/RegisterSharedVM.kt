@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.hoc081098.channeleventbus.ChannelEventBus
 import com.hoc081098.channeleventbus.ValidationBeforeClosing.Companion.NONE
 import com.hoc081098.channeleventbus.sample.android.BuildConfig
-import com.hoc081098.channeleventbus.sample.android.common.SafeSavedStateHandle
+import com.hoc081098.kmp.viewmodel.safe.safe
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -18,14 +18,12 @@ import timber.log.Timber
 
 class RegisterSharedVM(
   private val channelEventBus: ChannelEventBus,
-  savedStateHandle: SavedStateHandle,
+  private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-  private val safeSavedStateHandle = SafeSavedStateHandle(savedStateHandle)
-
   internal val uiStateFlow: StateFlow<RegisterUiState> = combine(
-    safeSavedStateHandle.getStateFlow(FirstNameKey),
-    safeSavedStateHandle.getStateFlow(LastNameKey),
-    safeSavedStateHandle.getStateFlow(GenderKey),
+    savedStateHandle.safe.getStateFlow(FirstNameKey),
+    savedStateHandle.safe.getStateFlow(LastNameKey),
+    savedStateHandle.safe.getStateFlow(GenderKey),
   ) { firstName, lastName, gender ->
     RegisterUiState.from(
       firstName = firstName,
@@ -56,21 +54,21 @@ class RegisterSharedVM(
   private fun observeSubmitLastNameEvent() {
     channelEventBus
       .receiveAsFlow(SubmitLastNameEvent)
-      .onEach { safeSavedStateHandle[LastNameKey] = it.value }
+      .onEach { savedStateHandle.safe[LastNameKey] = it.value }
       .launchIn(viewModelScope)
   }
 
   private fun observeSubmitFirstNameEvent() {
     channelEventBus
       .receiveAsFlow(SubmitFirstNameEvent)
-      .onEach { safeSavedStateHandle[FirstNameKey] = it.value }
+      .onEach { savedStateHandle.safe[FirstNameKey] = it.value }
       .launchIn(viewModelScope)
   }
 
   private fun observeSubmitGenderEvent() {
     channelEventBus
       .receiveAsFlow(SubmitGenderEvent)
-      .onEach { safeSavedStateHandle[GenderKey] = it.value }
+      .onEach { savedStateHandle.safe[GenderKey] = it.value }
       .launchIn(viewModelScope)
   }
 
@@ -82,9 +80,9 @@ class RegisterSharedVM(
     val line = "-".repeat(@Suppress("MagicNumber") 80)
 
     combine(
-      safeSavedStateHandle.getStateFlow(FirstNameKey),
-      safeSavedStateHandle.getStateFlow(LastNameKey),
-      safeSavedStateHandle.getStateFlow(GenderKey),
+      savedStateHandle.safe.getStateFlow(FirstNameKey),
+      savedStateHandle.safe.getStateFlow(LastNameKey),
+      savedStateHandle.safe.getStateFlow(GenderKey),
     ) { array: Array<*> -> array.joinToString(separator = "\n") { "    $it" } }
       .distinctUntilChanged()
       .onEach {

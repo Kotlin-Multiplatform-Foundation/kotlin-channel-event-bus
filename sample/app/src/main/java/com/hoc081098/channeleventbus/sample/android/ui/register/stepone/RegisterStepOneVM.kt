@@ -5,11 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hoc081098.channeleventbus.ChannelEventBus
 import com.hoc081098.channeleventbus.OptionWhenSendingToBusDoesNotExist
-import com.hoc081098.channeleventbus.sample.android.common.SafeSavedStateHandle
 import com.hoc081098.channeleventbus.sample.android.ui.register.FirstNameKey
 import com.hoc081098.channeleventbus.sample.android.ui.register.LastNameKey
 import com.hoc081098.channeleventbus.sample.android.ui.register.SubmitFirstNameEvent
 import com.hoc081098.channeleventbus.sample.android.ui.register.SubmitLastNameEvent
+import com.hoc081098.kmp.viewmodel.safe.safe
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -17,13 +17,11 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 
 class RegisterStepOneVM(
-  savedStateHandle: SavedStateHandle,
+  private val savedStateHandle: SavedStateHandle,
   private val channelEventBus: ChannelEventBus,
 ) : ViewModel() {
-  private val safeSavedStateHandle = SafeSavedStateHandle(savedStateHandle)
-
-  internal val firstNameStateFlow: StateFlow<String?> = safeSavedStateHandle.getStateFlow(FirstNameKey)
-  internal val lastNameStateFlow: StateFlow<String?> = safeSavedStateHandle.getStateFlow(LastNameKey)
+  internal val firstNameStateFlow: StateFlow<String?> = savedStateHandle.safe.getStateFlow(FirstNameKey)
+  internal val lastNameStateFlow: StateFlow<String?> = savedStateHandle.safe.getStateFlow(LastNameKey)
 
   init {
     sendSubmitFirstNameEventAfterChanged()
@@ -69,10 +67,10 @@ class RegisterStepOneVM(
   }
 
   internal fun onFirstNameChanged(value: String) {
-    safeSavedStateHandle[FirstNameKey] = value
+    savedStateHandle.safe[FirstNameKey] = value
   }
 
   internal fun onLastNameChanged(value: String) {
-    safeSavedStateHandle[LastNameKey] = value
+    savedStateHandle.safe[LastNameKey] = value
   }
 }

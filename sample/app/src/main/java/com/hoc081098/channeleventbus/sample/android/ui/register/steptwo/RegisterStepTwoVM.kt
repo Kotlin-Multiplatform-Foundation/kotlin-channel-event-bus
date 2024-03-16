@@ -5,10 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hoc081098.channeleventbus.ChannelEventBus
 import com.hoc081098.channeleventbus.OptionWhenSendingToBusDoesNotExist
-import com.hoc081098.channeleventbus.sample.android.common.SafeSavedStateHandle
 import com.hoc081098.channeleventbus.sample.android.ui.register.Gender
 import com.hoc081098.channeleventbus.sample.android.ui.register.GenderKey
 import com.hoc081098.channeleventbus.sample.android.ui.register.SubmitGenderEvent
+import com.hoc081098.kmp.viewmodel.safe.safe
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -16,12 +16,10 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 
 class RegisterStepTwoVM(
-  savedStateHandle: SavedStateHandle,
+  private val savedStateHandle: SavedStateHandle,
   private val channelEventBus: ChannelEventBus,
 ) : ViewModel() {
-  private val safeSavedStateHandle = SafeSavedStateHandle(savedStateHandle)
-
-  internal val genderStateFlow: StateFlow<Gender?> = safeSavedStateHandle.getStateFlow(GenderKey)
+  internal val genderStateFlow: StateFlow<Gender?> = savedStateHandle.safe.getStateFlow(GenderKey)
 
   init {
     sendSubmitGenderEventAfterChanged()
@@ -47,6 +45,6 @@ class RegisterStepTwoVM(
   }
 
   internal fun onGenderChanged(value: Gender) {
-    safeSavedStateHandle[GenderKey] = value
+    savedStateHandle.safe[GenderKey] = value
   }
 }
