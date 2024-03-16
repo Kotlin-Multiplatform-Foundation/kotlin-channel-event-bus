@@ -27,13 +27,23 @@ kotlin {
       }
     }
   }
+
   js(IR) {
-    compilations.all {
-      kotlinOptions {
-        sourceMap = true
-        moduleKind = "commonjs"
+    moduleName = property("POM_ARTIFACT_ID")!!.toString()
+    compilations.configureEach {
+      compilerOptions.configure {
+        sourceMap.set(true)
+        moduleKind.set(org.jetbrains.kotlin.gradle.dsl.JsModuleKind.MODULE_COMMONJS)
       }
     }
+    browser()
+    nodejs()
+  }
+  @OptIn(org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl::class)
+  wasmJs {
+    // Module name should be different from the one from JS
+    // otherwise IC tasks that start clashing different modules with the same module name
+    moduleName = property("POM_ARTIFACT_ID")!!.toString() + "Wasm"
     browser()
     nodejs()
   }
