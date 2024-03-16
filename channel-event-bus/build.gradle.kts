@@ -105,6 +105,12 @@ kotlin {
       }
     }
 
+    val wasmJsTest by getting {
+      dependencies {
+        implementation(kotlin("test-wasm-js"))
+      }
+    }
+
     jvmTest {
       dependencies {
         implementation(kotlin("test-junit"))
