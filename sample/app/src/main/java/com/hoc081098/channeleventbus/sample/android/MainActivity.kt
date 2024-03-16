@@ -56,10 +56,10 @@ class MainActivity : ComponentActivity() {
             val currentBackStackEntryAsState = navController.currentBackStackEntryAsState()
 
             val route by rememberCurrentRouteAsState(currentBackStackEntryAsState)
-            val previousBackStackEntry by remember(currentBackStackEntryAsState) {
+            val hasPreviousBackStackEntry by remember(navController, currentBackStackEntryAsState) {
               derivedStateOf {
-                currentBackStackEntryAsState.value
-                navController.previousBackStackEntry
+                currentBackStackEntryAsState.value // <-- DO NOT REMOVE THIS LINE.
+                navController.previousBackStackEntry != null
               }
             }
 
@@ -79,7 +79,7 @@ class MainActivity : ComponentActivity() {
                     )
                   },
                   navigationIcon = {
-                    if (previousBackStackEntry != null) {
+                    if (hasPreviousBackStackEntry) {
                       IconButton(onClick = navController::popBackStack) {
                         Icon(
                           imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -117,6 +117,8 @@ private fun AppNavHost(
     navController = navController,
     startDestination = "register_graph",
   ) {
+    // ------------------------------------ register_graph ------------------------------------
+
     navigation(startDestination = Route.RegisterStepOne.routePattern, route = "register_graph") {
       composable(route = Route.RegisterStepOne.routePattern) { entry ->
         val registerGraphEntry = remember(entry) { navController.getBackStackEntry("register_graph") }
@@ -182,6 +184,8 @@ private fun AppNavHost(
         )
       }
     }
+
+    // ------------------------------------ home_graph ------------------------------------
 
     navigation(startDestination = Route.Home.routePattern, route = "home_graph") {
       composable(route = Route.Home.routePattern) {
