@@ -1,6 +1,8 @@
 package com.hoc081098.channeleventbus.sample.android
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
@@ -19,9 +21,12 @@ internal fun rememberCurrentRouteAsState(currentBackStackEntryAsState: State<Nav
     }
   }
 
+@Immutable
 internal sealed class Route {
+  @Stable
   abstract val routePattern: String
 
+  @Stable
   fun matches(route: String): Boolean = route == routePattern
 
   data object RegisterStepOne : Route() {
@@ -60,6 +65,7 @@ internal sealed class Route {
       )
     }
 
+    @Stable
     fun ofOrNull(route: String): Route? = VALUES.singleOrNull { it.matches(route) }
   }
 }

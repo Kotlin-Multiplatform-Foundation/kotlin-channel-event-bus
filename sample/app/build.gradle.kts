@@ -61,6 +61,7 @@ dependencies {
   implementation(libs.flowExt)
 
   implementation(libs.kotlinx.collections.immutable)
+  implementation(libs.kmp.viewmodel.savedstate)
   implementation(libs.timber)
 }
 

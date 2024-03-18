@@ -1,18 +1,17 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@file:OptIn(ExperimentalMaterial3Api::class)
 
 package com.hoc081098.channeleventbus.sample.android
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -42,7 +41,6 @@ import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.KoinContext
 import timber.log.Timber
 
-@OptIn(ExperimentalLayoutApi::class)
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -58,10 +56,10 @@ class MainActivity : ComponentActivity() {
             val currentBackStackEntryAsState = navController.currentBackStackEntryAsState()
 
             val route by rememberCurrentRouteAsState(currentBackStackEntryAsState)
-            val previousBackStackEntry by remember(currentBackStackEntryAsState) {
+            val hasPreviousBackStackEntry by remember(navController, currentBackStackEntryAsState) {
               derivedStateOf {
-                currentBackStackEntryAsState.value
-                navController.previousBackStackEntry
+                currentBackStackEntryAsState.value // <-- DO NOT REMOVE THIS LINE.
+                navController.previousBackStackEntry != null
               }
             }
 
@@ -81,10 +79,10 @@ class MainActivity : ComponentActivity() {
                     )
                   },
                   navigationIcon = {
-                    if (previousBackStackEntry != null) {
+                    if (hasPreviousBackStackEntry) {
                       IconButton(onClick = navController::popBackStack) {
                         Icon(
-                          imageVector = Icons.Default.ArrowBack,
+                          imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                           contentDescription = "Back",
                         )
                       }
@@ -119,6 +117,8 @@ private fun AppNavHost(
     navController = navController,
     startDestination = "register_graph",
   ) {
+    // ------------------------------------ register_graph ------------------------------------
+
     navigation(startDestination = Route.RegisterStepOne.routePattern, route = "register_graph") {
       composable(route = Route.RegisterStepOne.routePattern) { entry ->
         val registerGraphEntry = remember(entry) { navController.getBackStackEntry("register_graph") }
@@ -184,6 +184,8 @@ private fun AppNavHost(
         )
       }
     }
+
+    // ------------------------------------ home_graph ------------------------------------
 
     navigation(startDestination = Route.Home.routePattern, route = "home_graph") {
       composable(route = Route.Home.routePattern) {

@@ -36,8 +36,9 @@ compose-rules-detekt = "0.3.11"
 androidx-lifecycle = "2.7.0"
 androidx-annotation = "1.7.1"
 androidx-activity = "1.8.2"
- androidx-compose-compiler = "1.5.9"
+androidx-compose-compiler = "1.5.9"
 androidx-navigation = "2.7.7"
+kmp-viewmodel = "0.7.1"
 timber = "5.0.1"
 
 spotless = "6.25.0"
@@ -85,6 +86,7 @@ androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
 androidx-compose-runtime = { module = "androidx.compose.runtime:runtime" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
 
+kmp-viewmodel-savedstate = { module = "io.github.hoc081098:kmp-viewmodel-savedstate", version.ref = "kmp-viewmodel" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 
 [plugins]

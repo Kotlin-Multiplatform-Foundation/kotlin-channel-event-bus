@@ -2,7 +2,9 @@ package com.hoc081098.channeleventbus.sample.android.ui.register
 
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
-import com.hoc081098.channeleventbus.sample.android.common.SavedStateHandleKey
+import com.hoc081098.kmp.viewmodel.InternalKmpViewModelApi
+import com.hoc081098.kmp.viewmodel.safe.NullableSavedStateHandleKey
+import com.hoc081098.kmp.viewmodel.safe.string
 import kotlin.LazyThreadSafetyMode.PUBLICATION
 
 @Immutable
@@ -49,6 +51,11 @@ internal fun RegisterUiState.Companion.from(
   RegisterUiState.Unfilled
 }
 
-internal val FirstNameKey by lazy(PUBLICATION) { SavedStateHandleKey<String?>("first_name", null) }
-internal val LastNameKey by lazy(PUBLICATION) { SavedStateHandleKey<String?>("last_name", null) }
-internal val GenderKey by lazy(PUBLICATION) { SavedStateHandleKey<Gender?>("gender", null) }
+internal val FirstNameKey by lazy(PUBLICATION) { NullableSavedStateHandleKey.string("first_name", null) }
+internal val LastNameKey by lazy(PUBLICATION) { NullableSavedStateHandleKey.string("last_name", null) }
+internal val GenderKey by lazy(PUBLICATION) {
+  // TODO: When Serializable is supported, remove the below workaround
+  @Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
+  @OptIn(InternalKmpViewModelApi::class)
+  NullableSavedStateHandleKey<Gender>("gender", null)
+}
