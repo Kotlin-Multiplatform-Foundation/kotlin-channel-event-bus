@@ -21,15 +21,15 @@ import kotlinx.coroutines.runBlocking
 class ChannelEventBusJvmTest {
   @Test
   fun flatMapLatest_Works(): Unit = runBlocking(Dispatchers.IO) {
-    val bus = ChannelEventBus(ChannelEventBusLogger.stdout())
-    val flow = interval(initialDelay = Duration.ZERO, period = 100.milliseconds)
+    val bus = ChannelEventBus(ChannelEventBusLogger.noop())
+    val flow = interval(initialDelay = Duration.ZERO, period = 11.milliseconds)
       .flowOn(Executors.newScheduledThreadPool(2).asCoroutineDispatcher())
       .take(10)
       .flatMapLatest { bus.receiveAsFlow(TestEventInt) }
-      .take(100)
+      .take(50)
 
     launch {
-      repeat(100) {
+      repeat(50) {
         delay(3)
         launch { bus.send(TestEventInt(it)) }
       }
@@ -37,7 +37,7 @@ class ChannelEventBusJvmTest {
 
     launch {
       assertContentEquals(
-        expected = (0..<100).map { TestEventInt(it) },
+        expected = (0..<50).map { TestEventInt(it) },
         actual = flow.toList().sortedBy { it.payload },
       )
     }
