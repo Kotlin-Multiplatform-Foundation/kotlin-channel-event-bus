@@ -8,6 +8,7 @@ import com.hoc081098.flowext.FlowExtPreview
 import com.hoc081098.flowext.catchAndReturn
 import com.hoc081098.flowext.flatMapFirst
 import com.hoc081098.flowext.flowFromSuspend
+import com.hoc081098.flowext.mapTo
 import com.hoc081098.flowext.startWith
 import com.hoc081098.kmp.viewmodel.ViewModel
 import io.github.aakira.napier.Napier
@@ -17,7 +18,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -46,7 +46,7 @@ class RegisterStepThreeVM(
   internal val uiStateFlow: StateFlow<RegisterStepThreeUiState> = _registerFlow
     .flatMapFirst { state ->
       flowFromSuspend { doRegister(state) }
-        .map { RegisterStepThreeUiState.Success }
+        .mapTo(RegisterStepThreeUiState.Success)
         .startWith(RegisterStepThreeUiState.Registering)
         .catchAndReturn(RegisterStepThreeUiState.Idle)
     }
