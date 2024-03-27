@@ -28,8 +28,8 @@ jetbrains-compose = "1.6.1"
 touchlab-stately = "2.0.6"
 napier = "2.7.1"
 flowExt = "0.8.0"
-koin = "3.5.3"
-koin-androidx-compose = "3.5.3"
+koin-core = "3.5.3"
+koin-compose = "1.1.2"
 coil = "2.6.0"
 compose-rules-detekt = "0.3.12"
 
@@ -39,6 +39,7 @@ androidx-activity = "1.8.2"
 androidx-compose-compiler = "1.5.9"
 androidx-navigation = "2.7.7"
 kmp-viewmodel = "0.7.1"
+solivagant = "0.3.0"
 timber = "5.0.1"
 
 spotless = "6.25.0"
@@ -54,6 +55,7 @@ ktlint = "0.50.0"
 [libraries]
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "coroutines" }
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 coroutines-jdk8 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8", version.ref = "coroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
@@ -64,9 +66,10 @@ jetbrains-compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", 
 touchlab-stately-concurrency = { module = "co.touchlab:stately-concurrency", version.ref = "touchlab-stately" }
 napier = { module = "io.github.aakira:napier", version.ref = "napier" }
 flowExt = { module = "io.github.hoc081098:FlowExt", version.ref = "flowExt" }
-koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
-koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
-koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin-androidx-compose" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin-core" }
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin-core" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin-core" }
+koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin-compose" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 compose-rules-detekt = { module = "io.nlopez.compose.rules:detekt", version.ref = "compose-rules-detekt" }
 
@@ -86,7 +89,11 @@ androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
 androidx-compose-runtime = { module = "androidx.compose.runtime:runtime" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
 
+kmp-viewmodel = { module = "io.github.hoc081098:kmp-viewmodel", version.ref = "kmp-viewmodel" }
 kmp-viewmodel-savedstate = { module = "io.github.hoc081098:kmp-viewmodel-savedstate", version.ref = "kmp-viewmodel" }
+kmp-viewmodel-compose = { module = "io.github.hoc081098:kmp-viewmodel-compose", version.ref = "kmp-viewmodel" }
+kmp-viewmodel-koin-compose = { module = "io.github.hoc081098:kmp-viewmodel-koin-compose", version.ref = "kmp-viewmodel" }
+solivagant-navigation = { module = "io.github.hoc081098:solivagant-navigation", version.ref = "solivagant" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 
 [plugins]
