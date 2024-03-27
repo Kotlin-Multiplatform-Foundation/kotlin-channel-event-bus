@@ -19,7 +19,13 @@ kotlin {
     }
   }
 
-  jvm("desktop")
+  jvm("desktop") {
+    compilations.all {
+      kotlinOptions {
+        jvmTarget = "11"
+      }
+    }
+  }
 
   sourceSets {
     val desktopMain by getting
@@ -36,6 +42,9 @@ kotlin {
       implementation(libs.coroutines.android)
     }
     commonMain.dependencies {
+      // Channel event bus
+      implementation(project(":channel-event-bus"))
+
       implementation(compose.runtime)
       implementation(compose.foundation)
       implementation(compose.material3)
@@ -59,6 +68,9 @@ kotlin {
 
       // Immutable collections
       implementation(libs.kotlinx.collections.immutable)
+
+      // Napier logger
+      implementation(libs.napier)
     }
     desktopMain.dependencies {
       implementation(compose.desktop.currentOs)
@@ -101,4 +113,7 @@ android {
     debugImplementation(libs.androidx.compose.ui.tooling)
   }
 }
-
+dependencies {
+  implementation(project(":channel-event-bus"))
+  implementation(project(":sample:standalone-androidApp"))
+}

@@ -27,7 +27,7 @@ jetbrains-compose = "1.6.1"
 
 touchlab-stately = "2.0.6"
 napier = "2.7.1"
-flowExt = "0.8.0"
+flowExt = "0.8.1-Beta"
 koin-core = "3.5.3"
 koin-compose = "1.1.2"
 coil = "2.6.0"
