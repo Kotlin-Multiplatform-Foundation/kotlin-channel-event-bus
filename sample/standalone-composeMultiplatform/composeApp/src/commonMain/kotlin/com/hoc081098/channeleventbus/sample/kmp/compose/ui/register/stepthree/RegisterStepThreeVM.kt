@@ -87,9 +87,10 @@ private suspend fun doRegister(state: RegisterUiState.Filled) {
 
   // simulate network request
   delay(@Suppress("MagicNumber") 2_000)
+
   if (Random.nextBoolean()) {
+    Napier.e("Register failed")
     throw IOException("Network error")
-      .also { Napier.e("Register failed", it) }
   } else {
     Napier.d("Register success")
   }
