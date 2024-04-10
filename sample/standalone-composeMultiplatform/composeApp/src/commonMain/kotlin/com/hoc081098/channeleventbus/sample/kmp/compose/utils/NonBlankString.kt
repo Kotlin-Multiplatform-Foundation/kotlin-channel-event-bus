@@ -38,6 +38,7 @@ value class NonBlankString private constructor(private val value: String) : Comp
 }
 
 internal object NotBlankStringException : IllegalArgumentException() {
+  @Suppress("UnusedPrivateMember")
   private fun readResolve(): Any = NotBlankStringException
 
   override val message: String = "Given string shouldn't be blank."

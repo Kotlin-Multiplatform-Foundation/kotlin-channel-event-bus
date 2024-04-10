@@ -13,7 +13,7 @@ import com.hoc081098.solivagant.navigation.rememberCloseableOnRoute
 inline fun <reified T : ViewModel> koinSharedViewModelOnRoute(route: BaseRoute): T {
   val viewModelStoreOwner = rememberCloseableOnRoute(
     route = route,
-    factory = { SharedVMStoreOwner() },
+    factory = ::SharedVMStoreOwner,
   )
   return koinKmpViewModel<T>(viewModelStoreOwner = viewModelStoreOwner)
 }

@@ -52,6 +52,7 @@ private val AllDestinations: ImmutableSet<NavDestination> by lazy {
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
+@Suppress("LongMethod")
 @Composable
 fun ChannelEventBusSampleApp(
   modifier: Modifier = Modifier,
