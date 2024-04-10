@@ -1,11 +1,18 @@
 package com.hoc081098.channeleventbus.sample.kmp.compose.ui.register
 
+import androidx.compose.runtime.Composable
 import com.hoc081098.channeleventbus.ChannelEventBus
 import com.hoc081098.channeleventbus.ValidationBeforeClosing.Companion.NONE
 import com.hoc081098.channeleventbus.sample.kmp.compose.common.isBuildDebug
+import com.hoc081098.kmp.viewmodel.Closeable
 import com.hoc081098.kmp.viewmodel.SavedStateHandle
 import com.hoc081098.kmp.viewmodel.ViewModel
+import com.hoc081098.kmp.viewmodel.ViewModelStore
+import com.hoc081098.kmp.viewmodel.ViewModelStoreOwner
+import com.hoc081098.kmp.viewmodel.koin.compose.koinKmpViewModel
 import com.hoc081098.kmp.viewmodel.safe.safe
+import com.hoc081098.solivagant.navigation.NavRoute
+import com.hoc081098.solivagant.navigation.rememberCloseableOnRoute
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -14,6 +21,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
+
 
 class RegisterSharedVM(
   private val channelEventBus: ChannelEventBus,
