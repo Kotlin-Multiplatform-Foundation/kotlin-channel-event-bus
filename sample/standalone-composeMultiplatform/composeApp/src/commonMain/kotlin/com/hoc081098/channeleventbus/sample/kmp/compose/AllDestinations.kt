@@ -47,7 +47,7 @@ private val AllDestinations: ImmutableSet<NavDestination> by lazy {
       RegisterStepOneScreenDestination,
       RegisterStepTwoScreenDestination,
       RegisterStepThreeScreenDestination,
-    )
+    ),
   )
 }
 
