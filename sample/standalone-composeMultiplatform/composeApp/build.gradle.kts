@@ -31,15 +31,15 @@ kotlin {
     val desktopMain by getting
 
     androidMain.dependencies {
-      implementation(libs.androidx.compose.ui.tooling.preview)
-      implementation(libs.androidx.activity.compose)
+      api(libs.androidx.compose.ui.tooling.preview)
+      api(libs.androidx.activity.compose)
 
       // Koin
-      implementation(libs.koin.android)
-      implementation(libs.koin.androidx.compose)
+      api(libs.koin.android)
+      api(libs.koin.androidx.compose)
 
       // Coroutines
-      implementation(libs.coroutines.android)
+      api(libs.coroutines.android)
     }
     commonMain.dependencies {
       // Channel event bus
@@ -52,31 +52,31 @@ kotlin {
       implementation(compose.components.resources)
 
       // KMP View Model & Solivagant navigation
-      implementation(libs.kmp.viewmodel)
-      implementation(libs.kmp.viewmodel.savedstate)
-      implementation(libs.kmp.viewmodel.compose)
-      implementation(libs.kmp.viewmodel.koin.compose)
-      implementation(libs.solivagant.navigation)
+      api(libs.kmp.viewmodel)
+      api(libs.kmp.viewmodel.savedstate)
+      api(libs.kmp.viewmodel.compose)
+      api(libs.kmp.viewmodel.koin.compose)
+      api(libs.solivagant.navigation)
 
       // Koin
-      implementation(libs.koin.core)
-      implementation(libs.koin.compose)
+      api(libs.koin.core)
+      api(libs.koin.compose)
 
       // Coroutines & FlowExt
-      implementation(libs.coroutines.core)
-      implementation(libs.flowExt)
+      api(libs.coroutines.core)
+      api(libs.flowExt)
 
       // Immutable collections
-      implementation(libs.kotlinx.collections.immutable)
+      api(libs.kotlinx.collections.immutable)
 
       // Napier logger
-      implementation(libs.napier)
+      api(libs.napier)
     }
     desktopMain.dependencies {
       implementation(compose.desktop.currentOs)
 
       // Coroutines
-      implementation(libs.coroutines.swing)
+      api(libs.coroutines.swing)
     }
   }
 }
@@ -112,8 +112,4 @@ android {
   dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
   }
-}
-dependencies {
-  implementation(project(":channel-event-bus"))
-  implementation(project(":sample:standalone-androidApp"))
 }

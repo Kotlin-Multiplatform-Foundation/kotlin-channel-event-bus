@@ -22,6 +22,7 @@ rootProject.name = "kotlin-channel-event-bus"
 include(":channel-event-bus")
 include(":sample:standalone-androidApp")
 include(":sample:standalone-composeMultiplatform:composeApp")
+include(":sample:standalone-composeMultiplatform:desktopApp")
 
 plugins {
   id("org.gradle.toolchains.foojay-resolver-convention") version ("0.8.0")
