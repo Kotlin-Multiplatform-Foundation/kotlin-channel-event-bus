@@ -37,9 +37,6 @@ kotlin {
       // Koin
       api(libs.koin.android)
       api(libs.koin.androidx.compose)
-
-      // Coroutines
-      api(libs.coroutines.android)
     }
     commonMain.dependencies {
       // Channel event bus
@@ -74,9 +71,6 @@ kotlin {
     }
     desktopMain.dependencies {
       implementation(compose.desktop.currentOs)
-
-      // Coroutines
-      api(libs.coroutines.swing)
     }
   }
 }
