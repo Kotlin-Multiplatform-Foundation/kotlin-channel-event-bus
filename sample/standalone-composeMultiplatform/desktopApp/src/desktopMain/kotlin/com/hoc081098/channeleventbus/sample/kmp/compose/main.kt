@@ -14,6 +14,8 @@ import org.koin.core.logger.Level
 
 @OptIn(ExperimentalSolivagantApi::class)
 fun main() {
+  setupNapier()
+
   startKoinCommon {
     printLogger(Level.DEBUG)
   }
