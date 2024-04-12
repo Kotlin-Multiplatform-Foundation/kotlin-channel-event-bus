@@ -3,6 +3,7 @@ package com.hoc081098.channeleventbus.sample.kmp.compose.ui.register.stepthree
 import androidx.compose.runtime.Immutable
 import com.hoc081098.channeleventbus.sample.kmp.compose.common.HasSingleEventFlow
 import com.hoc081098.channeleventbus.sample.kmp.compose.common.SingleEventChannel
+import com.hoc081098.channeleventbus.sample.kmp.compose.ui.home.home.HomeScreenRoute
 import com.hoc081098.channeleventbus.sample.kmp.compose.ui.register.RegisterUiState
 import com.hoc081098.flowext.FlowExtPreview
 import com.hoc081098.flowext.catchAndReturn
@@ -68,6 +69,7 @@ class RegisterStepThreeVM(
 
     RegisterStepThreeUiState.Success -> {
       singleEventChannel.sendEvent(RegisterStepThreeSingleEvent.Success)
+      navigator.replaceAll(HomeScreenRoute)
     }
   }
 

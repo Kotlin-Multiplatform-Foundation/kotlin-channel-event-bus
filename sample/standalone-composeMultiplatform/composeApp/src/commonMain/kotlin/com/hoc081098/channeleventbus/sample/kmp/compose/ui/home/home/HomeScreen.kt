@@ -14,6 +14,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -24,7 +25,6 @@ import com.hoc081098.solivagant.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
 fun HomeScreen(
-  navigateToDetail: () -> Unit,
   modifier: Modifier = Modifier,
   vm: HomeVM = koinKmpViewModel(),
 ) {
@@ -48,7 +48,7 @@ fun HomeScreen(
       Spacer(modifier = Modifier.height(8.dp))
 
       ElevatedButton(
-        onClick = navigateToDetail,
+        onClick = remember(vm) { vm::navigateToDetail },
       ) {
         Text(
           text = "Click to go to detail",

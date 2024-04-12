@@ -201,7 +201,9 @@ private class ChannelEventBusImpl(
    */
   private fun markAsNotCollecting(key: ChannelEventKey<*>): Unit =
     _busMap.synchronized {
-      _busMap[key] = _busMap[key]!!
+      // _busMap[key] can be null if it is removed and closed before calling this method.
+      // Just ignore in that case.
+      _busMap[key] = (_busMap[key] ?: return)
         .copy(isCollecting = false)
         .also { logger?.onStopCollection(key, this) }
     }

@@ -13,6 +13,7 @@ import com.hoc081098.kmp.viewmodel.ViewModel
 import com.hoc081098.kmp.viewmodel.safe.NonNullSavedStateHandleKey
 import com.hoc081098.kmp.viewmodel.safe.safe
 import com.hoc081098.kmp.viewmodel.safe.string
+import com.hoc081098.solivagant.navigation.NavEventNavigator
 import io.github.aakira.napier.Napier
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
@@ -32,6 +33,7 @@ class DetailVM(
   private val channelEventBus: ChannelEventBus,
   private val singleEventChannel: SingleEventChannel<DetailSingleEvent>,
   private val savedStateHandle: SavedStateHandle,
+  private val navigator: NavEventNavigator,
 ) : ViewModel(singleEventChannel),
   HasSingleEventFlow<DetailSingleEvent> by singleEventChannel {
   private val sendResultFlow = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
@@ -46,7 +48,10 @@ class DetailVM(
         .toNonBlankString()
         .map(::DetailResultToHomeEvent)
         .onSuccess(channelEventBus::send)
-        .onSuccess { singleEventChannel.sendEvent(DetailSingleEvent.Complete) }
+        .onSuccess {
+          singleEventChannel.sendEvent(DetailSingleEvent.Complete)
+          navigator.navigateBack()
+        }
         .onFailure { Napier.e("Error while sending result to home", it) }
     }
 

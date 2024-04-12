@@ -25,6 +25,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.hoc081098.channeleventbus.sample.kmp.compose.common.MyApplicationTheme
+import com.hoc081098.channeleventbus.sample.kmp.compose.ui.home.detail.DetailScreenDestination
+import com.hoc081098.channeleventbus.sample.kmp.compose.ui.home.home.HomeScreenRouteDestination
 import com.hoc081098.channeleventbus.sample.kmp.compose.ui.register.stepone.RegisterStepOneScreenDestination
 import com.hoc081098.channeleventbus.sample.kmp.compose.ui.register.stepone.RegisterStepOneScreenRoute
 import com.hoc081098.channeleventbus.sample.kmp.compose.ui.register.stepthree.RegisterStepThreeScreenDestination
@@ -47,6 +49,8 @@ private val AllDestinations: ImmutableSet<NavDestination> by lazy {
       RegisterStepOneScreenDestination,
       RegisterStepTwoScreenDestination,
       RegisterStepThreeScreenDestination,
+      HomeScreenRouteDestination,
+      DetailScreenDestination,
     ),
   )
 }
