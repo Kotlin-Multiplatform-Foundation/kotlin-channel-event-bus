@@ -11,6 +11,7 @@ import com.hoc081098.flowext.flowFromSuspend
 import com.hoc081098.flowext.mapTo
 import com.hoc081098.flowext.startWith
 import com.hoc081098.kmp.viewmodel.ViewModel
+import com.hoc081098.solivagant.navigation.NavEventNavigator
 import io.github.aakira.napier.Napier
 import java.io.IOException
 import kotlin.random.Random
@@ -39,6 +40,7 @@ internal sealed interface RegisterStepThreeUiState {
 @OptIn(FlowExtPreview::class)
 class RegisterStepThreeVM(
   private val singleEventChannel: SingleEventChannel<RegisterStepThreeSingleEvent>,
+  private val navigator: NavEventNavigator,
 ) : ViewModel(singleEventChannel),
   HasSingleEventFlow<RegisterStepThreeSingleEvent> by singleEventChannel {
   private val _registerFlow = MutableSharedFlow<RegisterUiState.Filled>(extraBufferCapacity = 1)
@@ -64,8 +66,9 @@ class RegisterStepThreeVM(
     is RegisterStepThreeUiState.Failure ->
       singleEventChannel.sendEvent(RegisterStepThreeSingleEvent.Failure(state.throwable))
 
-    RegisterStepThreeUiState.Success ->
+    RegisterStepThreeUiState.Success -> {
       singleEventChannel.sendEvent(RegisterStepThreeSingleEvent.Success)
+    }
   }
 
   internal fun register(state: RegisterUiState) {

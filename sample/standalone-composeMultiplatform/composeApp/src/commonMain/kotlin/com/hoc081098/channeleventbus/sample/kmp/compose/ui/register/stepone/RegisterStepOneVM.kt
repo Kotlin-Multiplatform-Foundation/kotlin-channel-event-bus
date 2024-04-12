@@ -6,9 +6,11 @@ import com.hoc081098.channeleventbus.sample.kmp.compose.ui.register.FirstNameKey
 import com.hoc081098.channeleventbus.sample.kmp.compose.ui.register.LastNameKey
 import com.hoc081098.channeleventbus.sample.kmp.compose.ui.register.SubmitFirstNameEvent
 import com.hoc081098.channeleventbus.sample.kmp.compose.ui.register.SubmitLastNameEvent
+import com.hoc081098.channeleventbus.sample.kmp.compose.ui.register.steptwo.RegisterStepTwoScreenRoute
 import com.hoc081098.kmp.viewmodel.SavedStateHandle
 import com.hoc081098.kmp.viewmodel.ViewModel
 import com.hoc081098.kmp.viewmodel.safe.safe
+import com.hoc081098.solivagant.navigation.NavEventNavigator
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -18,6 +20,7 @@ import kotlinx.coroutines.flow.onEach
 class RegisterStepOneVM(
   private val savedStateHandle: SavedStateHandle,
   private val channelEventBus: ChannelEventBus,
+  private val navigator: NavEventNavigator,
 ) : ViewModel() {
   internal val firstNameStateFlow: StateFlow<String?> = savedStateHandle.safe.getStateFlow(FirstNameKey)
   internal val lastNameStateFlow: StateFlow<String?> = savedStateHandle.safe.getStateFlow(LastNameKey)
@@ -72,4 +75,6 @@ class RegisterStepOneVM(
   internal fun onLastNameChanged(value: String) {
     savedStateHandle.safe[LastNameKey] = value
   }
+
+  internal fun navigateToStepTwo() = navigator.navigateTo(RegisterStepTwoScreenRoute)
 }

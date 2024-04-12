@@ -52,7 +52,7 @@ fun RegisterStepTwoScreen(
 
     Spacer(modifier = Modifier.weight(1f))
 
-    ElevatedButton(onClick = { }) {
+    ElevatedButton(onClick = remember(vm) { vm::navigateToStepThree }) {
       Text(text = "Next")
     }
 

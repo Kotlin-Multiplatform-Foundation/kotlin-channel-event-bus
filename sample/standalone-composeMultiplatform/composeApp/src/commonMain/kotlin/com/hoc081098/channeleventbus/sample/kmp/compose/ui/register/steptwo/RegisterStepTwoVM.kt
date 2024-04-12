@@ -5,9 +5,11 @@ import com.hoc081098.channeleventbus.OptionWhenSendingToBusDoesNotExist
 import com.hoc081098.channeleventbus.sample.kmp.compose.ui.register.Gender
 import com.hoc081098.channeleventbus.sample.kmp.compose.ui.register.GenderKey
 import com.hoc081098.channeleventbus.sample.kmp.compose.ui.register.SubmitGenderEvent
+import com.hoc081098.channeleventbus.sample.kmp.compose.ui.register.stepthree.RegisterStepThreeScreenRoute
 import com.hoc081098.kmp.viewmodel.SavedStateHandle
 import com.hoc081098.kmp.viewmodel.ViewModel
 import com.hoc081098.kmp.viewmodel.safe.safe
+import com.hoc081098.solivagant.navigation.NavEventNavigator
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -17,6 +19,7 @@ import kotlinx.coroutines.flow.onEach
 class RegisterStepTwoVM(
   private val savedStateHandle: SavedStateHandle,
   private val channelEventBus: ChannelEventBus,
+  private val navigator: NavEventNavigator,
 ) : ViewModel() {
   internal val genderStateFlow: StateFlow<Gender?> = savedStateHandle.safe.getStateFlow(GenderKey)
 
@@ -46,4 +49,7 @@ class RegisterStepTwoVM(
   internal fun onGenderChanged(value: Gender) {
     savedStateHandle.safe[GenderKey] = value
   }
+
+  internal fun navigateToStepThree() =
+    navigator.navigateTo(RegisterStepThreeScreenRoute)
 }
