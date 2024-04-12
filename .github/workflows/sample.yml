@@ -59,4 +59,4 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build
-        run: ./gradlew :sample:app:assembleDebug --stacktrace
+        run: ./gradlew :sample:standalone-androidApp:assembleDebug :sample:standalone-composeMultiplatform:desktopApp:packageDistributionForCurrentOS --stacktrace
