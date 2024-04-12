@@ -1,6 +1,6 @@
 [versions]
-kotlin = "1.9.22"
-coroutines = "1.8.0"
+kotlin = "1.9.23"
+coroutines = "1.8.1-Beta"
 kotlinx-serialization-json = "1.6.3"
 kotlinx-collections-immutable = "0.3.7"
 
@@ -12,9 +12,9 @@ java-toolchain = "17"
 # the Android minSdkVersion to use
 android-min = "21"
 # the Android target to use
-android-target = "33"
+android-target = "34"
 # the Android compileSdkVersion to use
-android-compile = "33"
+android-compile = "34"
 
 android-gradle = "8.3.1"
 
@@ -23,7 +23,7 @@ sample-android-target = "34"
 # the Android compileSdkVersion to use in sample
 sample-android-compile = "34"
 
-jetbrains-compose = "1.6.1"
+jetbrains-compose = "1.6.2"
 
 touchlab-stately = "2.0.6"
 napier = "2.7.1"
@@ -36,7 +36,7 @@ compose-rules-detekt = "0.3.12"
 androidx-lifecycle = "2.7.0"
 androidx-annotation = "1.7.1"
 androidx-activity = "1.8.2"
-androidx-compose-compiler = "1.5.9"
+androidx-compose-compiler = "1.5.11"
 androidx-navigation = "2.7.7"
 kmp-viewmodel = "0.7.1"
 solivagant = "0.3.0"
