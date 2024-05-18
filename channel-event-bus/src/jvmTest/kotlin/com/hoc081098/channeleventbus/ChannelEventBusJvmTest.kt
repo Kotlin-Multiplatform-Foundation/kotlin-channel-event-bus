@@ -23,7 +23,7 @@ class ChannelEventBusJvmTest {
   fun flatMapLatest_Works(): Unit = runBlocking(Dispatchers.IO) {
     val bus = ChannelEventBus(ChannelEventBusLogger.noop())
     val flow = interval(initialDelay = Duration.ZERO, period = 11.milliseconds)
-      .flowOn(Executors.newScheduledThreadPool(2).asCoroutineDispatcher())
+      .flowOn(Dispatchers.IO)
       .take(10)
       .flatMapLatest { bus.receiveAsFlow(TestEventInt) }
       .take(50)
