@@ -1,6 +1,6 @@
 [versions]
 kotlin = "1.9.23"
-coroutines = "1.8.1-Beta"
+coroutines = "1.8.1"
 kotlinx-serialization-json = "1.6.3"
 kotlinx-collections-immutable = "0.3.7"
 
