@@ -1,7 +1,7 @@
 site_name: Kotlin Channel Event Bus
 site_url: https://hoc081098.github.io/kotlin-channel-event-bus/docs/0.x
 repo_name: kotlin-channel-event-bus
-repo_url: https://github.com/hoc081098/kotlin-channel-event-bus
+repo_url: https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus
 site_description: "Multi-keys, multi-producers, single-consumer event bus backed by Kotlinx Coroutines Channels"
 site_author: Petrus Nguyễn Thái Học
 remote_branch: gh-pages

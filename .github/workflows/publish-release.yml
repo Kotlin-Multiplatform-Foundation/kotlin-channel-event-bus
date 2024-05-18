@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   create-gh-release:
-    if: ${{ github.repository == 'hoc081098/kotlin-channel-event-bus' }}
+    if: ${{ github.repository == 'Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -32,7 +32,7 @@ jobs:
 
   publish:
     needs: create-gh-release
-    if: ${{ github.repository == 'hoc081098/kotlin-channel-event-bus' }}
+    if: ${{ github.repository == 'Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus' }}
     strategy:
       matrix:
         os: [ macos-latest ]

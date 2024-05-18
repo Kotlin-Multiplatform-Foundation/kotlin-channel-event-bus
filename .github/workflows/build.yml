@@ -24,7 +24,7 @@ jobs:
         os: [ macos-latest ]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 45
-    if: ${{ github.repository == 'hoc081098/kotlin-channel-event-bus' }}
+    if: ${{ github.repository == 'Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus' }}
     steps:
       - uses: actions/checkout@v3
 
@@ -81,7 +81,7 @@ jobs:
 
   publish:
     needs: [ build ]
-    if: ${{ github.ref == 'refs/heads/master' && github.repository == 'hoc081098/kotlin-channel-event-bus' }}
+    if: ${{ github.ref == 'refs/heads/master' && github.repository == 'Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus' }}
     strategy:
       matrix:
         os: [ macos-latest ]
