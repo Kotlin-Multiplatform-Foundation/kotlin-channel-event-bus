@@ -1,14 +1,12 @@
 package com.hoc081098.channeleventbus
 
 import com.hoc081098.flowext.interval
-import java.util.concurrent.Executors
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOn
