@@ -3,6 +3,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 plugins {
   alias(libs.plugins.kotlin.multiplatform)
   alias(libs.plugins.jetbrains.compose)
+  alias(libs.plugins.kotlin.compose)
 }
 
 kotlin {
@@ -51,4 +52,8 @@ compose.desktop {
       packageVersion = "1.0.0"
     }
   }
+}
+
+composeCompiler {
+  enableStrongSkippingMode = true
 }

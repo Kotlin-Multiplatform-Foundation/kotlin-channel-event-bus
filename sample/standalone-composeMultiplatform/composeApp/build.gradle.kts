@@ -3,6 +3,7 @@ plugins {
   alias(libs.plugins.jetbrains.compose)
   alias(libs.plugins.android.library)
   alias(libs.plugins.kotlin.parcelize)
+  alias(libs.plugins.kotlin.compose)
 }
 
 kotlin {
@@ -106,4 +107,8 @@ android {
   dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
   }
+}
+
+composeCompiler {
+  enableStrongSkippingMode = true
 }

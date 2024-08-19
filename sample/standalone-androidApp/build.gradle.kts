@@ -2,6 +2,7 @@
 plugins {
   alias(libs.plugins.android.app)
   alias(libs.plugins.kotlin.android)
+  alias(libs.plugins.kotlin.compose)
 }
 
 android {
@@ -15,11 +16,7 @@ android {
     versionName = "1.0"
   }
   buildFeatures {
-    compose = true
     buildConfig = true
-  }
-  composeOptions {
-    kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()
   }
   packaging {
     resources {
@@ -65,19 +62,14 @@ dependencies {
   implementation(libs.timber)
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-  kotlinOptions {
-    if (project.findProperty("composeCompilerReports") == "true") {
-      freeCompilerArgs = freeCompilerArgs + listOf(
-        "-P",
-        "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=${project.buildDir.absolutePath}/compose_compiler",
-      )
-    }
-    if (project.findProperty("composeCompilerMetrics") == "true") {
-      freeCompilerArgs = freeCompilerArgs + listOf(
-        "-P",
-        "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=${project.buildDir.absolutePath}/compose_compiler",
-      )
-    }
+composeCompiler {
+  enableStrongSkippingMode = true
+
+  val composeCompilerDir = layout.buildDirectory.dir("compose_compiler")
+  if (project.findProperty("composeCompilerReports") == "true") {
+    reportsDestination = composeCompilerDir
+  }
+  if (project.findProperty("composeCompilerMetrics") == "true") {
+    metricsDestination = composeCompilerDir
   }
 }
