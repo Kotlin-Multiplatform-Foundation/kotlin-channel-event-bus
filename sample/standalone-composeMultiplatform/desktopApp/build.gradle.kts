@@ -3,11 +3,12 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 plugins {
   alias(libs.plugins.kotlin.multiplatform)
   alias(libs.plugins.jetbrains.compose)
+  alias(libs.plugins.kotlin.compose)
 }
 
 kotlin {
   jvmToolchain {
-    languageVersion = JavaLanguageVersion.of(17)
+    languageVersion = JavaLanguageVersion.of(21)
     vendor = JvmVendorSpec.AZUL
   }
 
@@ -51,4 +52,8 @@ compose.desktop {
       packageVersion = "1.0.0"
     }
   }
+}
+
+composeCompiler {
+  enableStrongSkippingMode = true
 }

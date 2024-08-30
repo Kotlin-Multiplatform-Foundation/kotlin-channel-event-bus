@@ -3,11 +3,12 @@ plugins {
   alias(libs.plugins.jetbrains.compose)
   alias(libs.plugins.android.library)
   alias(libs.plugins.kotlin.parcelize)
+  alias(libs.plugins.kotlin.compose)
 }
 
 kotlin {
   jvmToolchain {
-    languageVersion = JavaLanguageVersion.of(17)
+    languageVersion = JavaLanguageVersion.of(21)
     vendor = JvmVendorSpec.AZUL
   }
 
@@ -106,4 +107,8 @@ android {
   dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
   }
+}
+
+composeCompiler {
+  enableStrongSkippingMode = true
 }
