@@ -426,6 +426,7 @@
 <img alt="badge" src="http://img.shields.io/badge/-jvm-DB413D.svg?style=flat" />
 <img alt="badge" src="http://img.shields.io/badge/-js-F8DB5D.svg?style=flat" />
 <img alt="badge" src="https://img.shields.io/badge/support-[IR]-AAC4E0.svg?style=flat" />
+<img alt="badge" src="https://img.shields.io/badge/-wasm-624FE8.svg?style=flat" />
 <img alt="badge" src="https://img.shields.io/badge/-nodejs-68a063.svg?style=flat" />
 <img alt="badge" src="http://img.shields.io/badge/-linux-2D3F6C.svg?style=flat" />
 <img alt="badge" src="http://img.shields.io/badge/-windows-4D76CD.svg?style=flat" />
@@ -444,7 +445,7 @@
 <p>A Kotlin Multiplatform library that provides a simple event bus implementation using
   <code>kotlinx.coroutines.channels.Channel</code>s.
   This is useful for UI applications where you want to send events to communicate between
-  different parts / scope of your application (e.g. send results from a screen to another screen).</p>
+  different parts / scope of your application (e.g. send results from one screen to another).</p>
 </li>
 <li>
 <p>This bus is thread-safe to be used by multiple threads.
@@ -457,16 +458,16 @@
 <li>
 <p>The <code>Channel</code> is unbounded (<code>Channel.UNLIMITED</code> - default) or conflated <code>Channel.CONFLATED</code>.
   The <code>Flow</code> is cold and only one collector is allowed at a time.
-  This make sure all events are consumed.</p>
+  This makes sure all events are consumed.</p>
 </li>
 </ul>
 <h2 id="author-petrus-nguyen-thai-hoc">Author: <a href="https://github.com/hoc081098">Petrus Nguyễn Thái Học</a><a class="headerlink" href="#author-petrus-nguyen-thai-hoc" title="Permanent link">&para;</a></h2>
-<p>Liked some of my work? Buy me a coffee (or more likely a beer)</p>
+<p>Like some of my work? Could you buy me a coffee (or more likely a beer)?</p>
 <p><a href="https://www.buymeacoffee.com/hoc081098" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" height=64></a></p>
 <h2 id="docs">Docs<a class="headerlink" href="#docs" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>latest release</code> docs: <a href="https://hoc081098.github.io/kotlin-channel-event-bus/docs/latest">https://hoc081098.github.io/kotlin-channel-event-bus/docs/latest</a></li>
-<li>Snapshot docs: <a href="https://hoc081098.github.io/kotlin-channel-event-bus/docs/latest/">https://hoc081098.github.io/kotlin-channel-event-bus/docs/latest/</a></li>
+<li><code>latest release</code> docs: <a href="https://kotlin-multiplatform-foundation.github.io/kotlin-channel-event-bus/docs/latest">https://kotlin-multiplatform-foundation.github.io/kotlin-channel-event-bus/docs/latest</a></li>
+<li>Snapshot docs: <a href="https://kotlin-multiplatform-foundation.github.io/kotlin-channel-event-bus/docs/latest/">https://kotlin-multiplatform-foundation.github.io/kotlin-channel-event-bus/docs/latest/</a></li>
 </ul>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span class="n">allprojects</span><span class="w"> </span><span class="p">{</span>
@@ -476,7 +477,7 @@
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;io.github.hoc081098:channel-event-bus:0.0.2&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;io.github.hoc081098:channel-event-bus:0.1.0&quot;</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="snapshot">Snapshot<a class="headerlink" href="#snapshot" title="Permanent link">&para;</a></h3>
 <details>
@@ -492,7 +493,7 @@
 <span class="p">}</span>
 
 <span class="n">dependencies</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;io.github.hoc081098:channel-event-bus:0.0.3-SNAPSHOT&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="n">implementation</span><span class="p">(</span><span class="s">&quot;io.github.hoc081098:channel-event-bus:0.1.1-SNAPSHOT&quot;</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -506,7 +507,7 @@
 <span class="o">}</span>
 
 <span class="n">dependencies</span><span class="w"> </span><span class="o">{</span>
-<span class="w">  </span><span class="n">implementation</span><span class="w"> </span><span class="s1">&#39;io.github.hoc081098:channel-event-bus:0.0.3-SNAPSHOT&#39;</span>
+<span class="w">  </span><span class="n">implementation</span><span class="w"> </span><span class="s1">&#39;io.github.hoc081098:channel-event-bus:0.1.1-SNAPSHOT&#39;</span>
 <span class="o">}</span>
 </code></pre></div>
 
@@ -537,6 +538,7 @@
 <ul>
 <li><code>jvm</code> / <code>android</code>.</li>
 <li><code>js</code> (<code>IR</code>).</li>
+<li><code>wasmJs</code>.</li>
 <li><code>Darwin</code> targets:</li>
 <li><code>iosArm64</code>, <code>iosX64</code>, <code>iosSimulatorArm64</code>.</li>
 <li><code>watchosArm32</code>, <code>watchosArm64</code>, <code>watchosX64</code>, <code>watchosSimulatorArm64</code>, <code>watchosDeviceArm64</code>.</li>
@@ -554,32 +556,32 @@
   It has two nested navigation graphs: <code>Register</code> and <code>Home</code>.</p>
 </li>
 <li>
-<p>In <code>Register</code>, we have 3 steps (3 screens) to allow user to input their information, step
+<p>In <code>Register</code>, we have 3 steps (3 screens) to allow the user to input their information, step
     by
     step.</p>
 <ul>
 <li>
 <p>A <code>RegisterSharedViewModel</code> (bound to <code>Register</code> navigation graph scope) is used
   to hold the whole state of the registration process.
-  It observes events from the <code>ChannelEventBus</code> and update the state accordingly.</p>
+  It observes events from the <code>ChannelEventBus</code> and updates the state accordingly.</p>
 </li>
 <li>
-<p>Each step screen has a <code>ViewModel</code> to hold the state of the screen, and will send events to
+<p>Each step screen has a <code>ViewModel</code> to hold the state of the screen and will send events to
   the <code>ChannelEventBus</code>,
   then the <code>RegisterSharedViewModel</code> will receive those events and update the state.</p>
 </li>
 </ul>
 </li>
 <li>
-<p>In <code>Home</code> nav graph, we have 2 screens: <code>Home</code> and <code>Detail</code>.</p>
+<p>In the <code>Home</code> nav graph, we have 2 screens: <code>Home</code> and <code>Detail</code>.</p>
 <ul>
 <li>
-<p><code>Home</code> screen has a <code>HomeViewModel</code> to hold the results received from the <code>Detail</code> screen.
+<p>The <code>Home</code> screen has a <code>HomeViewModel</code> to hold the results received from the <code>Detail</code> screen.
   Those result events are sent from the <code>Detail</code> screen to the <code>ChannelEventBus</code>,
   and the <code>HomeViewModel</code> will receive those events and update the state.</p>
 </li>
 <li>
-<p><code>Detail</code> screen will send events to the <code>ChannelEventBus</code> when user clicks on the button.
+<p>The <code>Detail</code> screen will send events to the <code>ChannelEventBus</code> when the user clicks on the button.
   The <code>HomeViewModel</code> will receive those events and update the state.</p>
 </li>
 </ul>
@@ -588,8 +590,8 @@
 <p><a href="https://github.com/hoc081098/kotlin-channel-event-bus/assets/36917223/80015232-d5b5-4fb2-a779-4e6113ddb8f8">https://github.com/hoc081098/kotlin-channel-event-bus/assets/36917223/80015232-d5b5-4fb2-a779-4e6113ddb8f8</a></p>
 <h2 id="roadmap">Roadmap<a class="headerlink" href="#roadmap" title="Permanent link">&para;</a></h2>
 <ul>
-<li>[ ] Support more targets: <code>wasm</code> (depends on supported targets by <code>kotlinx.coroutines</code>).</li>
-<li>[ ] More samples.</li>
+<li>[x] Support more targets: <code>wasm</code> (depends on supported targets by <code>kotlinx.coroutines</code>) (since <a href="https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/releases/tag/0.1.0">0.1.0</a>).</li>
+<li>[x] More samples.</li>
 <li>[ ] More docs.</li>
 <li>[ ] More tests.</li>
 </ul>
