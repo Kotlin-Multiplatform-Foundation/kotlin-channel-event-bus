@@ -7,6 +7,7 @@
 ### Update dependencies
 
 - [Kotlin `2.0.20` 🎉](https://github.com/JetBrains/kotlin/releases/tag/v2.0.20).
+- [KotlinX Coroutines `1.9.0-RC.2`](https://github.com/Kotlin/kotlinx.coroutines/releases/tag/1.9.0-RC.2).
 
 ### Added
 
@@ -14,11 +15,13 @@
 
 ### Fixed
 
-- Do not throw `KotlinNullPointerException` in `ChannelEventBusImpl.markAsNotCollecting` method, because `busMap[key]` can be null if it is removed and closed before calling this method.
+- Do not throw `KotlinNullPointerException` in `ChannelEventBusImpl.markAsNotCollecting` method, because `busMap[key]` can be null if it is removed and closed before calling this method in [#52](https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/pull/52).
 
 ### Docs
 
-- TODO
+- Add [JetBrains Compose Multiplatform sample](https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/tree/master/sample/standalone-composeMultiplatform) in [#52](https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/pull/52).
+- `0.x release` docs: https://kotlin-multiplatform-foundation.github.io/kotlin-channel-event-bus/docs/0.x
+- Snapshot docs: https://kotlin-multiplatform-foundation.github.io/kotlin-channel-event-bus/docs/latest/
 
 ## [0.0.2] - Dec 4, 2023
 
