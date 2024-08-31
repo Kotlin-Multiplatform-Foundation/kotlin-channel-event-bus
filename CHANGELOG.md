@@ -2,6 +2,24 @@
 
 ## [Unreleased] - TBD
 
+### Transfered to [Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus](https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus)
+
+### Update dependencies
+
+- [Kotlin `2.0.20` 🎉](https://github.com/JetBrains/kotlin/releases/tag/v2.0.20).
+
+### Added
+
+- **New**: Add support for Kotlin/Wasm (`wasmJs` target) 🎉 in [#41](https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/pull/41).
+
+### Fixed
+
+- Do not throw `KotlinNullPointerException` in `ChannelEventBusImpl.markAsNotCollecting` method, because `busMap[key]` can be null if it is removed and closed before calling this method.
+
+### Docs
+
+- TODO
+
 ## [0.0.2] - Dec 4, 2023
 
 ### Added
