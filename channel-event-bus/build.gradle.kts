@@ -39,7 +39,7 @@ kotlin {
     browser()
     nodejs()
   }
-  @OptIn(org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl::class)
+  @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
   wasmJs {
     // Module name should be different from the one from JS
     // otherwise IC tasks that start clashing different modules with the same module name
@@ -137,7 +137,7 @@ tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
 
       sourceLink {
         localDirectory.set(projectDir.resolve("src"))
-        remoteUrl.set(URL("https://github.com/hoc081098/kotlin-channel-event-bus/tree/master/channel-event-bus/src"))
+        remoteUrl.set(URL("https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/tree/master/channel-event-bus/src"))
         remoteLineSuffix.set("#L")
       }
     }

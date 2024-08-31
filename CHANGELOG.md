@@ -50,6 +50,6 @@
 
 [0.1.0]: https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/releases/tag/0.1.0
 
-[0.0.2]: https://github.com/hoc081098/kotlin-channel-event-bus/releases/tag/0.0.2
+[0.0.2]: https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/releases/tag/0.0.2
 
-[0.0.1]: https://github.com/hoc081098/kotlin-channel-event-bus/releases/tag/0.0.1
+[0.0.1]: https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/releases/tag/0.0.1

@@ -2,9 +2,9 @@
 
 [![maven-central](https://img.shields.io/maven-central/v/io.github.hoc081098/channel-event-bus)](https://search.maven.org/search?q=g:io.github.hoc081098%20channel-event-bus)
 [![codecov](https://codecov.io/github/hoc081098/kotlin-channel-event-bus/graph/badge.svg?token=o5JcvqkEsR)](https://codecov.io/github/hoc081098/kotlin-channel-event-bus)
-[![Build and publish snapshot](https://github.com/hoc081098/kotlin-channel-event-bus/actions/workflows/build.yml/badge.svg)](https://github.com/hoc081098/kotlin-channel-event-bus/actions/workflows/build.yml)
-[![Build sample](https://github.com/hoc081098/kotlin-channel-event-bus/actions/workflows/sample.yml/badge.svg)](https://github.com/hoc081098/kotlin-channel-event-bus/actions/workflows/sample.yml)
-[![Publish Release](https://github.com/hoc081098/kotlin-channel-event-bus/actions/workflows/publish-release.yml/badge.svg)](https://github.com/hoc081098/kotlin-channel-event-bus/actions/workflows/publish-release.yml)
+[![Build and publish snapshot](https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/actions/workflows/build.yml/badge.svg)](https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/actions/workflows/build.yml)
+[![Build sample](https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/actions/workflows/sample.yml/badge.svg)](https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/actions/workflows/sample.yml)
+[![Publish Release](https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/actions/workflows/publish-release.yml/badge.svg)](https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/actions/workflows/publish-release.yml)
 [![Kotlin version](https://img.shields.io/badge/Kotlin-1.9.21-blueviolet?logo=kotlin&logoColor=white)](http://kotlinlang.org)
 [![KotlinX Coroutines version](https://img.shields.io/badge/Kotlinx_Coroutines-1.7.3-blueviolet?logo=kotlin&logoColor=white)](https://github.com/Kotlin/kotlinx.coroutines/releases/tag/1.7.3)
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fhoc081098%2Fkotlin-channel-event-bus&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
@@ -24,7 +24,7 @@
 ![badge][badge-apple-silicon]
 
 <p align="center">
-    <img src="https://github.com/hoc081098/kotlin-channel-event-bus/raw/master/logo.png" width="400">
+    <img src="https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/raw/master/logo.png" width="400">
 </p>
 
 ## Multi-keys, multi-producers, single-consumer event bus backed by `kotlinx.coroutines.channels.Channel`s.
@@ -147,7 +147,7 @@ bus
 
 ## Sample
 
-- [Android Compose sample](https://github.com/hoc081098/kotlin-channel-event-bus/tree/master/sample/app):
+- [Android Compose sample](https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/tree/master/sample/app):
   an Android app using Compose UI to show how to use the library.
   It has two nested navigation graphs: `Register` and `Home`.
 
@@ -170,7 +170,7 @@ bus
     - The `Detail` screen will send events to the `ChannelEventBus` when the user clicks on the button.
       The `HomeViewModel` will receive those events and update the state.
 
-https://github.com/hoc081098/kotlin-channel-event-bus/assets/36917223/80015232-d5b5-4fb2-a779-4e6113ddb8f8
+https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/assets/36917223/80015232-d5b5-4fb2-a779-4e6113ddb8f8
 
 ## Roadmap
 
