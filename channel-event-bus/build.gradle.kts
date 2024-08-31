@@ -16,14 +16,16 @@ kotlin {
   explicitApi()
 
   jvmToolchain {
-    languageVersion.set(JavaLanguageVersion.of(libs.versions.java.toolchain.get()))
-    vendor.set(JvmVendorSpec.AZUL)
+    languageVersion = JavaLanguageVersion.of(libs.versions.java.toolchain.get())
+    vendor = JvmVendorSpec.AZUL
   }
 
   jvm {
     compilations.configureEach {
-      compilerOptions.configure {
-        jvmTarget.set(JvmTarget.fromTarget(libs.versions.java.target.get()))
+      compileTaskProvider.configure {
+        compilerOptions {
+          jvmTarget = JvmTarget.fromTarget(libs.versions.java.target.get())
+        }
       }
     }
   }
@@ -31,9 +33,11 @@ kotlin {
   js(IR) {
     moduleName = property("POM_ARTIFACT_ID")!!.toString()
     compilations.configureEach {
-      compilerOptions.configure {
-        sourceMap.set(true)
-        moduleKind.set(org.jetbrains.kotlin.gradle.dsl.JsModuleKind.MODULE_COMMONJS)
+      compileTaskProvider.configure {
+        compilerOptions {
+          sourceMap = true
+          moduleKind = org.jetbrains.kotlin.gradle.dsl.JsModuleKind.MODULE_COMMONJS
+        }
       }
     }
     browser()
@@ -136,9 +140,10 @@ tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
       externalDocumentationLink("https://kotlinlang.org/api/kotlinx.coroutines/")
 
       sourceLink {
-        localDirectory.set(projectDir.resolve("src"))
-        remoteUrl.set(URL("https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/tree/master/channel-event-bus/src"))
-        remoteLineSuffix.set("#L")
+        localDirectory = projectDir.resolve("src")
+        remoteUrl =
+          URL("https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/tree/master/channel-event-bus/src")
+        remoteLineSuffix = "#L"
       }
     }
   }
