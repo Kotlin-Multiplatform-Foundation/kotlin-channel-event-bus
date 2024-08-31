@@ -31,7 +31,7 @@
 - A Kotlin Multiplatform library that provides a simple event bus implementation using
   `kotlinx.coroutines.channels.Channel`s.
   This is useful for UI applications where you want to send events to communicate between
-  different parts / scope of your application (e.g. send results from a screen to another screen).
+  different parts / scope of your application (e.g. send results from one screen to another).
 
 - This bus is thread-safe to be used by multiple threads.
   It is safe to send events from multiple threads without any synchronization.
@@ -41,18 +41,18 @@
 
 - The `Channel` is unbounded (`Channel.UNLIMITED` - default) or conflated `Channel.CONFLATED`.
   The `Flow` is cold and only one collector is allowed at a time.
-  This make sure all events are consumed.
+  This makes sure all events are consumed.
 
 ## Author: [Petrus Nguyễn Thái Học](https://github.com/hoc081098)
 
-Liked some of my work? Buy me a coffee (or more likely a beer)
+Like some of my work? Could you buy me a coffee (or more likely a beer)?
 
 <a href="https://www.buymeacoffee.com/hoc081098" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" height=64></a>
 
 ## Docs
 
-- `0.x release` docs: https://hoc081098.github.io/kotlin-channel-event-bus/docs/0.x
-- Snapshot docs: https://hoc081098.github.io/kotlin-channel-event-bus/docs/latest/
+- `0.x release` docs: https://kotlin-multiplatform-foundation.github.io/kotlin-channel-event-bus/docs/0.x
+- Snapshot docs: https://kotlin-multiplatform-foundation.github.io/kotlin-channel-event-bus/docs/latest/
 
 ## Installation
 
