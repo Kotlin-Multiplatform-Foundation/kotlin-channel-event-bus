@@ -70,7 +70,11 @@ jobs:
         run: ./gradlew :koverXmlReport
 
       - name: Upload Test Report
-        uses: codecov/codecov-action@v3.1.6
+        uses: codecov/codecov-action@v4.1.0
+        with:
+          fail_ci_if_error: true # optional (default = false)
+          token: ${{ secrets.CODECOV_TOKEN }} # required
+          verbose: true # optional (default = false)
 
       - name: Upload test report artifact
         if: ${{ failure() }}
