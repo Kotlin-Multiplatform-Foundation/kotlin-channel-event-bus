@@ -74,12 +74,11 @@ private object StdoutChannelEventBusLogger : ChannelEventBusLogger {
 /**
  * The [ChannelEventBusLogger] that do nothing.
  */
-@Suppress("EmptyFunctionBlock")
 private object NoopChannelEventBusLogger : ChannelEventBusLogger {
-  override fun onCreated(key: ChannelEventKey<*>, bus: ChannelEventBus) {}
-  override fun onSent(event: ChannelEvent<*>, bus: ChannelEventBus) {}
-  override fun onStartCollection(key: ChannelEventKey<*>, bus: ChannelEventBus) {}
-  override fun onStopCollection(key: ChannelEventKey<*>, bus: ChannelEventBus) {}
-  override fun onClosed(key: ChannelEventKey<*>, bus: ChannelEventBus) {}
-  override fun onClosedAll(keys: Set<ChannelEventKey<*>>, bus: ChannelEventBus) {}
+  override fun onCreated(key: ChannelEventKey<*>, bus: ChannelEventBus) = Unit
+  override fun onSent(event: ChannelEvent<*>, bus: ChannelEventBus) = Unit
+  override fun onStartCollection(key: ChannelEventKey<*>, bus: ChannelEventBus) = Unit
+  override fun onStopCollection(key: ChannelEventKey<*>, bus: ChannelEventBus) = Unit
+  override fun onClosed(key: ChannelEventKey<*>, bus: ChannelEventBus) = Unit
+  override fun onClosedAll(keys: Set<ChannelEventKey<*>>, bus: ChannelEventBus) = Unit
 }
