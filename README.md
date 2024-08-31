@@ -13,6 +13,7 @@
 ![badge][badge-jvm]
 ![badge][badge-js]
 ![badge][badge-js-ir]
+![badge][badge-wasm]
 ![badge][badge-nodejs]
 ![badge][badge-linux]
 ![badge][badge-windows]
@@ -134,6 +135,7 @@ bus
 
 - `jvm` / `android`.
 - `js` (`IR`).
+- `wasmJs`.
 - `Darwin` targets:
   - `iosArm64`, `iosX64`, `iosSimulatorArm64`.
   - `watchosArm32`, `watchosArm64`, `watchosX64`, `watchosSimulatorArm64`, `watchosDeviceArm64`.
@@ -149,31 +151,31 @@ bus
   an Android app using Compose UI to show how to use the library.
   It has two nested navigation graphs: `Register` and `Home`.
 
-  - In `Register`, we have 3 steps (3 screens) to allow user to input their information, step
+  - In `Register`, we have 3 steps (3 screens) to allow the user to input their information, step
     by
     step.
     - A `RegisterSharedViewModel` (bound to `Register` navigation graph scope) is used
       to hold the whole state of the registration process.
-      It observes events from the `ChannelEventBus` and update the state accordingly.
+      It observes events from the `ChannelEventBus` and updates the state accordingly.
 
-    - Each step screen has a `ViewModel` to hold the state of the screen, and will send events to
+    - Each step screen has a `ViewModel` to hold the state of the screen and will send events to
       the `ChannelEventBus`,
       then the `RegisterSharedViewModel` will receive those events and update the state.
 
-  - In `Home` nav graph, we have 2 screens: `Home` and `Detail`.
-    - `Home` screen has a `HomeViewModel` to hold the results received from the `Detail` screen.
+  - In the `Home` nav graph, we have 2 screens: `Home` and `Detail`.
+    - The `Home` screen has a `HomeViewModel` to hold the results received from the `Detail` screen.
       Those result events are sent from the `Detail` screen to the `ChannelEventBus`,
       and the `HomeViewModel` will receive those events and update the state.
 
-    - `Detail` screen will send events to the `ChannelEventBus` when user clicks on the button.
+    - The `Detail` screen will send events to the `ChannelEventBus` when the user clicks on the button.
       The `HomeViewModel` will receive those events and update the state.
 
 https://github.com/hoc081098/kotlin-channel-event-bus/assets/36917223/80015232-d5b5-4fb2-a779-4e6113ddb8f8
 
 ## Roadmap
 
-- [ ] Support more targets: `wasm` (depends on supported targets by `kotlinx.coroutines`).
-- [ ] More samples.
+- [x] Support more targets: `wasm` (depends on supported targets by `kotlinx.coroutines`) (since [0.1.0](https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/releases/tag/0.1.0)).
+- [x] More samples.
 - [ ] More docs.
 - [ ] More tests.
 
