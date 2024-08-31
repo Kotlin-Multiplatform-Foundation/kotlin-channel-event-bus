@@ -67,7 +67,7 @@ allprojects {
 ```
 
 ```kotlin
-implementation("io.github.hoc081098:channel-event-bus:0.0.2")
+implementation("io.github.hoc081098:channel-event-bus:0.1.0")
 ```
 
 ### Snapshot
@@ -86,7 +86,7 @@ allprojects {
 }
 
 dependencies {
-  implementation("io.github.hoc081098:channel-event-bus:0.0.3-SNAPSHOT")
+  implementation("io.github.hoc081098:channel-event-bus:0.1.1-SNAPSHOT")
 }
 ```
 
@@ -101,7 +101,7 @@ allprojects {
 }
 
 dependencies {
-  implementation 'io.github.hoc081098:channel-event-bus:0.0.3-SNAPSHOT'
+  implementation 'io.github.hoc081098:channel-event-bus:0.1.1-SNAPSHOT'
 }
 ```
 

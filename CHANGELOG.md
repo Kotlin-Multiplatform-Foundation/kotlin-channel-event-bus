@@ -2,7 +2,9 @@
 
 ## [Unreleased] - TBD
 
-### Transfered to [Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus](https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus)
+## [0.1.0] - Aug 31, 2023
+
+### This repository was transferred to [Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus](https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus)
 
 ### Update dependencies
 
@@ -44,7 +46,9 @@
   - KotlinX Coroutines `1.7.3`.
   - Gradle `8.5`.
 
-[Unreleased]: https://github.com/hoc081098/kotlin-channel-event-bus/compare/0.0.2...HEAD
+[Unreleased]: https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/compare/0.1.0...HEAD
+
+[0.1.0]: https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/releases/tag/0.1.0
 
 [0.0.2]: https://github.com/hoc081098/kotlin-channel-event-bus/releases/tag/0.0.2
 
