@@ -1,4 +1,5 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
   alias(libs.plugins.kotlin.multiplatform)
@@ -8,21 +9,23 @@ plugins {
 
 kotlin {
   jvmToolchain {
-    languageVersion = JavaLanguageVersion.of(21)
+    languageVersion = JavaLanguageVersion.of(libs.versions.java.toolchain.get())
     vendor = JvmVendorSpec.AZUL
   }
 
   jvm("desktop") {
-    compilations.all {
-      kotlinOptions {
-        jvmTarget = "11"
+    compilations.configureEach {
+      compileTaskProvider.configure {
+        compilerOptions {
+          jvmTarget = JvmTarget.fromTarget(libs.versions.java.target.get())
+        }
       }
     }
   }
 
   sourceSets {
     commonMain.dependencies {
-      // Channel event bus
+      // Compose app
       implementation(projects.sample.standaloneComposeMultiplatform.composeApp)
 
       implementation(compose.runtime)
@@ -55,5 +58,15 @@ compose.desktop {
 }
 
 composeCompiler {
-  enableStrongSkippingMode = true
+  featureFlags.addAll(
+    org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag.OptimizeNonSkippingGroups,
+  )
+
+  val composeCompilerDir = layout.buildDirectory.dir("compose_compiler")
+  if (project.findProperty("composeCompilerReports") == "true") {
+    reportsDestination = composeCompilerDir
+  }
+  if (project.findProperty("composeCompilerMetrics") == "true") {
+    metricsDestination = composeCompilerDir
+  }
 }

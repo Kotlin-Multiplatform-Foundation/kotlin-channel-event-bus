@@ -2,14 +2,15 @@
 plugins {
   alias(libs.plugins.android.app)
   alias(libs.plugins.kotlin.android)
+  alias(libs.plugins.jetbrains.compose)
   alias(libs.plugins.kotlin.compose)
 }
 
 android {
-  namespace = "com.hoc081098.channeleventbus.sample.android"
+  namespace = "com.hoc081098.channeleventbus.sample.kmp.compose.android"
   compileSdk = libs.versions.sample.android.compile.get().toInt()
   defaultConfig {
-    applicationId = "com.hoc081098.channeleventbus.sample.android"
+    applicationId = "com.hoc081098.channeleventbus.sample.kmp.compose.android"
     minSdk = libs.versions.android.min.get().toInt()
     targetSdk = libs.versions.sample.android.target.get().toInt()
     versionCode = 1
@@ -45,27 +46,14 @@ kotlin {
 }
 
 dependencies {
-  implementation(project(":channel-event-bus"))
+  // Compose app
+  implementation(projects.sample.standaloneComposeMultiplatform.composeApp)
 
-  implementation(platform(libs.androidx.compose.bom))
-  implementation(libs.androidx.lifecycle.runtime.compose)
-
-  implementation(libs.androidx.compose.ui.ui)
-  debugImplementation(libs.androidx.compose.ui.tooling)
-  implementation(libs.androidx.compose.ui.tooling.preview)
-  implementation(libs.androidx.compose.foundation)
-  implementation(libs.androidx.compose.material3)
-  implementation(libs.androidx.compose.material)
-  implementation(libs.androidx.compose.runtime)
   implementation(libs.androidx.activity.compose)
-  implementation(libs.androidx.navigation.compose)
-
   implementation(libs.koin.androidx.compose)
-  implementation(libs.coil.compose)
+
   implementation(libs.flowExt)
 
-  implementation(libs.kotlinx.collections.immutable)
-  implementation(libs.kmp.viewmodel.savedstate)
   implementation(libs.timber)
 }
 

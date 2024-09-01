@@ -59,4 +59,9 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build
-        run: ./gradlew :sample:standalone-androidApp:assembleDebug :sample:standalone-composeMultiplatform:desktopApp:packageDistributionForCurrentOS --stacktrace
+        run: |
+          ./gradlew \
+          :sample:standalone-androidApp:assembleDebug \
+          :sample:standalone-composeMultiplatform:desktopApp:packageDistributionForCurrentOS \
+          :sample:standalone-composeMultiplatform:androidApp:assembleDebug \
+          --stacktrace
