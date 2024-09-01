@@ -55,18 +55,18 @@ internal fun RegisterUiState.Companion.from(
 internal val FirstNameKey by lazy(PUBLICATION) {
   NullableSavedStateHandleKey.string(
     key = "first_name",
-    defaultValue = null
+    defaultValue = null,
   )
 }
 internal val LastNameKey by lazy(PUBLICATION) {
   NullableSavedStateHandleKey.string(
     key = "last_name",
-    defaultValue = null
+    defaultValue = null,
   )
 }
 internal val GenderKey by lazy(PUBLICATION) {
   NullableSavedStateHandleKey.serializable<Gender>(
     key = "gender",
-    defaultValue = null
+    defaultValue = null,
   )
 }

@@ -47,7 +47,7 @@ fun RegisterStepTwoScreen(
     GenderSection(
       modifier = Modifier.fillMaxWidth(),
       selectedGender = selectedGender,
-      onGenderChanged = remember { vm::onGenderChanged },
+      onGenderChange = remember { vm::onGenderChanged },
     )
 
     Spacer(modifier = Modifier.weight(1f))
@@ -63,12 +63,12 @@ fun RegisterStepTwoScreen(
 @Composable
 private fun GenderSection(
   selectedGender: Gender?,
-  onGenderChanged: (Gender) -> Unit,
+  onGenderChange: (Gender) -> Unit,
   modifier: Modifier = Modifier,
 ) {
   Column(modifier = modifier) {
     Gender.entries.forEach { item ->
-      val onClick = { onGenderChanged(item) }
+      val onClick = { onGenderChange(item) }
       val selected = selectedGender == item
 
       Row(
