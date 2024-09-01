@@ -1,11 +1,17 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "config:recommended"
   ],
   "commitBodyTable": true,
   "semanticCommits": "enabled",
   "labels": ["dependencies"],
-  "assignees": ["hoc081098"],
+  "assignees": [ "hoc081098" ],
+  "reviewers": [ "hoc081098" ],
+  "automerge": true,
+  "platformAutomerge": true,
+  "assignAutomerge": true,
+  "rebaseWhen": "conflicted",
   "packageRules": [
     {
       "matchPackagePatterns": [
