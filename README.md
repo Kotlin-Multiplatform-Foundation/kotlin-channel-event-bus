@@ -1,7 +1,7 @@
 # kotlin-channel-event-bus 🔆
 
 [![maven-central](https://img.shields.io/maven-central/v/io.github.hoc081098/channel-event-bus)](https://search.maven.org/search?q=g:io.github.hoc081098%20channel-event-bus)
-[![codecov](https://codecov.io/github/hoc081098/kotlin-channel-event-bus/graph/badge.svg?token=o5JcvqkEsR)](https://codecov.io/github/hoc081098/kotlin-channel-event-bus)
+[![codecov](https://codecov.io/gh/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/graph/badge.svg?token=o5JcvqkEsR)](https://codecov.io/gh/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus)
 [![Build and publish snapshot](https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/actions/workflows/build.yml/badge.svg)](https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/actions/workflows/build.yml)
 [![Build sample](https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/actions/workflows/sample.yml/badge.svg)](https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/actions/workflows/sample.yml)
 [![Publish Release](https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/actions/workflows/publish-release.yml/badge.svg)](https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/actions/workflows/publish-release.yml)
