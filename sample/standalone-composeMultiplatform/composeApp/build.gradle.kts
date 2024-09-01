@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
   alias(libs.plugins.kotlin.multiplatform)
   alias(libs.plugins.jetbrains.compose)
@@ -8,22 +10,26 @@ plugins {
 
 kotlin {
   jvmToolchain {
-    languageVersion = JavaLanguageVersion.of(21)
+    languageVersion = JavaLanguageVersion.of(libs.versions.java.toolchain.get())
     vendor = JvmVendorSpec.AZUL
   }
 
   androidTarget {
-    compilations.all {
-      kotlinOptions {
-        jvmTarget = "11"
+    compilations.configureEach {
+      compileTaskProvider.configure {
+        compilerOptions {
+          jvmTarget = JvmTarget.fromTarget(libs.versions.java.target.get())
+        }
       }
     }
   }
 
   jvm("desktop") {
-    compilations.all {
-      kotlinOptions {
-        jvmTarget = "11"
+    compilations.configureEach {
+      compileTaskProvider.configure {
+        compilerOptions {
+          jvmTarget = JvmTarget.fromTarget(libs.versions.java.target.get())
+        }
       }
     }
   }
@@ -41,7 +47,7 @@ kotlin {
     }
     commonMain.dependencies {
       // Channel event bus
-      implementation(project(":channel-event-bus"))
+      implementation(projects.channelEventBus)
 
       implementation(compose.runtime)
       implementation(compose.foundation)
@@ -110,5 +116,15 @@ android {
 }
 
 composeCompiler {
-  enableStrongSkippingMode = true
+  featureFlags.addAll(
+    org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag.OptimizeNonSkippingGroups,
+  )
+
+  val composeCompilerDir = layout.buildDirectory.dir("compose_compiler")
+  if (project.findProperty("composeCompilerReports") == "true") {
+    reportsDestination = composeCompilerDir
+  }
+  if (project.findProperty("composeCompilerMetrics") == "true") {
+    metricsDestination = composeCompilerDir
+  }
 }
