@@ -16,7 +16,7 @@ android-target = "34"
 # the Android compileSdkVersion to use
 android-compile = "34"
 
-android-gradle = "8.7.2"
+android-gradle = "8.7.3"
 
 # the Android target to use in sample
 sample-android-target = "34"
