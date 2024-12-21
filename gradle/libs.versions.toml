@@ -1,6 +1,6 @@
 [versions]
-kotlin = "2.0.21"
-coroutines = "1.9.0"
+kotlin = "2.1.0"
+coroutines = "1.10.1"
 kotlinx-serialization-json = "1.7.3"
 kotlinx-collections-immutable = "0.3.8"
 
@@ -16,14 +16,14 @@ android-target = "34"
 # the Android compileSdkVersion to use
 android-compile = "34"
 
-android-gradle = "8.7.2"
+android-gradle = "8.7.3"
 
 # the Android target to use in sample
 sample-android-target = "34"
 # the Android compileSdkVersion to use in sample
 sample-android-compile = "34"
 
-jetbrains-compose = "1.7.1"
+jetbrains-compose = "1.7.3"
 
 touchlab-stately = "2.1.0"
 napier = "2.7.1"
@@ -31,13 +31,13 @@ flowExt = "1.0.0"
 koin-core = "4.0.0"
 koin-compose = "4.0.0"
 coil = "2.7.0"
-compose-rules-detekt = "0.4.19"
+compose-rules-detekt = "0.4.22"
 
 androidx-lifecycle = "2.8.7"
 androidx-annotation = "1.9.1"
 androidx-activity = "1.9.3"
 androidx-compose-compiler = "1.5.11"
-androidx-navigation = "2.8.4"
+androidx-navigation = "2.8.5"
 kmp-viewmodel = "0.8.0"
 solivagant = "0.5.0"
 timber = "5.0.1"
@@ -45,9 +45,9 @@ timber = "5.0.1"
 spotless = "6.25.0"
 detekt = "1.23.7"
 
-kotlinx-kover = "0.8.3"
+kotlinx-kover = "0.9.0"
 dokka = "1.9.20"
-kotlinx-binary-compatibility-validator = "0.16.3"
+kotlinx-binary-compatibility-validator = "0.17.0"
 
 vanniktech-maven-publish = "0.30.0"
 ktlint = "0.50.0"
@@ -79,7 +79,7 @@ androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-ru
 androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version = "androidx-lifecycle" }
 androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidx-annotation" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
-androidx-compose-bom = { module = "androidx.compose:compose-bom", version = "2024.11.00" }
+androidx-compose-bom = { module = "androidx.compose:compose-bom", version = "2024.12.01" }
 androidx-compose-ui-ui = { module = "androidx.compose.ui:ui" }
 androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
