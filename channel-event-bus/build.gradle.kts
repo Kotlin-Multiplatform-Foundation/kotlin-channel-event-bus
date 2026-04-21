@@ -1,9 +1,7 @@
 @file:Suppress("ClassName")
 
-import java.net.URL
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
-@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
   alias(libs.plugins.kotlin.multiplatform)
   alias(libs.plugins.vanniktech.maven.publish)
@@ -43,7 +41,6 @@ kotlin {
     browser()
     nodejs()
   }
-  @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
   wasmJs {
     // Module name should be different from the one from JS
     // otherwise IC tasks that start clashing different modules with the same module name
@@ -130,21 +127,18 @@ kotlin {
 }
 
 mavenPublishing {
-  publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.S01, automaticRelease = true)
+  publishToMavenCentral(automaticRelease = true)
   signAllPublications()
 }
 
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
-  dokkaSourceSets {
-    configureEach {
-      externalDocumentationLink("https://kotlinlang.org/api/kotlinx.coroutines/")
+dokka {
+  dokkaSourceSets.configureEach {
+    externalDocumentationLink("https://kotlinlang.org/api/kotlinx.coroutines/")
 
-      sourceLink {
-        localDirectory = projectDir.resolve("src")
-        remoteUrl =
-          URL("https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/tree/master/channel-event-bus/src")
-        remoteLineSuffix = "#L"
-      }
+    sourceLink {
+      localDirectory.set(projectDir.resolve("src"))
+      remoteUrl("https://github.com/Kotlin-Multiplatform-Foundation/kotlin-channel-event-bus/tree/master/channel-event-bus/src")
+      remoteLineSuffix.set("#L")
     }
   }
 }
