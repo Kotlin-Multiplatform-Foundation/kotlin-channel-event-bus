@@ -29,7 +29,7 @@ kotlin {
   }
 
   js(IR) {
-    moduleName = property("POM_ARTIFACT_ID")!!.toString()
+    outputModuleName.set(property("POM_ARTIFACT_ID")!!.toString())
     compilations.configureEach {
       compileTaskProvider.configure {
         compilerOptions {
@@ -41,10 +41,11 @@ kotlin {
     browser()
     nodejs()
   }
+  @OptIn(org.jetbrains.kotlin.gradle.ExperimentalWasmDsl::class)
   wasmJs {
     // Module name should be different from the one from JS
     // otherwise IC tasks that start clashing different modules with the same module name
-    moduleName = property("POM_ARTIFACT_ID")!!.toString() + "Wasm"
+    outputModuleName.set(property("POM_ARTIFACT_ID")!!.toString() + "Wasm")
     browser()
     nodejs()
   }
@@ -133,7 +134,10 @@ mavenPublishing {
 
 dokka {
   dokkaSourceSets.configureEach {
-    externalDocumentationLink("https://kotlinlang.org/api/kotlinx.coroutines/")
+    externalDocumentationLinks.register("kotlinx-coroutines") {
+      url("https://kotlinlang.org/api/kotlinx.coroutines/")
+      packageListUrl("https://kotlinlang.org/api/kotlinx.coroutines/package-list")
+    }
 
     sourceLink {
       localDirectory.set(projectDir.resolve("src"))
