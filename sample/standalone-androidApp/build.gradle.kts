@@ -1,4 +1,5 @@
-@Suppress("DSL_SCOPE_VIOLATION")
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
   alias(libs.plugins.android.app)
   alias(libs.plugins.kotlin.android)
@@ -32,15 +33,15 @@ android {
     sourceCompatibility = JavaVersion.toVersion(libs.versions.java.target.get())
     targetCompatibility = JavaVersion.toVersion(libs.versions.java.target.get())
   }
-  kotlinOptions {
-    jvmTarget = JavaVersion.toVersion(libs.versions.java.target.get()).toString()
-  }
 }
 
 kotlin {
   jvmToolchain {
     languageVersion = JavaLanguageVersion.of(libs.versions.java.toolchain.get())
     vendor = JvmVendorSpec.AZUL
+  }
+  compilerOptions {
+    jvmTarget.set(JvmTarget.fromTarget(libs.versions.java.target.get()))
   }
 }
 
